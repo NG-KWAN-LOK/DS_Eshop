@@ -10,6 +10,7 @@ import Login from "../Login";
 
 import PATH from "../../utils/pathConst";
 import styles from "./styles.scss";
+import Search from "../Search";
 
 function App() {
   const theme = useSelector((appState: any) => appState.AppReducer.theme);
@@ -20,6 +21,7 @@ function App() {
           {/* <WithAuth> */}
           {/* <Header /> */}
           <Route exact path={"/"} component={Dashboard} />
+          <Route path={"/search"} component={Search} />
           <Route path={"/login"} component={Login} />
           <Route path={"/seller"} component={Seller} />
           {/* </WithAuth> */}

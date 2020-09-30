@@ -1,18 +1,24 @@
 import React, { useCallback, useRef, useState } from "react";
-import { Link, Router, Route, useHistory, useLocation } from "react-router-dom";
+import { Link, Router, Route, useHistory, useLocation, Switch } from "react-router-dom";
 
 import styles from "./styles.scss";
 
-interface HeaderProps {}
+import Search from "../../../../containers/Search"
+
+interface HeaderProps { }
 
 const NavItem: React.FC<HeaderProps> = () => {
   const history = useHistory();
   const { pathname } = useLocation();
-  const [value, setCount] = useState("");
+  const [searchKey, setSearchKey] = useState();
   const isLogin = false;
-  function searchGoods() {
-    console.log("search: " + value);
-  }
+  const handleChangeSearchKey = (e) => {
+    setSearchKey(e.target.value);
+  };
+  const handleSubmit = (event) => {
+    console.log(searchKey);
+    event.preventDefault();
+  };
   const routeChangeToShoppingCart = useCallback(() => {
     if (isLogin) {
       var path = "/shoppingCart";
@@ -25,18 +31,22 @@ const NavItem: React.FC<HeaderProps> = () => {
   return (
     <div className={`${styles.navItem_container}`}>
       <div className={styles.navItem_container_contain}>
-        <div className={styles.icon}></div>
-        <div className={styles.searchBar}>
+        <Link to={"/"}>
+          <div className={styles.icon}></div>
+        </Link>
+        <form onSubmit={handleSubmit} className={styles.searchBar}>
           <input
             type={"text"}
             className={styles.searchBar_input}
             placeholder={"搜索"}
-            onChange={(event) => setCount(event.target.value)}
+            value={searchKey}
+            onChange={handleChangeSearchKey}
           />
-          <div className={styles.searchBar_submitButton} onClick={searchGoods}>
-            <div className={styles.searchBar_submitButton_icon}></div>
-          </div>
-        </div>
+          <Link to={{ pathname: "/search", search: "?keyword=" + searchKey }}>
+            <input type="submit" className={styles.searchBar_submitButton} value=" " />
+          </Link>
+        </form>
+
         <div className={styles.shoppingCart}>
           <div
             className={styles.shoppingCart_icon}
@@ -44,7 +54,7 @@ const NavItem: React.FC<HeaderProps> = () => {
           ></div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

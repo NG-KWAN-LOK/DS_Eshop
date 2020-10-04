@@ -1,14 +1,19 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Link, Router, Route, useHistory, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { createStore } from "redux";
 
 import styles from "./styles.scss";
+
+import * as loginActions from "../../../containers/Login/actions";
 
 import Header from "../../Header/LoginHeader";
 
 interface HeaderProps {}
 
 const NavItem: React.FC<HeaderProps> = () => {
+  const history = useHistory();
+  const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const handleChangeUsername = (e) => {
@@ -21,6 +26,8 @@ const NavItem: React.FC<HeaderProps> = () => {
   const handleSubmit = (event) => {
     console.log(username, password);
     event.preventDefault();
+    loginActions.setIsLogin(true);
+    history.push("/");
   };
 
   let loginContent_submitBtn = "loginContent_submitBtn";

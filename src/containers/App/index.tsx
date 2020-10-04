@@ -7,6 +7,7 @@ import WithAuth from "../../hoc/WithAuth";
 import Dashboard from "../Dashboard";
 import Seller from "../Seller";
 import Login from "../Login";
+import ShoppingCart from "../ShoppingCart";
 
 import PATH from "../../utils/pathConst";
 import styles from "./styles.scss";
@@ -18,13 +19,14 @@ function App() {
     <div className={styles.app} data-theme={theme} id="scroll_container">
       <Router>
         <Switch>
-          {/* <WithAuth> */}
-          {/* <Header /> */}
-          <Route exact path={"/"} component={Dashboard} />
-          <Route path={"/search"} component={Search} />
-          <Route path={"/login"} component={Login} />
-          <Route path={"/seller"} component={Seller} />
-          {/* </WithAuth> */}
+          <WithAuth>
+            {/* <Header /> */}
+            <Route exact path={"/"} component={Dashboard} />
+            <Route path={"/search"} component={Search} />
+            <Route path={"/login"} component={Login} />
+            <Route path={"/shoppingCart"} component={ShoppingCart} />
+            <Route path={"/seller"} component={Seller} />
+          </WithAuth>
         </Switch>
       </Router>
     </div>

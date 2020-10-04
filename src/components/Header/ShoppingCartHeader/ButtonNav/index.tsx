@@ -35,28 +35,24 @@ const NavItem: React.FC<HeaderProps> = () => {
         <Link to={"/"}>
           <div className={styles.icon}></div>
         </Link>
-        <form onSubmit={handleSubmit} className={styles.searchBar}>
-          <input
-            type={"text"}
-            className={styles.searchBar_input}
-            placeholder={"搜索"}
-            value={searchKey}
-            onChange={handleChangeSearchKey}
-          />
-          <Link to={{ pathname: "/search", search: "?keyword=" + searchKey }}>
+        <div className={styles.iconTitle}>購物車</div>
+        <div className={styles.searchBarContent}>
+          <form onSubmit={handleSubmit} className={styles.searchBar}>
             <input
-              type="submit"
-              className={styles.searchBar_submitButton}
-              value=" "
+              type={"text"}
+              className={styles.searchBar_input}
+              placeholder={"搜索"}
+              value={searchKey}
+              onChange={handleChangeSearchKey}
             />
-          </Link>
-        </form>
-
-        <div className={styles.shoppingCart}>
-          <div
-            className={styles.shoppingCart_icon}
-            onClick={routeChangeToShoppingCart}
-          ></div>
+            <Link to={{ pathname: "/search", search: "?keyword=" + searchKey }}>
+              <input
+                type="submit"
+                className={styles.searchBar_submitButton}
+                value=" "
+              />
+            </Link>
+          </form>
         </div>
       </div>
     </div>

@@ -1,13 +1,16 @@
 import React, { useCallback } from "react";
 import { Link, Router, Route, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import styles from "./styles.scss";
+
+import { checkIslogIn } from "../../../../utils/tools/index";
 
 interface HeaderProps {}
 
 const NavItem: React.FC<HeaderProps> = () => {
-  const isLogin = false;
   const history = useHistory();
+  const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
   const routeChangeToSeller = useCallback(() => {
     var path = "/seller";
     history.push(path);
@@ -24,7 +27,8 @@ const NavItem: React.FC<HeaderProps> = () => {
     var path = "/login";
     history.push(path);
   }, []);
-  const checkIsLogin = (isLogin) => {
+
+  const chooseLogin = (isLogin) => {
     if (isLogin === true) {
       return (
         <div className={styles.signinLogin}>
@@ -53,7 +57,7 @@ const NavItem: React.FC<HeaderProps> = () => {
         <div className={styles.title} onClick={routeChangeToSeller}>
           賣家中心
         </div>
-        {checkIsLogin(isLogin)}
+        {chooseLogin(isLogin)}
       </div>
     </div>
   );

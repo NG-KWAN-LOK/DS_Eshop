@@ -21,4 +21,8 @@ api.fire = async (options) => {
   });
 };
 
+api.checkIsLogin = async (options) => {
+  return true;
+};
+
 export default api;

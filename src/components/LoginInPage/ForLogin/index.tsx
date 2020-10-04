@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Link, Router, Route, useHistory, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import styles from "./styles.scss";
 

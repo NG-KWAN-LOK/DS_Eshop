@@ -11,6 +11,7 @@ const WithAuth: React.FC<WithAuthProps> = ({ children }) => {
   const { pathname } = useLocation();
   const history = useHistory();
   const isLogin = true;
+  console.log("WithAuth");
   // useEffect(() => {
   //   if (isLogin) {
   //     if (pathname === PATH.LOGIN || pathname === "/") {

@@ -6,3 +6,7 @@ export const getParams: any = (search, keys) => {
   });
   return result;
 };
+
+export const checkIslogIn: any = () => {
+  return true;
+};

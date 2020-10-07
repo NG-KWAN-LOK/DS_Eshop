@@ -1,3 +1,27 @@
 .top_Padding {
   padding-top: 11.9rem;
 }
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 0;
+}
+.pageContainer_searchContainer {
+  display: flex;
+  width: 1200px;
+}
+.pageContainer_searchContainer_searchResultText {
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  padding: 0 1rem;
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-style: normal;
+  &_heightLight {
+    @extend .pageContainer_searchContainer_searchResultText;
+    color: #ee4d2d;
+    padding: 0;
+  }
+}

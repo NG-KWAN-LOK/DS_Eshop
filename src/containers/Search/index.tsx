@@ -24,7 +24,11 @@ const Search = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.top_Padding}></div>
-      <div>Search: {keyWord}</div>
+      <div className={styles.pageContainer}>
+        <div className={styles.pageContainer_searchContainer}>
+          <div className={styles.pageContainer_searchContainer_searchResultText}>'<span className={styles.pageContainer_searchContainer_searchResultText_heightLight}>{keyWord}</span>'搜尋結果</div>
+        </div>
+      </div>
     </div>
   );
 };

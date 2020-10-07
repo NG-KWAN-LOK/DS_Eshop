@@ -9,7 +9,7 @@ import styles from "./styles.scss";
 import { checkIslogIn } from "../../utils/tools/index";
 
 import Header from "../../components/Header/ShoppingCartHeader";
-interface LoginProps {}
+interface LoginProps { }
 
 const ShoppingCart = () => {
   const history = useHistory();

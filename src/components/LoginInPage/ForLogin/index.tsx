@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Link, Router, Route, useHistory, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { createStore } from "redux";
 
 import styles from "./styles.scss";
@@ -9,10 +9,11 @@ import * as loginActions from "../../../containers/Login/actions";
 
 import Header from "../../Header/LoginHeader";
 
-interface HeaderProps {}
+interface HeaderProps { }
 
 const NavItem: React.FC<HeaderProps> = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
@@ -26,7 +27,7 @@ const NavItem: React.FC<HeaderProps> = () => {
   const handleSubmit = (event) => {
     console.log(username, password);
     event.preventDefault();
-    loginActions.setIsLogin(true);
+    dispatch(loginActions.setIsLogin(true));
     history.push("/");
   };
 

@@ -3,7 +3,7 @@ import produce from "immer";
 import { GET_GOODS_LIST_SUCCESS, CLEAN_UP } from "./constants";
 
 const initialState = {
-  GoodsList: {},
+  GoodsList: [],
 };
 
 export default (state = initialState, action) =>
@@ -11,9 +11,8 @@ export default (state = initialState, action) =>
     const { type, payload } = action;
     switch (type) {
       case GET_GOODS_LIST_SUCCESS:
-        payload.audios.forEach((audio) => {
-          draft.GoodsList[audio.id] = audio;
-        });
+        console.log(payload)
+        draft.GoodsList = draft.GoodsList.concat(payload)
         break;
       case CLEAN_UP:
         draft = { ...initialState };

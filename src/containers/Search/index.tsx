@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./styles.scss";
+
+import GoodsApi from "../../utils/api/apifetcher/goods";
 
 import { getParams } from "../../utils/tools"
 import Header from "../../components/Header/MainHeader";
 import GoodsCard from "../../components/GoodsCard"
+
+import * as SearchActions from "./actions";
 interface DashboardProps { }
 
 interface location {
@@ -14,12 +19,32 @@ interface location {
 }
 
 const Search = () => {
+  const dispatch = useDispatch();
   const location: location = useLocation();
   const { pathname, search } = location;
   const { keyword: keyWord, } = getParams(search, [
     "keyword"
   ]);
+  const [goodsList, setGoodsList] = useState([]);
   console.log("getkeyword:" + keyWord)
+
+  useEffect(() => {
+    GoodsApi.getGoodsList()
+      .then((res) => {
+        console.log(res);
+        setGoodsList(res);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+  }, [])
+  // const goodsList = useSelector((appState: any) => appState.SearchReducer.GoodsList);
+  console.log(goodsList)
+  const getGoodsData = () => {
+    goodsList.forEach(data => {
+      return data
+    });
+  }
 
   return (
     <div className={styles.container}>
@@ -38,7 +63,7 @@ const Search = () => {
                 <div className={styles.pageContainer_searchContainer_searchResultContainer_itemContainer_info_price}>$9999</div>
               </div>
             </div>
-            <GoodsCard />
+            {/* <GoodsCard goodsData={getGoodsData}/> */}
           </div>
         </div>
       </div>

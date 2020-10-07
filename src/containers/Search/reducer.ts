@@ -1,14 +1,20 @@
 import produce from "immer";
 
-import { CLEAN_UP } from "../App/constants";
-import { GET_DASHBOARD_LIST_LIMIT } from "../../utils/constants";
+import { GET_GOODS_LIST_SUCCESS, CLEAN_UP } from "./constants";
 
-const initialState = {};
+const initialState = {
+  GoodsList: {},
+};
 
 export default (state = initialState, action) =>
   produce(state, (draft) => {
     const { type, payload } = action;
     switch (type) {
+      case GET_GOODS_LIST_SUCCESS:
+        payload.audios.forEach((audio) => {
+          draft.GoodsList[audio.id] = audio;
+        });
+        break;
       case CLEAN_UP:
         draft = { ...initialState };
         break;

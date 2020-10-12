@@ -24,6 +24,18 @@ const Item = () => {
   const { pathname, search } = location;
   const { goodsID: goodsID } = getParams(search, ["goodsID"]);
   const [goodsItemInfo, setGoodsItemInfo] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+  const handleChangeQuantity = (e) => {
+    if (e.target.value > 0 || e.target.value === "")
+      if (e.target.value === "") setQuantity(e.target.value);
+      else setQuantity(e.target.value);
+  };
+  const handleChangeQuantityMins = () => {
+    if (quantity > 1) setQuantity(Number(quantity) - 1);
+  };
+  const handleChangeQuantityPlus = () => {
+    setQuantity(Number(quantity) + 1);
+  };
   console.log("goodsID:" + goodsID);
   useEffect(() => {
     GoodsApi.getGoodsItemInfo(goodsID)
@@ -36,6 +48,7 @@ const Item = () => {
   }, []);
 
   console.log(goodsItemInfo);
+  console.log(quantity);
   return (
     <div className={styles.container}>
       <Header />
@@ -76,6 +89,56 @@ const Item = () => {
                   }
                 >
                   ${goodsItemInfo.price}
+                </div>
+              </div>
+              <div
+                className={
+                  styles.pageContainer_itemContainer_header_right_optionContainer
+                }
+              >
+                <div
+                  className={
+                    styles.pageContainer_itemContainer_header_right_optionContainer_title
+                  }
+                >
+                  數量
+                </div>
+                <div
+                  className={
+                    styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity
+                  }
+                >
+                  <input
+                    type="button"
+                    value="-"
+                    className={
+                      styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity_minus
+                    }
+                    onClick={handleChangeQuantityMins}
+                  />
+                  <input
+                    type="number"
+                    step={1}
+                    min={0}
+                    max=""
+                    name="quantity"
+                    value={quantity}
+                    title="Qty"
+                    className={
+                      styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity_text
+                    }
+                    size={4}
+                    pattern=""
+                    onChange={handleChangeQuantity}
+                  />
+                  <input
+                    type="button"
+                    value="+"
+                    className={
+                      styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity_plus
+                    }
+                    onClick={handleChangeQuantityPlus}
+                  />
                 </div>
               </div>
             </div>

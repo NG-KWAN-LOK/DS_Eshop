@@ -11,7 +11,7 @@ import Header from "../../components/Header/MainHeader";
 import GoodsCard from "../../components/GoodsCard";
 
 import * as SearchActions from "./actions";
-interface DashboardProps {}
+interface DashboardProps { }
 
 interface location {
   pathname: string;
@@ -19,6 +19,7 @@ interface location {
 }
 
 const Item = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const location: location = useLocation();
   const { pathname, search } = location;
@@ -46,7 +47,13 @@ const Item = () => {
         console.log("error");
       });
   }, []);
-
+  function callToAddShoppingCart(status) {
+    console.log("call api");
+    if (status == 1) {
+      const path = "/ShoppingCart";
+      history.push(path);
+    }
+  }
   console.log(goodsItemInfo);
   console.log(quantity);
   return (
@@ -141,6 +148,26 @@ const Item = () => {
                   />
                 </div>
               </div>
+              <div className={styles.pageContainer_itemContainer_header_right_btnContainer}>
+                <div className={styles.pageContainer_itemContainer_header_right_btnContainer_addShoppingCart} onClick={() => callToAddShoppingCart(0)}>
+                  加入購物車
+                </div>
+                <div className={styles.pageContainer_itemContainer_header_right_btnContainer_buyItNow} onClick={() => callToAddShoppingCart(1)}>
+                  立即購買
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles.bodyContainer}>
+        <div className={styles.bodyContainer_body}>
+          <div className={styles.bodyContainer_body_desription}>
+            <div className={styles.bodyContainer_body_desription_title}>
+              商品詳情
+              </div>
+            <div className={styles.bodyContainer_body_desription_text}>
+              {goodsItemInfo.description}
             </div>
           </div>
         </div>

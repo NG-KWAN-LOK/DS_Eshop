@@ -1,13 +1,15 @@
 .top_Padding {
   padding-top: 11.9rem;
 }
-.pageContainer {
+.pageContainer,
+.bodyContainer {
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 20px 0;
+  padding: 20px 0 0 0;
 }
-.pageContainer_itemContainer {
+.pageContainer_itemContainer,
+.bodyContainer_body {
   display: block;
   background-color: #ffffff;
   width: 1200px;
@@ -140,4 +142,75 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   margin: 0;
+}
+
+.pageContainer_itemContainer_header_right_btnContainer {
+  display: flex;
+  width: 100%;
+  margin-top: 1.5625rem;
+}
+
+.pageContainer_itemContainer_header_right_btnContainer_addShoppingCart {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 48px;
+  color: #ee4d2d;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 200;
+  background-color: #ff57221a;
+  border-radius: 3px;
+  border: 1px solid #ee4d2d;
+  margin: 0 15px 0 0;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.pageContainer_itemContainer_header_right_btnContainer_buyItNow {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 48px;
+  color: #ffffff;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 200;
+  background-color: #ee4d2d;
+  border-radius: 3px;
+  border: 1px solid #ee4d2d;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.bodyContainer_body_desription {
+  display: block;
+  padding: 25px;
+}
+
+.bodyContainer_body_desription_title {
+  color: #000000;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.9rem;
+  font-weight: 300;
+  background-color: #00000005;
+  padding: 14px;
+}
+
+.bodyContainer_body_desription_text {
+  color: #000000;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 200;
+  padding: 14px;
 }

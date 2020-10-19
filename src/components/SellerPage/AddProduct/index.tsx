@@ -12,15 +12,15 @@ import styles from "./styles.scss";
 
 interface HeaderProps { }
 
-const Product = () => {
+const AddProduct = () => {
   const history = useHistory();
   const { pathname } = useLocation();
   const [value, setCount] = useState("");
   return (
     <div>
-      product
+      AddProduct
     </div>
   );
 };
 
-export default Product;
+export default AddProduct;

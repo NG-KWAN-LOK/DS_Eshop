@@ -17,6 +17,14 @@ const Header: React.FC<HeaderProps> = () => {
         return "我的商品";
       case "/seller/product":
         return "我的商品";
+      case "/seller/ship":
+        return "查看物流";
+      case "/seller/sale":
+        return "我的銷售";
+      case "/seller/activeProduct":
+        return "上架商品";
+      case "/seller/addProduct":
+        return "增新商品";
       default:
         return "foo";
     }

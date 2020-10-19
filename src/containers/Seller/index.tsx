@@ -6,6 +6,11 @@ import styles from "./styles.scss";
 
 import SellerHeader from "../../components/Header/SellerHeader";
 import Product from "../../components/SellerPage/Product";
+import Ship from "../../components/SellerPage/Ship";
+import Sale from "../../components/SellerPage/Sale";
+import ActiveProduct from "../../components/SellerPage/ActiveProduct";
+import AddProduct from "../../components/SellerPage/AddProduct";
+
 interface SellerProps { }
 
 const Seller = () => {
@@ -43,11 +48,12 @@ const Seller = () => {
               訂單管理
             </div>
             <div className={styles.menuNav_item_subMenuNav}>
-              <div className={styles.menuNav_item_subMenuNav_subItem}>
+              <Link to={"/seller/sale"}><div className={styles.menuNav_item_subMenuNav_subItem}>
                 <div className={styles.menuNav_item_subMenuNav_subItem_title}>
                   我的銷售
                </div>
               </div>
+              </Link>
             </div>
           </div>
 
@@ -62,35 +68,28 @@ const Seller = () => {
                </div>
               </div>
               </Link>
-              <div className={styles.menuNav_item_subMenuNav_subItem}>
+              <Link to={"/seller/activeProduct"}><div className={styles.menuNav_item_subMenuNav_subItem}>
                 <div className={styles.menuNav_item_subMenuNav_subItem_title}>
                   上架商品
                </div>
               </div>
-              <div className={styles.menuNav_item_subMenuNav_subItem}>
+              </Link>
+              <Link to={"/seller/addProduct"}><div className={styles.menuNav_item_subMenuNav_subItem}>
                 <div className={styles.menuNav_item_subMenuNav_subItem_title}>
                   增新商品
                </div>
               </div>
-            </div>
-          </div>
-
-          <div className={styles.menuNav_item}>
-            <div className={styles.menuNav_item_title}>
-              物流中心
-            </div>
-            <div className={styles.menuNav_item_subMenuNav}>
-              <div className={styles.menuNav_item_subMenuNav_subItem}>
-                <div className={styles.menuNav_item_subMenuNav_subItem_title}>
-                  查看物流情況
-               </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
         <div className={styles.content}>
           <Route exact path={"/seller"} component={Product} />
           <Route path={"/seller/product"} component={Product} />
+          <Route path={"/seller/ship"} component={Ship} />
+          <Route path={"/seller/sale"} component={Sale} />
+          <Route path={"/seller/activeProduct"} component={ActiveProduct} />
+          <Route path={"/seller/addProduct"} component={AddProduct} />
         </div>
       </div>
     </div>

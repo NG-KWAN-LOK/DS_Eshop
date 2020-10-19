@@ -6,13 +6,13 @@ import styles from "./styles.scss";
 
 import { checkIslogIn } from "../../../../utils/tools/index";
 
-interface HeaderProps {}
+interface HeaderProps { }
 
 const NavItem: React.FC<HeaderProps> = () => {
   const history = useHistory();
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
   const routeChangeToSeller = useCallback(() => {
-    var path = "/seller";
+    var path = "/seller/product";
     history.push(path);
   }, []);
   const routeChangeToUserPage = useCallback(() => {

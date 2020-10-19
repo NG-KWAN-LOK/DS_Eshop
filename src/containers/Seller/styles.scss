@@ -1,3 +1,52 @@
 .top_Padding {
-  padding-top: 11.9rem;
+  padding-top: 8.4rem;
+}
+.pageContainer {
+  display: flex;
+}
+.menuNav {
+  display: block;
+  width: 220px;
+  min-height: 1000px;
+  background-color: #ffffff;
+  padding: 16px;
+}
+.menuNav_item {
+  display: block;
+  width: 100%;
+}
+
+.menuNav_item_title {
+  display: flex;
+  color: #888888;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  font-style: normal;
+  padding: 5px 0;
+}
+.menuNav_item_subMenuNav {
+  display: block;
+  width: 100%;
+  padding-left: 24px;
+}
+.menuNav_item_subMenuNav_subItem {
+  display: block;
+  width: 100%;
+  color: #333333;
+  cursor: pointer;
+  &-active,
+  &:hover {
+    color: #ee4d2d;
+  }
+}
+.menuNav_item_subMenuNav_subItem_title {
+  display: flex;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+  padding: 5px 0;
 }

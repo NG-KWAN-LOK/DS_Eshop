@@ -25,8 +25,6 @@ const Seller = () => {
   return (
     <div className={styles.container}>
       <SellerHeader />
-      <div className={styles.top_Padding}>
-      </div>
       <div className={styles.pageContainer}>
         <div className={styles.menuNav}>
           <div className={styles.menuNav_item}>
@@ -84,12 +82,14 @@ const Seller = () => {
           </div>
         </div>
         <div className={styles.content}>
-          <Route exact path={"/seller"} component={Product} />
-          <Route path={"/seller/product"} component={Product} />
-          <Route path={"/seller/ship"} component={Ship} />
-          <Route path={"/seller/sale"} component={Sale} />
-          <Route path={"/seller/activeProduct"} component={ActiveProduct} />
-          <Route path={"/seller/addProduct"} component={AddProduct} />
+          <div className={styles.content_block}>
+            <Route exact path={"/seller"} component={Product} />
+            <Route path={"/seller/product"} component={Product} />
+            <Route path={"/seller/ship"} component={Ship} />
+            <Route path={"/seller/sale"} component={Sale} />
+            <Route path={"/seller/activeProduct"} component={ActiveProduct} />
+            <Route path={"/seller/addProduct"} component={AddProduct} />
+          </div>
         </div>
       </div>
     </div>

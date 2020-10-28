@@ -7,6 +7,7 @@ const goodList = [
       "賣老婆1 新垣結衣 gaki Aragaki Yui 可愛日本人妻 明星 美女 星野原真是爽",
     imgURL: "https://attach.setn.com/newsimages/2020/04/28/2527272-XXL.jpg",
     price: "999",
+    stock: 99,
   },
   {
     id: "1",
@@ -15,6 +16,7 @@ const goodList = [
     name:
       "賣老婆2 石原里美 石原聰美 石神国子 Ishihara Satomi 可愛日本人妻 明星 美女",
     price: "999",
+    stock: 99,
   },
 ];
 
@@ -26,6 +28,7 @@ const goodItem = [
     imgURL: "https://attach.setn.com/newsimages/2020/04/28/2527272-XXL.jpg",
     price: "999",
     description: "開心賣新垣結衣",
+    stock: 99,
   },
   {
     id: "1",
@@ -35,15 +38,14 @@ const goodItem = [
       "賣老婆2 石原里美 石原聰美 石神国子 Ishihara Satomi 可愛日本人妻 明星 美女",
     price: "999",
     description: "開心賣石原里美",
+    stock: 99,
   },
 ];
 const GoodsApi = {
   getGoodsList: () => {
-    const url = "/goods/dashboard";
     return new Promise((resolve) => resolve(goodList));
   },
   getGoodsItemInfo: (goodsID) => {
-    const url = "/goods/dashboard";
     return new Promise((resolve) => resolve(goodItem[goodsID]));
   },
 };

@@ -11,7 +11,7 @@ import Header from "../../components/Header/MainHeader";
 import GoodsCard from "../../components/GoodsCard";
 
 import * as SearchActions from "./actions";
-interface DashboardProps {}
+interface DashboardProps { }
 
 interface location {
   pathname: string;
@@ -23,14 +23,14 @@ const Search = () => {
   const location: location = useLocation();
   const { pathname, search } = location;
   const { keyword: keyWord } = getParams(search, ["keyword"]);
-  const [goodsList, setGoodsList] = useState([]);
+  const [goodsList, getGoodsList] = useState([]);
   console.log("getkeyword:" + keyWord);
 
   useEffect(() => {
     GoodsApi.getGoodsList()
       .then((res) => {
         //console.log(res);
-        setGoodsList(res);
+        getGoodsList(res);
       })
       .catch((err) => {
         console.log("error");

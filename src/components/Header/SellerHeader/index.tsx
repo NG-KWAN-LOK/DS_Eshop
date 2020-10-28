@@ -25,6 +25,8 @@ const Header: React.FC<HeaderProps> = () => {
         return "上架商品";
       case "/seller/addProduct":
         return "增新商品";
+      case "/seller/product/editGoods":
+        return "我的商品　>　編輯商品"
       default:
         return "foo";
     }

@@ -1,0 +1,68 @@
+.productGoodsItemContainer {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 24px 0;
+}
+.productGoodsItemContainer_goodsName {
+  display: flex;
+  align-items: center;
+  width: 55%;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 200;
+  font-style: normal;
+}
+.productGoodsItemContainer_goodsName_imageContainer {
+  display: flex;
+  width: 56px;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 0 10px 0 0;
+}
+.productGoodsItemContainer_goodsName_imageContainer_img {
+  min-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+.productGoodsItemContainer_goodsStock {
+  display: flex;
+  justify-content: center;
+  width: 15%;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 100;
+  font-style: normal;
+}
+.productGoodsItemContainer_goodsPrice {
+  display: flex;
+  justify-content: center;
+  width: 15%;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 100;
+  font-style: normal;
+}
+.productGoodsItemContainer_goodsControl {
+  display: block;
+  width: 15%;
+  color: #3d79fc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 100;
+}
+.productGoodsItemContainer_goodsControl_text {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 5px;
+}

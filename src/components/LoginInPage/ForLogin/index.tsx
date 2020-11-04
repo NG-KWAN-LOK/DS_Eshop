@@ -26,10 +26,13 @@ const NavItem: React.FC<HeaderProps> = () => {
 
   const handleSubmit = (event) => {
     console.log(username, password);
+    dispatch(loginActions.tryLogin());
     event.preventDefault();
-    dispatch(loginActions.setIsLogin(true));
-    history.push("/");
   };
+
+  if (isLogin == true) {
+    history.push("/");
+  }
 
   let loginContent_submitBtn = "loginContent_submitBtn";
   let isButtonDisable = true;

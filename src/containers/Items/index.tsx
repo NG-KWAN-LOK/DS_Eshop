@@ -10,6 +10,8 @@ import { getParams } from "../../utils/tools";
 import Header from "../../components/Header/MainHeader";
 import GoodsCard from "../../components/GoodsCard";
 
+import * as loginActions from "../../containers/Login/actions";
+
 import * as SearchActions from "./actions";
 interface DashboardProps { }
 
@@ -21,6 +23,7 @@ interface location {
 const Item = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
   const location: location = useLocation();
   const { pathname, search } = location;
   const { goodsID: goodsID } = getParams(search, ["goodsID"]);
@@ -49,8 +52,17 @@ const Item = () => {
   }, []);
   function callToAddShoppingCart(status) {
     console.log("call api");
-    if (status == 1) {
-      const path = "/ShoppingCart";
+    if (isLogin) {
+      if (status == 1) {
+        const path = "/ShoppingCart";
+        history.push(path);
+      }
+      else if (status == 0) {
+        console.log("add to shopping cary");
+      }
+    }
+    else {
+      const path = "/login";
       history.push(path);
     }
   }

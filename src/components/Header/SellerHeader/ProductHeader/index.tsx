@@ -1,5 +1,8 @@
 import React, { useCallback } from "react";
 import { Link, Router, Route, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import * as loginActions from "../../../../containers/Login/actions";
 
 import styles from "./styles.scss";
 
@@ -8,6 +11,8 @@ interface HeaderProps { }
 const ProductHeader = ({ title }) => {
   const history = useHistory();
   const titleContent = title;
+  const username = useSelector((appState: any) => appState.LoginReducer.userName);
+
 
   const routeChangeToDashboard = useCallback(() => {
     var path = "/";
@@ -28,8 +33,8 @@ const ProductHeader = ({ title }) => {
         <div className={styles.navItem_container_contain_right}>
           <div className={styles.signinLogin}>
             <div className={styles.usernameTitle} onClick={routeChangeToUserPage}>
-              username
-          </div>
+              {username}
+            </div>
           </div>
         </div>
       </div>

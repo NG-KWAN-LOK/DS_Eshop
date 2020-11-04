@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 
 import styles from "./styles.scss";
 
+import * as loginActions from "../../../../containers/Login/actions";
+
 import { checkIslogIn } from "../../../../utils/tools/index";
 
 interface HeaderProps { }
@@ -11,6 +13,7 @@ interface HeaderProps { }
 const NavItem: React.FC<HeaderProps> = () => {
   const history = useHistory();
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
+  const username = useSelector((appState: any) => appState.LoginReducer.userName);
   const routeChangeToSeller = useCallback(() => {
     var path = "/seller/product";
     history.push(path);
@@ -33,7 +36,7 @@ const NavItem: React.FC<HeaderProps> = () => {
       return (
         <div className={styles.signinLogin}>
           <div className={styles.title} onClick={routeChangeToUserPage}>
-            username
+            {username}
           </div>
         </div>
       );

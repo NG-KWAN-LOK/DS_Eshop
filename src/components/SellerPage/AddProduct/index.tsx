@@ -18,9 +18,11 @@ const AddProduct = () => {
   const [goodsName, setGoodsName] = useState();
   const [goodsDesription, setGoodsDesription] = useState();
   const [goodsPrice, setGoodsPrice] = useState();
+  const [goodsStock, setGoodsStock] = useState();
+  const [goodsImg, setGoodsImg] = useState();
 
   const handleSubmit = (event) => {
-    console.log(goodsName, goodsDesription, goodsPrice);
+    console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
     event.preventDefault();
   };
   const handleChangeGoodsName = (e) => {
@@ -32,7 +34,14 @@ const AddProduct = () => {
   const handleChangeGoodsPrice = (e) => {
     setGoodsPrice(e.target.value);
   };
-  const goodsPriceExpression = /^\d{10}$/;
+  const handleChangeGoodsStock = (e) => {
+    setGoodsStock(e.target.value);
+  };
+  const handleChangeGoodsImg = (e) => {
+    setGoodsImg(e.target.value);
+  };
+  const numberExpression = /^[0-9]+.?[0-9]*/;
+  const urlExpression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
   function printIfGoodsNameBlank() {
     if (goodsName === "") {
       return `${styles["loginContent_inputBar"]} ${styles["loginContent_inputBar-error"]}`;
@@ -49,10 +58,46 @@ const AddProduct = () => {
   }
   function printIfGoodsPriceBlank() {
     if (goodsPrice === "" ||
-      goodsPriceExpression.test(String(goodsPrice)) != true) {
+      numberExpression.test(String(goodsPrice)) != true) {
       return `${styles["loginContent_inputBar"]} ${styles["loginContent_inputBar-error"]}`;
     } else {
       return `${styles["loginContent_inputBar"]}`;
+    }
+  }
+  function printIfGoodsStockBlank() {
+    if (goodsStock === "" ||
+      numberExpression.test(String(goodsStock)) != true) {
+      return `${styles["loginContent_inputBar"]} ${styles["loginContent_inputBar-error"]}`;
+    } else {
+      return `${styles["loginContent_inputBar"]}`;
+    }
+  }
+  function printIsGoodsImgURL() {
+    if (goodsImg != null && goodsImg != "" && urlExpression.test(String(goodsImg)) != true) {
+      return `${styles["loginContent_inputBar"]} ${styles["loginContent_inputBar-error"]}`;
+    } else {
+      return `${styles["loginContent_inputBar"]}`;
+    }
+  }
+  let isButtonDisable = true;
+  function checkInputIsBlank() {
+    if (
+      goodsName == null ||
+      goodsPrice == null ||
+      goodsDesription === "" ||
+      goodsStock == null ||
+      numberExpression.test(String(goodsPrice)) != true ||
+      numberExpression.test(String(goodsStock)) != true ||
+      (goodsImg != "" &&
+        urlExpression.test(String(goodsImg)) != true)
+    ) {
+      console.log("blank");
+      isButtonDisable = true;
+      return `${styles["loginContent_submitBtn"]} ${styles["loginContent_submitBtn-not-allow"]}`;
+    } else {
+      console.log("fill");
+      isButtonDisable = false;
+      return `${styles["loginContent_submitBtn"]} ${styles["loginContent_submitBtn-allow"]}`;
     }
   }
 
@@ -62,7 +107,7 @@ const AddProduct = () => {
         <div className={styles.container_basicInfo}>
           <div className={styles.container_basicInfo_title}>
             基本資訊
-        </div>
+          </div>
           <div className={styles.container_basicInfo_goodsName}>
             <div className={styles.container_basicInfo_goodsName_title}>
               *商品名稱
@@ -70,7 +115,7 @@ const AddProduct = () => {
             <input
               className={printIfGoodsNameBlank()}
               type="text"
-              placeholder={"商品名稱"}
+              placeholder={"請輸入"}
               value={goodsName}
               onChange={handleChangeGoodsName}
             />
@@ -82,7 +127,7 @@ const AddProduct = () => {
             <input
               className={printIfGoodsDesriptionBlank()}
               type="text"
-              placeholder={"商品描述"}
+              placeholder={"請輸入"}
               value={goodsDesription}
               onChange={handleChangeGoodsDesription}
             />
@@ -90,25 +135,63 @@ const AddProduct = () => {
           <div className={styles.container_basicInfo_goodsImg}>
             <div className={styles.container_basicInfo_goodsImg_title}>
               商品圖片
+            </div>
+            <input
+              className={printIsGoodsImgURL()}
+              type="text"
+              placeholder={"請輸入圖片URL"}
+              value={goodsImg}
+              onChange={handleChangeGoodsImg}
+            />
           </div>
+          <div className={styles.container_basicInfo_imgPreview}>
+            <div className={styles.container_basicInfo_imgPreview_title}>
+              商品圖片預覽
+            </div>
+            <div className={styles.container_basicInfo_goodsImg_imgPreview}>
+              <img
+                className={styles.container_basicInfo_goodsImg_imgPreview_img}
+                src={goodsImg}
+              />
+            </div>
           </div>
         </div>
         <div className={styles.container_sellInfo}>
           <div className={styles.container_sellInfo_title}>
             銷售資訊
-        </div>
+         </div>
           <div className={styles.container_sellInfo_goodsPrice}>
             <div className={styles.container_sellInfo_goodsPrice_title}>
               *價格
-              <input
-                className={printIfGoodsPriceBlank()}
-                type="text"
-                placeholder={"價格"}
-                value={goodsPrice}
-                onChange={handleChangeGoodsPrice}
-              />
             </div>
+            <input
+              className={printIfGoodsPriceBlank()}
+              type="text"
+              placeholder={"請輸入"}
+              value={goodsPrice}
+              onChange={handleChangeGoodsPrice}
+            />
           </div>
+          <div className={styles.container_sellInfo_goodsStock}>
+            <div className={styles.container_sellInfo_goodsStock_title}>
+              *存庫數量
+            </div>
+            <input
+              className={printIfGoodsStockBlank()}
+              type="text"
+              placeholder={"請輸入"}
+              value={goodsStock}
+              onChange={handleChangeGoodsStock}
+            />
+          </div>
+        </div>
+        <div className={styles.container_functionKey}>
+          <input
+            className={checkInputIsBlank()}
+            type="submit"
+            value="新增"
+            disabled={isButtonDisable}
+          />
         </div>
       </form>
     </div>

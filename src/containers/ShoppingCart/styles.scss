@@ -11,7 +11,7 @@
   padding: 20px 0;
 }
 .pageContainer_productContainer {
-  display: flex;
+  display: bl;
   width: 1200px;
 }
 ._pageContainer_productContainer_productHeader {
@@ -24,6 +24,8 @@
   margin: 0 0 12px 0px;
 }
 ._pageContainer_productContainer_productHeader_text {
+  display: flex;
+  justify-content: center;
   color: #000000cc;
   font-family: "Noto Sans TC", sans-serif;
   text-decoration: none;

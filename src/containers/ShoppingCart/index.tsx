@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Link, Route, useHistory, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -9,16 +9,28 @@ import styles from "./styles.scss";
 import { checkIslogIn } from "../../utils/tools/index";
 
 import Header from "../../components/Header/ShoppingCartHeader";
+import ShoppingCartItem from "../../components/ShoppingCart/ShoppingCartItem";
+import GoodsApi from "../../utils/api/apifetcher/goods"
 interface LoginProps { }
 
 const ShoppingCart = () => {
   const history = useHistory();
-
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
+  const [goodsList, getGoodsList] = useState([]);
   if (!isLogin) {
     var path = "/login";
     history.push(path);
   }
+  useEffect(() => {
+    GoodsApi.getGoodsList()
+      .then((res) => {
+        //console.log(res);
+        getGoodsList(res);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+  }, []);
   return (
     <div className={styles.container}>
       <Header />
@@ -61,6 +73,11 @@ const ShoppingCart = () => {
             >
               操作
             </div>
+          </div>
+          <div className={styles.container_goodsItemListContainer_item}>
+            {goodsList.map((data, index) => {
+              return <ShoppingCartItem goodsData={data} />;
+            })}
           </div>
         </div>
       </div>

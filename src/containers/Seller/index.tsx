@@ -6,6 +6,7 @@ import styles from "./styles.scss";
 
 import SellerHeader from "../../components/Header/SellerHeader";
 import Product from "../../components/SellerPage/Product";
+import ProductEditGoods from "../../components/SellerPage/ProductEditGoods";
 import Ship from "../../components/SellerPage/Ship";
 import Sale from "../../components/SellerPage/Sale";
 import ActiveProduct from "../../components/SellerPage/ActiveProduct";
@@ -85,6 +86,7 @@ const Seller = () => {
           <div className={styles.content_block}>
             <Route exact path={"/seller"} component={Product} />
             <Route path={"/seller/product"} component={Product} />
+            <Route path={"/seller/editGoods"} component={ProductEditGoods} />
             <Route path={"/seller/ship"} component={Ship} />
             <Route path={"/seller/sale"} component={Sale} />
             <Route path={"/seller/activeProduct"} component={ActiveProduct} />

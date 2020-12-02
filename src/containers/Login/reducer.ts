@@ -1,10 +1,10 @@
 import produce from "immer";
 
-import { SET_LOGIN_STAUTS, SET_USERNAME, SET_IS_CHECK_LOGIN, CLEAN_UP } from "./constants";
+import { SET_LOGIN_STAUTS, SET_USERDATA, SET_IS_CHECK_LOGIN, CLEAN_UP } from "./constants";
 
 const initialState = {
   isLogin: false,
-  userName: "",
+  userData: "",
   isCheckLogin: false,
 };
 
@@ -15,8 +15,8 @@ export default (state = initialState, action) =>
       case SET_LOGIN_STAUTS:
         draft.isLogin = payload;
         break;
-      case SET_USERNAME:
-        draft.userName = payload;
+      case SET_USERDATA:
+        draft.userData = payload;
         break;
       case SET_IS_CHECK_LOGIN:
         draft.isCheckLogin = payload;

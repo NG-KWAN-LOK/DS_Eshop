@@ -11,7 +11,7 @@ interface HeaderProps { }
 const ProductHeader = ({ title }) => {
   const history = useHistory();
   const titleContent = title;
-  const username = useSelector((appState: any) => appState.LoginReducer.userName);
+  const username = useSelector((appState: any) => appState.LoginReducer.userData.userName);
 
 
   const routeChangeToDashboard = useCallback(() => {

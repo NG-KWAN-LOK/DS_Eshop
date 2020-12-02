@@ -13,7 +13,7 @@ interface HeaderProps { }
 const NavItem: React.FC<HeaderProps> = () => {
   const history = useHistory();
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
-  const username = useSelector((appState: any) => appState.LoginReducer.userName);
+  const username = useSelector((appState: any) => appState.LoginReducer.userData.userName);
   const routeChangeToSeller = useCallback(() => {
     var path = "/seller/product";
     history.push(path);

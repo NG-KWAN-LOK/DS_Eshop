@@ -12,7 +12,7 @@ import styles from "./styles.scss";
 
 import Search from "../../../../containers/Search";
 
-interface HeaderProps {}
+interface HeaderProps { }
 
 const NavItem: React.FC<HeaderProps> = () => {
   const history = useHistory();
@@ -25,10 +25,6 @@ const NavItem: React.FC<HeaderProps> = () => {
     console.log(searchKey);
     event.preventDefault();
   };
-  const routeChangeToShoppingCart = useCallback(() => {
-    var path = "/shoppingCart";
-    history.push(path);
-  }, []);
   return (
     <div className={`${styles.navItem_container}`}>
       <div className={styles.navItem_container_contain}>

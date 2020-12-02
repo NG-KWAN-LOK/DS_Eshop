@@ -26,6 +26,9 @@ const GoodsCard = ({ goodsData }) => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
   console.log(goodsData);
+  function countTotalPrice() {
+    return parseInt(goodsData.stock) * parseInt(goodsData.price)
+  }
   return (
     <div className={styles.productGoodsItemContainer}>
       <div className={styles.productGoodsItemContainer_goodsName}>
@@ -42,7 +45,7 @@ const GoodsCard = ({ goodsData }) => {
         <span>{goodsData.stock}</span>
       </div>
       <div className={styles.productContainer_productHeader_totalPrice}>
-        <span>{goodsData.stock}</span>
+        <span>${countTotalPrice()}</span>
       </div>
       <div className={styles.productContainer_productHeader_action}>
         <div className={styles.productContainer_productHeader_action_text}>刪除</div>

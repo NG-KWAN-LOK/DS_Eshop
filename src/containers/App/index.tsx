@@ -9,6 +9,10 @@ import Seller from "../Seller";
 import Login from "../Login";
 import ShoppingCart from "../ShoppingCart";
 import Items from "../Items";
+import Casher from "../Casher";
+import User from "../User";
+
+
 
 import PATH from "../../utils/pathConst";
 import styles from "./styles.scss";
@@ -28,6 +32,8 @@ function App() {
             <Route path={"/shoppingCart"} component={ShoppingCart} />
             <Route path={"/seller"} component={Seller} />
             <Route path={"/items"} component={Items} />
+            <Route path={"/casher"} component={Casher} />
+            <Route path={"/user"} component={User} />
           </WithAuth>
         </Switch>
       </Router>

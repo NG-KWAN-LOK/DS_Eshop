@@ -19,7 +19,7 @@ const NavItem: React.FC<HeaderProps> = () => {
     history.push(path);
   }, []);
   const routeChangeToUserPage = useCallback(() => {
-    var path = "/userpage";
+    var path = "/user/profile";
     history.push(path);
   }, []);
   const routeChangeToSignUp = useCallback(() => {

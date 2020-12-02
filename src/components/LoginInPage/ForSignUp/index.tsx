@@ -11,7 +11,7 @@ import {
 import styles from "./styles.scss";
 import Header from "../../Header/SigninHeader";
 
-interface HeaderProps {}
+interface HeaderProps { }
 
 const NavItem: React.FC<HeaderProps> = () => {
   const history = useHistory();
@@ -202,7 +202,7 @@ const CustomerInfo = () => {
       address === "" ||
       email == null ||
       email == "" ||
-      emailExpression.test(String(email).toLowerCase()) != true
+      emailExpression.test(String(email).toLowerCase()) != true || phoneNumberExpression.test(String(phoneNumber)) != true
     ) {
       console.log("blank");
       isButtonDisable = true;

@@ -54,3 +54,53 @@
   @extend ._pageContainer_productContainer_productHeader_text;
   width: 12%;
 }
+.container_cartFooter {
+  display: flex;
+  width: 100%;
+  background-color: #ffffff;
+  height: 5.5rem;
+  align-items: center;
+  padding: 0 20px;
+  margin: 0 0 12px 0px;
+}
+.container_cartFooter_row1 {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+}
+.container_cartFooter_row1_totalGoods {
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.container_cartFooter_row1_totalPrice {
+  color: #ee4d2d;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 3rem;
+  font-weight: 500;
+  font-style: normal;
+  margin: 0 0 0 5px;
+}
+.container_cartFooter_row1_toCasherBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 1.4rem;
+  color: #fff;
+  background-color: #fb5533;
+  border-radius: 2px;
+  padding: 0 90px;
+  margin: 0 22px 0 15px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.9;
+  }
+}

@@ -31,6 +31,24 @@ const ShoppingCart = () => {
         console.log("error");
       });
   }, []);
+  function countTotalGoods() {
+    var totalGoods = 0;
+    goodsList.forEach(data => {
+      totalGoods += parseInt(data.stock)
+    })
+    return totalGoods
+  }
+  function countTotalPrice() {
+    var totalPrice = 0;
+    goodsList.forEach(data => {
+      totalPrice += parseInt(data.price) * parseInt(data.stock)
+    })
+    return totalPrice
+  }
+  const routeChangeToCasher = useCallback(() => {
+    var path = "/Casher";
+    history.push(path);
+  }, []);
   return (
     <div className={styles.container}>
       <Header />
@@ -78,6 +96,19 @@ const ShoppingCart = () => {
             {goodsList.map((data, index) => {
               return <ShoppingCartItem goodsData={data} />;
             })}
+          </div>
+          <div className={styles.container_cartFooter}>
+            <div className={styles.container_cartFooter_row1}>
+              <div className={styles.container_cartFooter_row1_totalGoods}>
+                小計 ({countTotalGoods()})
+              </div>
+              <div className={styles.container_cartFooter_row1_totalPrice}>
+                ${countTotalPrice()}
+              </div>
+              <div className={styles.container_cartFooter_row1_toCasherBtn} onClick={routeChangeToCasher}>
+                去買單
+              </div>
+            </div>
           </div>
         </div>
       </div>

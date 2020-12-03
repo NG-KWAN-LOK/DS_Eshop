@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./styles.scss";
 import Header from "../../Header/SigninHeader";
-
+import Api from "../../../utils/api/userAPI"
 import * as loginActions from "../../../containers/Login/actions";
 
 interface HeaderProps { }
@@ -20,14 +20,27 @@ interface HeaderProps { }
 const NavItem: React.FC<HeaderProps> = () => {
   const history = useHistory();
   const { pathname } = useLocation();
+  const signUpUserName = useSelector((appState: any) => appState.LoginReducer.signUpUserName);
+  const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
+  
   const dispatch = useDispatch();
   let _name = "";
   let _phoneNumber = "";
   let _email= "";
   let _address = "";
+  if(isLogin == true){
+    history.push("/");
+  }
   function finishFillIn(){
     console.log(_name,_phoneNumber,_email,_address)
-    
+    Api.userSignUp(signUpUserName,_name, _phoneNumber,_email,_address)
+      .then((res) => {
+        console.log("success")
+        dispatch(loginActions.tryLogin(signUpUserName._username,signUpUserName._password));
+      })
+      .catch((err) => {
+        console.log("fail")
+      });
   }
   const SetUserNamePassword = () => {
     const [username, setUsername] = useState();
@@ -175,9 +188,10 @@ const NavItem: React.FC<HeaderProps> = () => {
     };
   
     const handleSubmit = (event) => {
-      console.log(name, phoneNumber, address);
+      console.log(name, phoneNumber, email,address);
       _name = name;
       _phoneNumber = phoneNumber;
+      _email= email;
       _address = address;
       finishFillIn();
       event.preventDefault();
@@ -299,12 +313,12 @@ const NavItem: React.FC<HeaderProps> = () => {
             onChange={handleChangeAddress}
           />
           <div className={styles.loginContent_errorText}>{addressBlankText}</div>
-            <input
-              className={checkInputIsBlank()}
-              type="submit"
-              value="完成"
-              disabled={isButtonDisable}
-            />
+          <input
+            className={checkInputIsBlank()}
+            type="submit"
+            value="完成"
+            disabled={isButtonDisable}
+          />
         </form>
       </div>
     );

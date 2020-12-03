@@ -1,14 +1,17 @@
 import { SET_LOGIN_STAUTS, SET_USERDATA, SET_IS_CHECK_LOGIN,SET_SIGNUP_USER_NAME, CLEAN_UP } from "./constants";
 import Api from "../../utils/api/userAPI"
 export const tryLogin = (userName,password) => (dispatch) => {
-  const isLogin = true;
+  //const isLogin = true;
   //dispatch({ type: SET_LOGIN_STAUTS, payload: isLogin });
     Api.userLogin(userName, password)
       .then((res) => {
-        //dispatch({ type: SET_USERDATA, payload: res[0] });
-        console.log(res)
+        dispatch({ type: SET_USERDATA, payload: res.data });
+        dispatch({ type: SET_LOGIN_STAUTS, payload: true });
+        //console.log(res.data)
       })
       .catch((err) => {
+        console.log("wrong password")
+        dispatch({ type: SET_LOGIN_STAUTS, payload: false });
       });
 };
 

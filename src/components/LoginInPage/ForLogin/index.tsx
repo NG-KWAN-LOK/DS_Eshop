@@ -17,6 +17,7 @@ const NavItem: React.FC<HeaderProps> = () => {
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  let wrongText = "　";
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -27,6 +28,12 @@ const NavItem: React.FC<HeaderProps> = () => {
   const handleSubmit = (event) => {
     console.log(username, password);
     dispatch(loginActions.tryLogin(username,password));
+    if(isLogin == false){
+      wrongText = "帳號或密碼錯誤！"
+    }
+    else{
+      history.push("/");
+    }
     event.preventDefault();
   };
 
@@ -81,7 +88,9 @@ const NavItem: React.FC<HeaderProps> = () => {
       <div className={styles.loginContent}>
         <div className={styles.loginContent_loginFrame}>
           <div className={styles.loginContent_loginFrame_title}>登入</div>
-
+          <div className={styles.loginContent_loginFrame_errorText}>
+            {wrongText}
+          </div>
           <form onSubmit={handleSubmit}>
             <input
               className={printIfUserNameBlank()}

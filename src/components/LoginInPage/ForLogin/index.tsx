@@ -26,7 +26,7 @@ const NavItem: React.FC<HeaderProps> = () => {
 
   const handleSubmit = (event) => {
     console.log(username, password);
-    dispatch(loginActions.tryLogin());
+    dispatch(loginActions.tryLogin(username,password));
     event.preventDefault();
   };
 

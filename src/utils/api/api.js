@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const api = {};
-
 export const instance = axios.create({
   timeout: 20000,
   onUploadProgress: (progressEvent) => {
@@ -10,10 +9,11 @@ export const instance = axios.create({
   },
 });
 
-api.fire = async (options) => {
-  return instance.request({
+api.userLogin = async (options) => {
+  return await instance.request({
     ...options,
     baseURL: process.env.API_HOST,
+    mode:"cors",
     headers: {
       ...options.headers,
       "Content-Type": "application/json",

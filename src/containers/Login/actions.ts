@@ -1,21 +1,24 @@
-import { SET_LOGIN_STAUTS, SET_USERDATA, SET_IS_CHECK_LOGIN, CLEAN_UP } from "./constants";
-import LoginApi from "../../utils/api/apifetcher/login"
-export const tryLogin = () => (dispatch) => {
+import { SET_LOGIN_STAUTS, SET_USERDATA, SET_IS_CHECK_LOGIN,SET_SIGNUP_USER_NAME, CLEAN_UP } from "./constants";
+import Api from "../../utils/api/userAPI"
+export const tryLogin = (userName,password) => (dispatch) => {
   const isLogin = true;
-  dispatch({ type: SET_LOGIN_STAUTS, payload: isLogin });
-  if (isLogin == true) {
-    LoginApi.getUserData()
+  //dispatch({ type: SET_LOGIN_STAUTS, payload: isLogin });
+    Api.userLogin(userName, password)
       .then((res) => {
-        dispatch({ type: SET_USERDATA, payload: res[0] });
-        //console.log(res[0])
+        //dispatch({ type: SET_USERDATA, payload: res[0] });
+        console.log(res)
       })
       .catch((err) => {
       });
-  }
 };
 
 export const setIsCheckLogin = (isCheckLogin) => (dispatch) => {
   dispatch({ type: SET_IS_CHECK_LOGIN, payload: isCheckLogin });
+};
+
+export const setSignUpUserName = (_signUpUserName) => (dispatch) => {
+  dispatch({ type: SET_SIGNUP_USER_NAME, payload: _signUpUserName });
+  console.log(_signUpUserName);
 };
 
 export const setUserData = () => (dispatch) => {

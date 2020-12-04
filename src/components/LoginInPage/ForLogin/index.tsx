@@ -17,7 +17,7 @@ const NavItem: React.FC<HeaderProps> = () => {
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  let wrongText = "　";
+  const [wrongText, setwWongText] = useState("　");
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -27,10 +27,9 @@ const NavItem: React.FC<HeaderProps> = () => {
 
   const handleSubmit = (event) => {
     console.log(username, password);
-    let request = dispatch(loginActions.tryLogin(username, password));
-    console.log(request)
+    dispatch(loginActions.tryLogin(username, password));
     if (isLogin == false) {
-      wrongText = "帳號或密碼錯誤！"
+      setwWongText("帳號或密碼錯誤！")
       console.log("is error")
     }
     else {

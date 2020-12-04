@@ -22,7 +22,7 @@ const NavItem: React.FC<HeaderProps> = () => {
   const { pathname } = useLocation();
   const signUpUserName = useSelector((appState: any) => appState.LoginReducer.signUpUserName);
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
-  
+  const [errorText, setErrorText] = useState("　");
   const dispatch = useDispatch();
   let _name = "";
   let _phoneNumber = "";
@@ -36,7 +36,11 @@ const NavItem: React.FC<HeaderProps> = () => {
     Api.userSignUp(signUpUserName,_name, _phoneNumber,_email,_address)
       .then((res) => {
         console.log("success")
-        dispatch(loginActions.tryLogin(signUpUserName._username,signUpUserName._password));
+        console.log(res.data)
+        if(res.data != "404\ncheck your attribute(s) is duplicate. ")
+          dispatch(loginActions.tryLogin(signUpUserName._username,signUpUserName._password));
+        else
+          setErrorText("您所輸入的用戶資料已曾經加入會員或已被使用，註冊失敗。")
       })
       .catch((err) => {
         console.log("fail")
@@ -313,6 +317,7 @@ const NavItem: React.FC<HeaderProps> = () => {
             onChange={handleChangeAddress}
           />
           <div className={styles.loginContent_errorText}>{addressBlankText}</div>
+          <div className={styles.loginContent_errorText}>{errorText}</div>
           <input
             className={checkInputIsBlank()}
             type="submit"

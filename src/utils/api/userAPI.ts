@@ -12,6 +12,7 @@ const userApi = {
       "userName" : _userName,
       "password" : _password
     }
+    console.log(userData)
     return api.userLogin({ url: "/users/login",method: "POST",data: userData })
   },
 
@@ -26,7 +27,7 @@ const userApi = {
       "address": _address
     }
     //console.log(_signUpUserName._username)
-    //console.log(signUpUserName._username, signUpUserName._password)
+    console.log(userData)
     return api.userLogin({ url: "/users/signUp",method: "POST",data: userData })
   },
 };

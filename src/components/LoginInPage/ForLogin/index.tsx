@@ -27,11 +27,13 @@ const NavItem: React.FC<HeaderProps> = () => {
 
   const handleSubmit = (event) => {
     console.log(username, password);
-    dispatch(loginActions.tryLogin(username,password));
-    if(isLogin == false){
+    let request = dispatch(loginActions.tryLogin(username, password));
+    console.log(request)
+    if (isLogin == false) {
       wrongText = "帳號或密碼錯誤！"
+      console.log("is error")
     }
-    else{
+    else {
       history.push("/");
     }
     event.preventDefault();

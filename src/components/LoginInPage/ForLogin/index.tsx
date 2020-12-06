@@ -15,19 +15,26 @@ const NavItem: React.FC<HeaderProps> = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [wrongText, setwWongText] = useState("　");
+  const [isLoading,setIsloading] = useState(false);
+  const [userNameBlankText, setUserNameBlankText] = useState("");
+  const [passwordBlankText, setPasswordBlankText] = useState("");
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
+    setUserNameBlankText(e.target.value===''?"請填寫此欄位":'');
   };
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
+    setPasswordBlankText(e.target.value===''?"請填寫此欄位":'');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
+    event.preventDefault();
     console.log(username, password);
-    dispatch(loginActions.tryLogin(username, password));
+setIsloading(true);
+    await dispatch(loginActions.tryLogin(username, password));
     if (isLogin == false) {
       setwWongText("帳號或密碼錯誤！")
       console.log("is error")
@@ -35,7 +42,6 @@ const NavItem: React.FC<HeaderProps> = () => {
     else {
       history.push("/");
     }
-    event.preventDefault();
   };
 
   if (isLogin == true) {
@@ -44,8 +50,6 @@ const NavItem: React.FC<HeaderProps> = () => {
 
   let loginContent_submitBtn = "loginContent_submitBtn";
   let isButtonDisable = true;
-  let userNameBlankText = "";
-  let passwordBlankText = "";
   function checkInputIsBlank() {
     if (
       username == null ||
@@ -65,20 +69,16 @@ const NavItem: React.FC<HeaderProps> = () => {
     }
   }
   function printIfUserNameBlank() {
-    if (username === "") {
-      userNameBlankText = "請填寫此欄位";
+    if (userNameBlankText !== "") {
       return `${styles["loginContent_inputBar"]} ${styles["loginContent_inputBar-error"]}`;
     } else {
-      userNameBlankText = "　";
       return `${styles["loginContent_inputBar"]}`;
     }
   }
   function printIfPasswordBlank() {
-    if (password === "") {
-      passwordBlankText = "請填寫此欄位";
+    if (passwordBlankText !== "") {
       return `${styles["loginContent_inputBar"]} ${styles["loginContent_inputBar-error"]}`;
     } else {
-      passwordBlankText = "　";
       return `${styles["loginContent_inputBar"]}`;
     }
   }
@@ -94,7 +94,7 @@ const NavItem: React.FC<HeaderProps> = () => {
           </div>
           <form onSubmit={handleSubmit}>
             <input
-              className={printIfUserNameBlank()}
+              className={`${styles.loginContent_inputBar} ${passwordBlankText ?styles.loginContent_errorText:''}`}
               type="text"
               placeholder={"使用者名稱"}
               value={username}
@@ -130,6 +130,7 @@ const NavItem: React.FC<HeaderProps> = () => {
           </div>
         </div>
       </div>
+      {/* {isLoading && <Loading />} */}
     </div>
   );
 };

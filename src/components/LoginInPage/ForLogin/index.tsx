@@ -23,11 +23,11 @@ const NavItem: React.FC<HeaderProps> = () => {
   const [passwordBlankText, setPasswordBlankText] = useState("");
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
-    setUserNameBlankText(e.target.value === '' ? "請填寫此欄位" : '');
+    setUserNameBlankText(e.target.value === "" ? "請填寫此欄位" : '');
   };
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
-    setPasswordBlankText(e.target.value === '' ? "請填寫此欄位" : '');
+    setPasswordBlankText(e.target.value === "" ? "請填寫此欄位" : '');
   };
 
   const handleSubmit = async (event) => {
@@ -94,7 +94,7 @@ const NavItem: React.FC<HeaderProps> = () => {
           </div>
           <form onSubmit={handleSubmit}>
             <input
-              className={`${styles.loginContent_inputBar} ${passwordBlankText ? styles.loginContent_errorText : ''}`}
+              className={printIfUserNameBlank()}
               type="text"
               placeholder={"使用者名稱"}
               value={username}

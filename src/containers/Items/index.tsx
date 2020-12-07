@@ -32,10 +32,9 @@ const Item = () => {
   const [goodsCommentInfo, setGoodsCommentInfo] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [newCommentContent, setNewCommentContent] = useState("");
-  let commentContentIsBlank = false
+  const [commentContentIsBlank, setCommentContentIsBlank] = useState(true);
   const handleChangeNewCommentContent = (e) => {
     setNewCommentContent(e.target.value);
-    commentContentIsBlank = e.target.value === "" ? true : false;
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -92,7 +91,7 @@ const Item = () => {
   console.log(quantity);
   function chooseCommentMode() {
     if (isLogin == true) {
-      return (<form className={styles.commentContainer_body_desription_newComment} onSubmit={handleSubmit}>
+      return <form className={styles.commentContainer_body_desription_newComment} onSubmit={handleSubmit}>
         <textarea
           className={styles.commentContainer_body_desription_newComment_input}
           placeholder={"請輸入評語"}
@@ -101,12 +100,29 @@ const Item = () => {
         >
         </textarea>
         <input
-          className={`${styles.loginContent_submitBtn} ${commentContentIsBlank ? styles.loginContent_submitBtn_not_allow : styles.loginContent_submitBtn_allow}`}
+          className={`${styles.loginContent_submitBtn} ${newCommentContent === "" ? styles.loginContent_submitBtn_not_allow : styles.loginContent_submitBtn_allow}`}
           type="submit"
           value="發表"
-          disabled={commentContentIsBlank}
+          disabled={newCommentContent === ""}
         />
-      </form>)
+      </form>
+    }
+    else {
+      return <form className={styles.commentContainer_body_desription_newComment} onSubmit={handleSubmit}>
+        <textarea
+          className={styles.commentContainer_body_desription_newComment_input_not_allow}
+          placeholder={"登入後才能發表評語"}
+          value={newCommentContent}
+          onChange={handleChangeNewCommentContent}
+        >
+        </textarea>
+        <input
+          className={`${styles.loginContent_submitBtn} ${newCommentContent === "" ? styles.loginContent_submitBtn_not_allow : styles.loginContent_submitBtn_allow}`}
+          type="submit"
+          value="發表"
+          disabled={newCommentContent === ""}
+        />
+      </form>
     }
   }
   return (

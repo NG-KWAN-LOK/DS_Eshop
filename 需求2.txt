@@ -1,0 +1,73 @@
+1:seller更改訂單狀態
+post request:
+{
+    goodId: "0",
+    status: "0",
+}
+
+respond:
+OK
+
+2:seller刪除商品
+post request:
+{
+    goodId: "0",
+}
+respond:
+OK
+
+3:customer更改用戶資料
+post request:
+{
+    userToken: "",
+    customerName: "",
+    phoneNumber: "",
+    email: "",
+    address: "",
+    
+}
+respond:
+{
+    customerName: "",
+    phoneNumber: "",
+    email: "",
+    address: "",
+}
+
+4:加入Shopping Cart
+{
+    userToken : "",
+    goodId: "",
+}
+respond:
+OK
+
+5:刪除Shopping Cart
+{
+    userToken : "",
+    goodId: "",
+}
+respond:
+OK
+
+6:增加訂單
+{
+    goodList = [{
+    id: "0jkdfgjkfdjgfhdkg",
+    name:"賣老婆1 新垣結衣 gaki Aragaki Yui 可愛日本人妻 明星 美女 星野原真是爽",
+    imgURL: "https://attach.setn.com/newsimages/2020/04/28/2527272-XXL.jpg",
+    price: "999",
+    count: "10",
+  },
+    {
+    id: "1gkldfjgkfdjgkldfjgdfg",
+    name:"賣老婆2 石原里美 石原聰美 石神国子 Ishihara Satomi 可愛日本人妻 明星 美女",
+    imgURL:
+      "https://images.chinatimes.com/newsphoto/2020-10-07/900/20201007003536.jpg",
+    price: "999",
+    count: "10",
+  },
+]
+}
+respond:
+OK

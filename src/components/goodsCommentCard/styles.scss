@@ -1,0 +1,52 @@
+.container {
+  display: block;
+  align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 0 0 12px 0px;
+}
+.container_userData {
+  display: flex;
+  width: 100%;
+}
+.container_commentContainer {
+  display: flex;
+  width: 100%;
+}
+.container_otherContainer {
+  display: flex;
+  width: 100%;
+}
+.container_userData {
+  display: flex;
+  width: 100%;
+}
+.container_userData_userName {
+  display: flex;
+  color: #000000;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 200;
+}
+.container_commentContainer_content {
+  display: flex;
+  margin: 5px 0;
+}
+.container_commentContainer_content {
+  display: flex;
+  color: #000000;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.container_otherContainer_date {
+  display: flex;
+  color: #000000;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 200;
+}

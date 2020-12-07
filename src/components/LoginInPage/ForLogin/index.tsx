@@ -18,22 +18,22 @@ const NavItem: React.FC<HeaderProps> = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [wrongText, setwWongText] = useState("　");
-  const [isLoading,setIsloading] = useState(false);
+  const [isLoading, setIsloading] = useState(false);
   const [userNameBlankText, setUserNameBlankText] = useState("");
   const [passwordBlankText, setPasswordBlankText] = useState("");
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
-    setUserNameBlankText(e.target.value===''?"請填寫此欄位":'');
+    setUserNameBlankText(e.target.value === '' ? "請填寫此欄位" : '');
   };
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
-    setPasswordBlankText(e.target.value===''?"請填寫此欄位":'');
+    setPasswordBlankText(e.target.value === '' ? "請填寫此欄位" : '');
   };
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(username, password);
-setIsloading(true);
+    setIsloading(true);
     await dispatch(loginActions.tryLogin(username, password));
     if (isLogin == false) {
       setwWongText("帳號或密碼錯誤！")
@@ -94,7 +94,7 @@ setIsloading(true);
           </div>
           <form onSubmit={handleSubmit}>
             <input
-              className={`${styles.loginContent_inputBar} ${passwordBlankText ?styles.loginContent_errorText:''}`}
+              className={`${styles.loginContent_inputBar} ${passwordBlankText ? styles.loginContent_errorText : ''}`}
               type="text"
               placeholder={"使用者名稱"}
               value={username}

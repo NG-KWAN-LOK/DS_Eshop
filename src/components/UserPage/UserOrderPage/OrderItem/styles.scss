@@ -1,0 +1,55 @@
+.container {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #ffffff;
+  margin: 0 0 10px 0;
+}
+.container_topCol {
+  display: block;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 20px 20px 0 20px;
+}
+.container_topCol_header {
+  display: flex;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 0 15px 0;
+}
+.container_topCol_header_titleBox {
+  display: flex;
+  width: 50%;
+}
+.container_topCol_header_titleBox_orderID {
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 500;
+  font-style: normal;
+}
+.container_topCol_header_statusBox {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+}
+.container_topCol_header_statusBox_statusDescritption {
+  color: #000000;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: normal;
+  padding: 0 10px 0 0;
+}
+.container_topCol_header_statusBox_status {
+  color: #ee4d2d;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: normal;
+  border-left: 1px solid #e5e5e5;
+  padding: 0 0 0 10px;
+}
+.container_topCol_goodsItemListContainer {
+}

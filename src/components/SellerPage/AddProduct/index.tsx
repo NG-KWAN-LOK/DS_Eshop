@@ -22,8 +22,8 @@ const AddProduct = () => {
   const [goodsImg, setGoodsImg] = useState();
 
   const handleSubmit = (event) => {
-    console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
     event.preventDefault();
+    console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
   };
   const handleChangeGoodsName = (e) => {
     setGoodsName(e.target.value);

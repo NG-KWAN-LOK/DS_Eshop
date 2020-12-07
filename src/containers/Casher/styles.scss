@@ -1,0 +1,144 @@
+.top_Padding {
+  padding-top: 11.9rem;
+}
+
+.container {
+}
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 0;
+}
+.pageContainer_productContainer {
+  display: bl;
+  width: 1200px;
+}
+._pageContainer_productContainer_productHeader {
+  display: flex;
+  width: 100%;
+  background-color: #ffffff;
+  height: 5.5rem;
+  align-items: center;
+  padding: 0 20px;
+  margin: 0 0 12px 0px;
+}
+._pageContainer_productContainer_productHeader_text {
+  display: flex;
+  justify-content: center;
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  padding: 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 200;
+  font-style: normal;
+}
+._pageContainer_productContainer_productHeader_porductName {
+  @extend ._pageContainer_productContainer_productHeader_text;
+  width: 70%;
+}
+._pageContainer_productContainer_productHeader_unitPrice {
+  @extend ._pageContainer_productContainer_productHeader_text;
+  width: 12%;
+}
+._pageContainer_productContainer_productHeader_count {
+  @extend ._pageContainer_productContainer_productHeader_text;
+  width: 12%;
+}
+._pageContainer_productContainer_productHeader_totalPrice {
+  @extend ._pageContainer_productContainer_productHeader_text;
+  width: 12%;
+}
+.container_cartFooter {
+  display: block;
+  width: 100%;
+  background-color: #ffffff;
+  align-items: center;
+  margin: 0 0 12px 0px;
+}
+.container_cartFooter_shipInfo {
+  display: block;
+  padding: 20px 30px 10px;
+  border-bottom: 1px solid #00000025;
+}
+.container_cartFooter_shipInfo_title {
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 300;
+  font-style: normal;
+}
+.container_cartFooter_shipInfo_customerName,
+.container_cartFooter_shipInfo_customerAddress,
+.container_cartFooter_shipInfo_customerPhoneNumber {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  margin: 24px 0;
+}
+.container_cartFooter_shipInfo_customerName_title,
+.container_cartFooter_shipInfo_customerAddress_title,
+.container_cartFooter_shipInfo_customerPhoneNumber_title {
+  display: flex;
+  justify-content: flex-start;
+  align-self: center;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+  width: 10%;
+}
+.container_cartFooter_shipInfo_customerName_text,
+.container_cartFooter_shipInfo_customerAddress_text,
+.container_cartFooter_shipInfo_customerPhoneNumber_text {
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 300;
+  font-size: 1.5rem;
+  margin: 0 0 0 24px;
+}
+.container_cartFooter_row1 {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 30px;
+}
+.container_cartFooter_row1_totalGoods {
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.container_cartFooter_row1_totalPrice {
+  color: #ee4d2d;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 3rem;
+  font-weight: 500;
+  font-style: normal;
+  margin: 0 0 0 5px;
+}
+.container_cartFooter_row1_toCasherBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 1.4rem;
+  color: #fff;
+  background-color: #fb5533;
+  border-radius: 2px;
+  padding: 0 90px;
+  margin: 0 0 0 15px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.9;
+  }
+}

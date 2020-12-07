@@ -1,0 +1,68 @@
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.pageContainer {
+  display: flex;
+  height: 100%;
+  width: 1200px;
+  padding-top: 11.9rem;
+}
+.menuNav {
+  display: block;
+  width: 220px;
+  height: 100%;
+  padding: 16px;
+}
+.menuNav_item {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.menuNav_item_title {
+  display: flex;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  font-style: normal;
+  padding: 5px 0;
+}
+.menuNav_item_subMenuNav {
+  display: block;
+  width: 100%;
+  padding-left: 24px;
+}
+.menuNav_item_subMenuNav_subItem {
+  display: block;
+  width: 100%;
+  color: #333333;
+  cursor: pointer;
+  &-active,
+  &:hover {
+    color: #ee4d2d;
+  }
+}
+.menuNav_item_subMenuNav_subItem_title {
+  display: flex;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+  padding: 5px 0;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  width: 100%;
+}
+.content_block {
+  display: flex;
+  width: 993px;
+  margin: 20px 0;
+}

@@ -5,10 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./styles.scss";
 
 import GoodsApi from "../../utils/api/apifetcher/goods";
+import CommentApi from "../../utils/api/apifetcher/goodsComment";
 
 import { getParams } from "../../utils/tools";
 import Header from "../../components/Header/MainHeader";
-import GoodsCard from "../../components/GoodsCard";
+import GoodsCommentCard from "../../components/goodsCommentCard";
 
 import * as loginActions from "../../containers/Login/actions";
 
@@ -28,7 +29,17 @@ const Item = () => {
   const { pathname, search } = location;
   const { goodsID: goodsID } = getParams(search, ["goodsID"]);
   const [goodsItemInfo, setGoodsItemInfo] = useState([]);
+  const [goodsCommentInfo, setGoodsCommentInfo] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const [newCommentContent, setNewCommentContent] = useState("");
+  const [commentContentIsBlank, setCommentContentIsBlank] = useState(true);
+  const handleChangeNewCommentContent = (e) => {
+    setNewCommentContent(e.target.value);
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(newCommentContent);
+  };
   const handleChangeQuantity = (e) => {
     if (e.target.value > 0 || e.target.value === "")
       if (e.target.value === "") setQuantity(e.target.value);
@@ -45,6 +56,16 @@ const Item = () => {
     GoodsApi.getGoodsItemInfo(goodsID)
       .then((res) => {
         setGoodsItemInfo(res);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+  }, []);
+  useEffect(() => {
+    CommentApi.getCommentData()
+      .then((res) => {
+        //console.log(res);
+        setGoodsCommentInfo(res);
       })
       .catch((err) => {
         console.log("error");
@@ -68,6 +89,42 @@ const Item = () => {
   }
   console.log(goodsItemInfo);
   console.log(quantity);
+  function chooseCommentMode() {
+    if (isLogin == true) {
+      return <form className={styles.commentContainer_body_desription_newComment} onSubmit={handleSubmit}>
+        <textarea
+          className={styles.commentContainer_body_desription_newComment_input}
+          placeholder={"請輸入評語"}
+          value={newCommentContent}
+          onChange={handleChangeNewCommentContent}
+        >
+        </textarea>
+        <input
+          className={`${styles.loginContent_submitBtn} ${newCommentContent === "" ? styles.loginContent_submitBtn_not_allow : styles.loginContent_submitBtn_allow}`}
+          type="submit"
+          value="發表"
+          disabled={newCommentContent === ""}
+        />
+      </form>
+    }
+    else {
+      return <form className={styles.commentContainer_body_desription_newComment} onSubmit={handleSubmit}>
+        <textarea
+          className={styles.commentContainer_body_desription_newComment_input_not_allow}
+          placeholder={"登入後才能發表評語"}
+          value={newCommentContent}
+          onChange={handleChangeNewCommentContent}
+        >
+        </textarea>
+        <input
+          className={`${styles.loginContent_submitBtn} ${newCommentContent === "" ? styles.loginContent_submitBtn_not_allow : styles.loginContent_submitBtn_allow}`}
+          type="submit"
+          value="發表"
+          disabled={newCommentContent === ""}
+        />
+      </form>
+    }
+  }
   return (
     <div className={styles.container}>
       <Header />
@@ -184,7 +241,22 @@ const Item = () => {
           </div>
         </div>
       </div>
-    </div>
+      <div className={styles.commentContainer}>
+        <div className={styles.commentContainer_body}>
+          <div className={styles.commentContainer_body_desription}>
+            <div className={styles.commentContainer_body_desription_title}>
+              商品評價
+            </div>
+            {chooseCommentMode()}
+            <div className={styles.commentContainer_body_desription_commentItem}>
+              {goodsCommentInfo.map((data, index) => {
+                return <GoodsCommentCard commentData={data} />;
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div >
   );
 };
 

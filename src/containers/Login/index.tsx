@@ -3,7 +3,6 @@ import { Link, Route, useHistory, useLocation } from "react-router-dom";
 
 import styles from "./styles.scss";
 
-//import Header from "../../components/Header/headerComponents/LoginHeader";
 import ForLogin from "../../components/LoginInPage/ForLogin";
 import ForSignup from "../../components/LoginInPage/ForSignUp";
 interface LoginProps {}

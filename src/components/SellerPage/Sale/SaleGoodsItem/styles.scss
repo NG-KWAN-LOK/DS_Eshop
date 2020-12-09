@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 10px 0;
+}
+.container_goodsItemInfo {
+  display: flex;
+  width: 100%;
+}
+.container_goodsItemInfo_imageContainer {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 0 10px 0 0;
+}
+.container_goodsItemInfo_imageContainer_img {
+  min-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+.container_goodsItemInfo_dataContainer {
+  display: block;
+}
+.container_goodsItemInfo_dataContainer_title {
+  color: #000000;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+  padding: 0 0 5px 0;
+}
+.container_goodsItemInfo_dataContainer_count {
+  color: #000000;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: normal;
+}
+.container_goodsItmePrice {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.container_goodsItmePrice_text {
+  color: #ee4d2d;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: normal;
+}

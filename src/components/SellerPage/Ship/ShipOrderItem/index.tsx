@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
-import GoodsItem from "../GoodsItem"
+import GoodsItem from "../ShipGoodsItem"
 
 // const ArtistLink = ({ audioData, customClass = undefined, children }) => {
 //   {
@@ -26,7 +26,7 @@ const OrdersCard = ({ ordersData }) => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
-  //console.log(ordersData);
+  console.log(ordersData);
   let statusWord = "";
   let statusDescription = "";
   function ConvertStatusCode() {
@@ -60,46 +60,30 @@ const OrdersCard = ({ ordersData }) => {
     })
     return totalPrice;
   }
-  function confirmRecieved() {
-    console.log("confirmRecieved" + ordersData.orderId)
-  }
-  function buyAgain() {
-    console.log("buyAgain" + ordersData.orderId)
-  }
   ConvertStatusCode()
   return (
     <div className={styles.container}>
       <div className={styles.container_topCol}>
-        <div className={styles.container_topCol_header}>
-          <div className={styles.container_topCol_header_titleBox}>
-            <div className={styles.container_topCol_header_titleBox_orderID}>訂單編號{ordersData.orderId}</div>
-          </div>
-          <div className={styles.container_topCol_header_statusBox}>
-            <div className={styles.container_topCol_header_statusBox_statusDescritption}>{statusDescription}</div>
-            <div className={styles.container_topCol_header_statusBox_status}>{statusWord}</div>
-          </div>
-        </div>
         <div className={styles.container_topCol_goodsItemListContainer}>
           {ordersData.goodsList.map((data, index) => {
             return <GoodsItem goodsData={data} />;
           })}
         </div>
-      </div>
-      <div className={styles.container_bottomCol}>
-        <div className={styles.container_bottomCol_totalPriceContainer}>
-          <div className={styles.container_bottomCol_totalPriceContainer_title}>
-            訂單金額:
-          </div>
-          <div className={styles.container_bottomCol_totalPriceContainer_price}>
-            ${CountTotalPrice()}
+        <div className={styles.container_topCol_totalPrice}>
+          ${CountTotalPrice()}
+        </div>
+        <div className={styles.container_topCol_status}>
+          {statusWord}
+        </div>
+        <div className={styles.container_topCol_control}>
+          <div className={styles.container_topCol_control_container} >
+            <div className={styles.container_topCol_control_text}>設為備貨中</div>
+            <div className={styles.container_topCol_control_text}>設為待出貨</div>
+            <div className={styles.container_topCol_control_text}>設為待收貨</div>
           </div>
         </div>
-        <div className={styles.container_bottomCol_optionContainer}>
-          {ordersData.status !== "4" && <div className={styles.loginContent_submitBtn} onClick={confirmRecieved}> 確認收貨</div>}
-          {ordersData.status === "4" && <div className={styles.loginContent_submitBtn} onClick={buyAgain}>再買一次</div>}
-        </div>
       </div>
-    </div >
+    </div>
   );
 };
 

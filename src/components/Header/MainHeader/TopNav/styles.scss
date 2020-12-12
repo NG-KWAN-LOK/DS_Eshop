@@ -18,6 +18,7 @@
 }
 .signinLogin {
   display: block;
+  position: relative;
   &:hover {
     .title_under {
       height: auto;
@@ -49,18 +50,18 @@
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
     border-bottom: 7px solid #e1e1e1;
-    transform: translateY(40%) translateX(1100%);
+    transform: translateY(40%) translateX(1030%);
   }
 }
 .title_under_subtitle {
   display: flex;
   align-items: center;
   width: 200px;
+  padding-left: 20px;
   font-family: "Noto Sans TC", sans-serif;
   font-size: 16px;
   font-weight: 300;
   line-height: 45px;
-  padding-left: 20px;
   color: #000000;
   border: 1px solid #e1e1e1;
   background-color: #fff;

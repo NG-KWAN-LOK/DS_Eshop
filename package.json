@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "= 4.5.0",
-    "npm": "= 3.9.6"
+    "node": "= 12.16.3",
+    "npm": "= 4.0.3"
   },
   "scripts": {
     "dev-local": "webpack-dev-server --config webpack.config.dev.js --progress --hot --mode development --host 0.0.0.0 --env.ENVIRONMENT=dev-local",

@@ -21,8 +21,6 @@ const Product = () => {
   const history = useHistory();
   const { pathname } = useLocation();
   const username = useSelector((appState: any) => appState.LoginReducer.userData.userName);
-  const [enterPassWord, setenterPassWord] = useState();
-  const [confirmPassWord, setconfirmPassWord] = useState();
   const [ordersList, getOrdersList] = useState([]);
   //const goodsCount = 0;
   useEffect(() => {

@@ -6,7 +6,7 @@ import { createStore } from "redux";
 import styles from "./styles.scss";
 
 import * as loginActions from "../../../containers/Login/actions";
-
+import Loading from "../../PopUpLayer/Loading"
 import Header from "../../Header/LoginHeader";
 
 interface HeaderProps { }
@@ -36,6 +36,7 @@ const NavItem: React.FC<HeaderProps> = () => {
     setIsloading(true);
     await dispatch(loginActions.tryLogin(username, password));
     if (isLogin == false) {
+      setIsloading(false);
       setwWongText("帳號或密碼錯誤！")
       console.log("is error")
     }
@@ -130,7 +131,7 @@ const NavItem: React.FC<HeaderProps> = () => {
           </div>
         </div>
       </div>
-      {/* {isLoading && <Loading />} */}
+      {isLoading && <Loading />}
     </div>
   );
 };

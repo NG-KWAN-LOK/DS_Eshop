@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./styles.scss";
 import Header from "../../Header/SigninHeader";
 import Api from "../../../utils/api/userAPI"
+import Loading from "../../PopUpLayer/Loading"
 import * as loginActions from "../../../containers/Login/actions";
 
 interface HeaderProps { }
@@ -23,24 +24,29 @@ const NavItem: React.FC<HeaderProps> = () => {
   const signUpUserName = useSelector((appState: any) => appState.LoginReducer.signUpUserName);
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
   const [errorText, setErrorText] = useState("　");
+  const [isLoading, setIsloading] = useState(false);
   const dispatch = useDispatch();
   let _name = "";
   let _phoneNumber = "";
-  let _email= "";
+  let _email = "";
   let _address = "";
-  if(isLogin == true){
+  if (isLogin == true) {
     history.push("/");
   }
-  function finishFillIn(){
-    console.log(_name,_phoneNumber,_email,_address)
-    Api.userSignUp(signUpUserName,_name, _phoneNumber,_email,_address)
+  async function finishFillIn() {
+    console.log(_name, _phoneNumber, _email, _address)
+    setIsloading(true);
+    await Api.userSignUp(signUpUserName, _name, _phoneNumber, _email, _address)
       .then((res) => {
         console.log("success")
         console.log(res.data)
-        if(res.data != "404\ncheck your attribute(s) is duplicate. ")
-          dispatch(loginActions.tryLogin(signUpUserName._username,signUpUserName._password));
-        else
+        if (res.data != "404\ncheck your attribute(s) is duplicate. ")
+          dispatch(loginActions.tryLogin(signUpUserName._username, signUpUserName._password));
+        else {
           setErrorText("您所輸入的用戶資料已曾經加入會員或已被使用，註冊失敗。")
+          setIsloading(false);
+          history.push("/login/signup");
+        }
       })
       .catch((err) => {
         console.log("fail")
@@ -56,17 +62,17 @@ const NavItem: React.FC<HeaderProps> = () => {
     const handleChangePassword = (e) => {
       setPassword(e.target.value);
     };
-  
+
     const handleChangeDoubleCheckPassword = (e) => {
       setDoubleCheckPassword(e.target.value);
     };
-  
+
     const handleSubmit = (event) => {
       event.preventDefault();
       console.log(username, password, doubleCheckPassword);
       let data = {
-        _username : username,
-        _password : password,
+        _username: username,
+        _password: password,
       }
       dispatch(loginActions.setSignUpUserName(data));
       history.push("/login/signup/CustomerInfo");
@@ -154,12 +160,13 @@ const NavItem: React.FC<HeaderProps> = () => {
           <div className={styles.loginContent_errorText}>
             {doubleCheckPasswordBlankText}
           </div>
-            <input
-              className={checkInputIsBlank()}
-              type="submit"
-              value="下一步"
-              disabled={isButtonDisable}
-            />
+          <div className={styles.loginContent_errorText}>{errorText}</div>
+          <input
+            className={checkInputIsBlank()}
+            type="submit"
+            value="下一步"
+            disabled={isButtonDisable}
+          />
         </form>
         <div className={styles.loginContent_subcontent}>
           <div className={styles.loginContent_subcontent_subtitle}>
@@ -172,7 +179,7 @@ const NavItem: React.FC<HeaderProps> = () => {
       </div>
     );
   };
-  
+
   const CustomerInfo = () => {
     const [name, setName] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
@@ -190,13 +197,13 @@ const NavItem: React.FC<HeaderProps> = () => {
     const handleChangeAddress = (e) => {
       setAddress(e.target.value);
     };
-  
+
     const handleSubmit = (event) => {
       event.preventDefault();
-      console.log(name, phoneNumber, email,address);
+      console.log(name, phoneNumber, email, address);
       _name = name;
       _phoneNumber = phoneNumber;
-      _email= email;
+      _email = email;
       _address = address;
       finishFillIn();
     };
@@ -278,7 +285,7 @@ const NavItem: React.FC<HeaderProps> = () => {
         return `${styles["loginContent_inputBar"]}`;
       }
     }
-  
+
     return (
       <div>
         <div className={styles.loginContent_loginFrame_title}>填寫個人資料</div>
@@ -317,7 +324,6 @@ const NavItem: React.FC<HeaderProps> = () => {
             onChange={handleChangeAddress}
           />
           <div className={styles.loginContent_errorText}>{addressBlankText}</div>
-          <div className={styles.loginContent_errorText}>{errorText}</div>
           <input
             className={checkInputIsBlank()}
             type="submit"
@@ -325,6 +331,7 @@ const NavItem: React.FC<HeaderProps> = () => {
             disabled={isButtonDisable}
           />
         </form>
+        {isLoading && <Loading />}
       </div>
     );
   };

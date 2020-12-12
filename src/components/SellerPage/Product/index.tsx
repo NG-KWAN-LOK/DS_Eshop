@@ -54,7 +54,7 @@ const Product = () => {
           </div>
           <div className={styles.container_goodsItemListContainer_item}>
             {goodsList.map((data, index) => {
-              return <ProductGoodsItem goodsData={data} />;
+              return <ProductGoodsItem data={data} />;
             })}
           </div>
         </div>

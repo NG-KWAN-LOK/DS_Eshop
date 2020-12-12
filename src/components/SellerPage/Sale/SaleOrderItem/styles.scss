@@ -1,0 +1,57 @@
+.container {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #ffffff;
+  padding: 0 16px;
+}
+.container_topCol {
+  display: flex;
+  width: 100%;
+}
+.container_topCol_goodsItemListContainer {
+  display: block;
+  width: 65%;
+}
+.container_topCol_totalPrice {
+  display: flex;
+  width: 15%;
+  justify-content: center;
+  align-items: center;
+  color: #ee4d2d;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+}
+.container_topCol_status {
+  display: flex;
+  width: 10%;
+  justify-content: center;
+  align-items: center;
+  color: #ee4d2d;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+}
+.container_topCol_control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  color: #3d79fc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 100;
+}
+.container_topCol_control_text {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 5px;
+  cursor: pointer;
+}

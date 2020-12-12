@@ -30,7 +30,10 @@ const NavItem: React.FC<HeaderProps> = () => {
     var path = "/login";
     history.push(path);
   }, []);
-
+  function logOut(){
+    history.push("/");
+    window.location.reload(false);
+  }
   const chooseLogin = (isLogin) => {
     if (isLogin === true) {
       return (
@@ -38,11 +41,23 @@ const NavItem: React.FC<HeaderProps> = () => {
           <div className={styles.title} onClick={routeChangeToUserPage}>
             {username}
           </div>
+          <div className={styles.title_under}>
+            <div className={styles.title_under_subtitle} onClick={routeChangeToUserPage}>
+                <span className={styles.title_under_text}>
+                    我的帳戶
+                </span>
+            </div>
+            <div className={styles.title_under_subtitle} onClick={logOut}>
+                <span className={styles.title_under_text}>
+                    登出
+                </span>
+            </div>
+        </div>
         </div>
       );
     } else {
       return (
-        <div className={styles.signinLogin}>
+        <div className={styles.noSigninLogin}>
           <div className={styles.title} onClick={routeChangeToSignUp}>
             註冊
           </div>

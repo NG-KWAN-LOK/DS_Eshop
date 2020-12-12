@@ -1,6 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
 import api from "./api";
-import * as loginActions from "../../containers/Login/actions";
 const userApi = {
   // login: ({ username, password }) =>
   //   api.fire({ url: "", data: { username, password } }),
@@ -13,7 +11,7 @@ const userApi = {
       "password" : _password
     }
     console.log(userData)
-    return api.userLogin({ url: "/users/login",method: "POST",data: userData })
+    return api.userApi({ url: "/users/login",method: "POST",data: userData })
   },
 
   userSignUp:(_signUpUserName,_name, _phoneNumber, _email, _address) =>{
@@ -28,7 +26,7 @@ const userApi = {
     }
     //console.log(_signUpUserName._username)
     console.log(userData)
-    return api.userLogin({ url: "/users/signUp",method: "POST",data: userData })
+    return api.userApi({ url: "/users/signUp",method: "POST",data: userData })
   },
 };
 

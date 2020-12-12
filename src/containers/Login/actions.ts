@@ -5,9 +5,11 @@ export const tryLogin = (userName, password) => (dispatch) => {
   //dispatch({ type: SET_LOGIN_STAUTS, payload: isLogin });
   return Api.userLogin(userName, password)
     .then((res) => {
-      dispatch({ type: SET_USERDATA, payload: res.data });
-      dispatch({ type: SET_LOGIN_STAUTS, payload: true });
-      //console.log(res.data)
+      if(res.data != "密碼錯誤"){
+        dispatch({ type: SET_USERDATA, payload: res.data });
+        dispatch({ type: SET_LOGIN_STAUTS, payload: true });
+      }
+      console.log(res.data)
     })
     .catch((err) => {
       console.log("wrong password")

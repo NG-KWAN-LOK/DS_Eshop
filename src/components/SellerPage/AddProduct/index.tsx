@@ -7,23 +7,39 @@ import {
   useLocation,
   Switch,
 } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import styles from "./styles.scss";
+
+import sellerApi from "../../../utils/api/apifetcher/seller"
+import Loading from "../../PopUpLayer/Loading"
 
 interface HeaderProps { }
 
 const AddProduct = () => {
   const history = useHistory();
   const { pathname } = useLocation();
+  const userToken = useSelector((appState: any) => appState.LoginReducer.userData.userToken);
   const [goodsName, setGoodsName] = useState();
   const [goodsDesription, setGoodsDesription] = useState();
   const [goodsPrice, setGoodsPrice] = useState();
   const [goodsStock, setGoodsStock] = useState();
   const [goodsImg, setGoodsImg] = useState();
+  const [isLoading, setIsloading] = useState(false);
 
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
+    console.log(userToken, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
+    setIsloading(true)
+    await sellerApi.newItem(userToken, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock)
+      .then((res) => {
+        console.log("success")
+        history.push("/seller/product")
+      })
+      .catch((err) => {
+        console.log("fail")
+        setIsloading(false)
+      });
   };
   const handleChangeGoodsName = (e) => {
     setGoodsName(e.target.value);
@@ -194,6 +210,7 @@ const AddProduct = () => {
           />
         </div>
       </form>
+      {isLoading && <Loading />}
     </div>
   );
 };

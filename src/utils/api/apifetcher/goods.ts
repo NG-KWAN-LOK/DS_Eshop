@@ -6,9 +6,9 @@ const goodList = [
     name:
       "賣老婆1 新垣結衣 gaki Aragaki Yui 可愛日本人妻 明星 美女 星野原真是爽",
     imgURL: "https://attach.setn.com/newsimages/2020/04/28/2527272-XXL.jpg",
-    price: "999",
+    price: 999,
     stock: 99,
-    isDisplay: "true",
+    isDisplay: 0,
   },
   {
     id: "1",
@@ -16,9 +16,9 @@ const goodList = [
       "https://images.chinatimes.com/newsphoto/2020-10-07/900/20201007003536.jpg",
     name:
       "賣老婆2 石原里美 石原聰美 石神国子 Ishihara Satomi 可愛日本人妻 明星 美女",
-    price: "999",
+    price: 999,
     stock: 99,
-    isDisplay: "false",
+    isDisplay: 1,
   },
 ];
 

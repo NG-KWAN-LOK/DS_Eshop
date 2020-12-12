@@ -151,7 +151,7 @@ respond:
     imgURL:"",
     price:"",
     stock:""
-    isDisplay: "false"
+    is_Display: "false"
 }
 respond:state code is OK
 

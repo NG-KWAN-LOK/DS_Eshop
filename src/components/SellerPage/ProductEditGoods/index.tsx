@@ -9,6 +9,9 @@ import {
 } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
+import { getParams } from "../../../utils/tools";
+import sellerApi from "../../../utils/api/apifetcher/seller"
+import Loading from "../../PopUpLayer/Loading"
 import styles from "./styles.scss";
 
 // const ArtistLink = ({ audioData, customClass = undefined, children }) => {
@@ -27,22 +30,67 @@ import styles from "./styles.scss";
 //       );
 //   }
 // };
-
+interface location {
+  pathname: string;
+  search: string;
+  state:
+    | {
+        from: string;
+      }
+    | undefined;
+}
 const ProductEditGoods = () => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
   const history = useHistory();
+  const location: location = useLocation();
   const { pathname } = useLocation();
-  const [goodsName, setGoodsName] = useState();
+  const {search} = location;
+  const { goodsID:id } = getParams(search, [
+    "goodsID",
+  ]);
+  const [goodsName, setGoodsName] = useState("");
   const [goodsDesription, setGoodsDesription] = useState();
   const [goodsPrice, setGoodsPrice] = useState();
   const [goodsStock, setGoodsStock] = useState();
   const [goodsImg, setGoodsImg] = useState();
-
-  const handleSubmit = (event) => {
-    console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
+  const [goodsSale, setGoodsSale] = useState();
+  const [isLoading, setIsloading] = useState(true);
+  async function getGoodInfo(){
+    await sellerApi.getItemInfo(id)
+      .then((res) => {
+        console.log("success")
+        console.log(res.data)
+        setGoodsName(res.data.name)
+        setGoodsDesription(res.data.description)
+        setGoodsPrice(res.data.price)
+        setGoodsStock(res.data.stock)
+        setGoodsImg(res.data.imgURL)
+        setGoodsSale(res.data.sales)
+      })
+      .catch((err) => {
+        console.log("fail")
+      });
+      setIsloading(false)
+  }
+  if(goodsName === ""){
+    getGoodInfo()
+  }
+  
+  const handleSubmit = async(event) => {
     event.preventDefault();
+    console.log(id,goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale);
+    setIsloading(true)
+    await sellerApi.updateItemInfo(id,goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale)
+      .then((res) => {
+        console.log("success")
+        history.push("/seller/product")
+      })
+      .catch((err) => {
+        console.log("fail")
+        //setIsloading(false)
+      });
   };
   const handleChangeGoodsName = (e) => {
     setGoodsName(e.target.value);
@@ -215,6 +263,7 @@ const ProductEditGoods = () => {
           />
         </div>
       </form>
+      {isLoading && <Loading />}
     </div>
   );
 };

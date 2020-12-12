@@ -4,7 +4,7 @@ import { SET_LOGIN_STAUTS, SET_USERDATA, SET_IS_CHECK_LOGIN, SET_SIGNUP_USER_NAM
 
 const initialState = {
   isLogin: false,
-  userData: "",
+  userData: [],
   signUpUserName:"",
   isCheckLogin: false,
 };

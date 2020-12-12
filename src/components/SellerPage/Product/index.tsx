@@ -7,30 +7,38 @@ import {
   useLocation,
   Switch,
 } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import styles from "./styles.scss";
 import GoodsApi from "../../../utils/api/apifetcher/goods";
+import sellerApi from "../../../utils/api/apifetcher/seller"
+import * as loginActions from "../../../containers/Login/actions";
 
 import ProductGoodsItem from "./ProductGoodsItem"
+import Loading from "../../PopUpLayer/Loading"
 
 interface HeaderProps { }
 
 const Product = () => {
   const history = useHistory();
-  const { pathname } = useLocation();
-  const [value, setCount] = useState("");
+  const userToken = useSelector((appState: any) => appState.LoginReducer.userData.userToken);
   const [goodsList, getGoodsList] = useState([]);
-  //const goodsCount = 0;
+  const [isLoading, setIsloading] = useState(true);
   useEffect(() => {
-    GoodsApi.getGoodsList()
+    getGoodsListInfo()
+  }, []);
+  async function getGoodsListInfo(){
+    await sellerApi.getSellerGoodsList(userToken)
       .then((res) => {
-        //console.log(res);
-        getGoodsList(res);
+        console.log("success")
+        console.log(res.data)
+        getGoodsList(res.data);
       })
       .catch((err) => {
-        console.log("error");
+        console.log("fail")
       });
-  }, []);
+    setIsloading(false)
+  }
   return (
     <div className={styles.container}>
       <div className={styles.container_titleBar}>
@@ -58,7 +66,14 @@ const Product = () => {
             })}
           </div>
         </div>
+        {goodsList.length == 0 && 
+          <div className={styles.container_titleBar_itemEmpty}>
+            <div className={styles.container_titleBar_itemEmpty_text}>
+            您沒有商品!
+            </div>
+          </div>}
       </div>
+      {isLoading && <Loading />}
     </div>
   );
 };

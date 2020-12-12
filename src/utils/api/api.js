@@ -9,7 +9,7 @@ export const instance = axios.create({
   },
 });
 
-api.userLogin = async (options) => {
+api.userApi = async (options) => {
   return await instance.request({
     ...options,
     baseURL: process.env.API_HOST,

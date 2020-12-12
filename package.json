@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "express": "^4.14.0",
-  "moment": "^2.15.1",
+  "engines": {
+    "node": "= 4.5.0",
+    "npm": "= 3.9.6"
+  },
   "scripts": {
     "dev-local": "webpack-dev-server --config webpack.config.dev.js --progress --hot --mode development --host 0.0.0.0 --env.ENVIRONMENT=dev-local",
     "dev": "webpack-dev-server --config webpack.config.dev.js --progress --hot --mode development --host 0.0.0.0 --env.ENVIRONMENT=dev",

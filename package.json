@@ -7,8 +7,9 @@
     "dev-local": "webpack-dev-server --config webpack.config.dev.js --progress --hot --mode development --host 0.0.0.0 --env.ENVIRONMENT=dev-local",
     "dev": "webpack-dev-server --config webpack.config.dev.js --progress --hot --mode development --host 0.0.0.0 --env.ENVIRONMENT=dev",
     "build": "webpack --config webpack.config.prod.js --mode production --env.ENVIRONMENT=prod",
-    "start": "react-scripts start --title=react_Eshop",
-    "build-css": "`npm bin`/node-sass-chokidar src/ -o src/"
+    "start": "react-scripts start --title=react_Eshop webpack --config webpack.config.prod.js --mode production --env.ENVIRONMENT=prod",
+    "build-css": "`npm bin`/node-sass-chokidar src/ -o src/",
+    "build-prod": "webpack -p"
   },
   "keywords": [],
   "author": "",

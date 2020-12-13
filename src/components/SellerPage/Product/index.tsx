@@ -27,17 +27,19 @@ const Product = () => {
   useEffect(() => {
     getGoodsListInfo()
   }, []);
-  async function getGoodsListInfo(){
-    await sellerApi.getSellerGoodsList(userToken)
+  function getGoodsListInfo(){
+    sellerApi.getSellerGoodsList(userToken)
       .then((res) => {
         console.log("success")
         console.log(res.data)
         getGoodsList(res.data);
+        setIsloading(false)
       })
       .catch((err) => {
         console.log("fail")
+        setIsloading(false)
       });
-    setIsloading(false)
+    
   }
   return (
     <div className={styles.container}>
@@ -62,7 +64,7 @@ const Product = () => {
           </div>
           <div className={styles.container_goodsItemListContainer_item}>
             {goodsList.map((data, index) => {
-              return <ProductGoodsItem data={data} />;
+              return <ProductGoodsItem data={data} getGoodsAPI={getGoodsListInfo} />;
             })}
           </div>
         </div>

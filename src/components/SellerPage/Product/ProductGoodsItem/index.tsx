@@ -9,24 +9,7 @@ import sellerApi from "../../../../utils/api/apifetcher/seller"
 import Loading from "../../../PopUpLayer/Loading"
 import Confirm from "../../../PopUpLayer/ConfirmAlert"
 
-// const ArtistLink = ({ audioData, customClass = undefined, children }) => {
-//   {
-//     return audioData.artist.length === 1 ? (
-//       <Link
-//         to={PATH.getArtistLink(audioData.artist[0].id)}
-//         className={customClass}
-//       >
-//         {children}
-//       </Link>
-//     ) : (
-//         <AudioLink id={audioData.id} customClass={customClass}>
-//           {children}
-//         </AudioLink>
-//       );
-//   }
-// };
-
-const GoodsCard = ({ data }) => {
+const GoodsCard = ({ data, getGoodsAPI }) => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
@@ -34,17 +17,16 @@ const GoodsCard = ({ data }) => {
   const userToken = useSelector((appState: any) => appState.LoginReducer.userData.userToken);
   const [goodsData, setGoodsList] = useState(data);
   const [isLoading, setIsloading] = useState(false);
-  const [isCancel, setIsCancel] = useState(false);
+  const [isCancelConfrimAlert, setIsCancelConfrimAlert] = useState(false);
   const [isDownConfrimAlert, setIsDownConfrimAlert] = useState(false);
-  console.log(goodsData, data);
+  //console.log(goodsData, data);
   async function cancelGood() {
     console.log("cancelGood" + goodsData.id)
     setIsloading(true)
     await sellerApi.deleteItem(goodsData.id)
       .then((res) => {
         console.log("success")
-        setIsloading(false)
-        setIsCancel(true)
+        getGoodsAPI()
       })
       .catch((err) => {
         console.log("fail")
@@ -53,16 +35,16 @@ const GoodsCard = ({ data }) => {
   }
   function setIsDisplay() {
     if (goodsData.isDisplay == 1) {
-      console.log("set notDisplay")
-      data.isDisplay = 0;
-      setIsDownConfrimAlert(true)
-      setGoodsList(data)
+      const newData = {...goodsData,isDisplay : 0};
+      setGoodsList(newData)
+      console.log("set notDisplay", goodsData.isDisplay)
     }
     else {
-      console.log("set display")
-      data.isDisplay = 1;
-      setGoodsList(data)
+      const newData = {...goodsData,isDisplay : 1};
+      setGoodsList(newData)
+      console.log("set display", goodsData.isDisplay)
     }
+    //setGoodsList({...goodsData,isDisplay:goodsData.isDisplay===1?0:1});
   }
   return (
     <div className={styles.productGoodsItemContainer}>
@@ -81,11 +63,11 @@ const GoodsCard = ({ data }) => {
       </div>
       <div className={styles.productGoodsItemContainer_goodsControl}>
         <Link to={{ pathname: "/seller/editGoods", search: "?goodsID=" + goodsData.id }}><div className={styles.productGoodsItemContainer_goodsControl_text}>編輯</div></Link>
-        <div className={styles.productGoodsItemContainer_goodsControl_text} onClick={cancelGood}>刪除</div>
-        {goodsData.isDisplay == 0 && <div className={styles.productGoodsItemContainer_goodsControl_text} onClick={setIsDisplay}>上架</div>}
-        {goodsData.isDisplay == 1 && <div className={styles.productGoodsItemContainer_goodsControl_text} onClick={setIsDisplay}>下架</div>}
+        <div className={styles.productGoodsItemContainer_goodsControl_text} onClick={() =>setIsCancelConfrimAlert(true)}>刪除</div>
+        {goodsData.isDisplay == 0 ? <div className={styles.productGoodsItemContainer_goodsControl_text} onClick={setIsDisplay}>上架</div>:<div className={styles.productGoodsItemContainer_goodsControl_text} onClick={() =>setIsDownConfrimAlert(true)}>下架</div>}
       </div>
-      {isDownConfrimAlert && <Confirm title={"您確定要下架此商品?"} content={"商品下架後，買家將無法搜尋和購買您的商品。"}/>}
+      {isDownConfrimAlert && <Confirm title={"您確定要下架此商品?"} content={"商品下架後，買家將無法搜尋和購買您的商品。"} onCancel ={()=>{setIsDownConfrimAlert(false)}} onConfirm ={()=>{setIsDisplay();setIsDownConfrimAlert(false)}}/>}
+      {isCancelConfrimAlert && <Confirm title={"您確定要刪除此商品?"} content={"商品刪除後，便不能再回復。"} onCancel ={()=>{setIsCancelConfrimAlert(false)}} onConfirm ={()=>{cancelGood();}}/>}
       {isLoading && <Loading />}
     </div>
   );

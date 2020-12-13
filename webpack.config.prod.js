@@ -47,7 +47,6 @@ module.exports = (env) =>
       ],
     },
     plugins: [
-      new BundleAnalyzerPlugin(),
       new MiniCssExtractPlugin({
         filename: "plugin.[chunkhash].css",
       }),

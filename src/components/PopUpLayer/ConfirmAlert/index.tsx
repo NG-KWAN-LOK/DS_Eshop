@@ -8,7 +8,7 @@ import styles from "./styles.scss";
 
 interface HeaderProps { }
 
-const ConfirmAlert = ({ title, content }) => {
+const ConfirmAlert = ({ title, content, onCancel, onConfirm}) => {
   return (
     <div className={styles.containers}>
       <div className={styles.containers_block}>
@@ -19,10 +19,10 @@ const ConfirmAlert = ({ title, content }) => {
           {content}
         </div>
         <div className={styles.containers_block_footer}>
-        <div className={styles.containers_block_footer_cancelBtn}>
+        <div className={styles.containers_block_footer_cancelBtn} onClick={onCancel}>
           取消
         </div>
-        <div className={styles.containers_block_footer_confirmBtn}>
+        <div className={styles.containers_block_footer_confirmBtn} onClick={onConfirm}>
           確定
         </div>
         </div>

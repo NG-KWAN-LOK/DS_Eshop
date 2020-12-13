@@ -1,5 +1,9 @@
 # DS_Eshop
 
+## heroku app page
+
+### https://ds-shop-react.herokuapp.com/
+
 React + redux start up kit.
 
 ## Installation

@@ -64,7 +64,7 @@ const Product = () => {
           </div>
           <div className={styles.container_goodsItemListContainer_item}>
             {goodsList.map((data, index) => {
-              return <ProductGoodsItem data={data} getGoodsAPI={getGoodsListInfo} />;
+              return <ProductGoodsItem key={data.id} data={data} getGoodsAPI={getGoodsListInfo} />;
             })}
           </div>
         </div>

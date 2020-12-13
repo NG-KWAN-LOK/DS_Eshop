@@ -20,13 +20,14 @@ const GoodsCard = ({ data, getGoodsAPI }) => {
   const [isCancelConfrimAlert, setIsCancelConfrimAlert] = useState(false);
   const [isDownConfrimAlert, setIsDownConfrimAlert] = useState(false);
   //console.log(goodsData, data);
-  async function cancelGood() {
+  function cancelGood() {
     console.log("cancelGood" + goodsData.id)
     setIsloading(true)
-    await sellerApi.deleteItem(goodsData.id)
+    sellerApi.deleteItem(goodsData.id)
       .then((res) => {
         console.log("success")
-        getGoodsAPI()
+        getGoodsAPI();
+        setIsloading(false);
       })
       .catch((err) => {
         console.log("fail")

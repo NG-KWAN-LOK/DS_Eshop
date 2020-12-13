@@ -11,7 +11,7 @@
     "dev-local": "webpack-dev-server --config webpack.config.dev.js --progress --hot --mode development --host 0.0.0.0 --env.ENVIRONMENT=dev-local",
     "dev": "webpack-dev-server --config webpack.config.dev.js --progress --hot --mode development --host 0.0.0.0 --env.ENVIRONMENT=dev",
     "build": "webpack --config webpack.config.prod.js --mode production --env.ENVIRONMENT=prod",
-    "start": "react-scripts start --title=react_Eshop",
+    "start": "npm run build && node server.js",
     "build-css": "`npm bin`/node-sass-chokidar src/ -o src/",
     "build-prod": "webpack -p"
   },
@@ -55,6 +55,7 @@
     "axios": "^0.19.2",
     "cssnano": "^4.1.10",
     "dotenv-webpack": "^1.7.0",
+    "express": "^4.17.1",
     "immer": "^7.0.7",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",

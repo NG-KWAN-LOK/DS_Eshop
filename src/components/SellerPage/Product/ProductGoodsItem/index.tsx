@@ -14,7 +14,6 @@ const GoodsCard = ({ data, getGoodsAPI }) => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
   const history = useHistory();
-  const userToken = useSelector((appState: any) => appState.LoginReducer.userData.userToken);
   const [goodsData, setGoodsList] = useState(data);
   const [isLoading, setIsloading] = useState(false);
   const [isCancelConfrimAlert, setIsCancelConfrimAlert] = useState(false);
@@ -53,7 +52,7 @@ const GoodsCard = ({ data, getGoodsAPI }) => {
           className={styles.productGoodsItemContainer_goodsName_imageContainer_img}
           src={goodsData.imgURL}
         ></img></div>
-        <span>{goodsData.name}</span>
+        <Link to={{ pathname: "/items", search: "?goodsID=" + goodsData.id }}><span className={styles.productGoodsItemContainer_goodsName_text}>{goodsData.name}</span></Link>
       </div>
       <div className={styles.productGoodsItemContainer_goodsPrice}>
         <span>${goodsData.price}</span>

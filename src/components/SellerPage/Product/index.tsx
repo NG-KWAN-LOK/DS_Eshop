@@ -21,14 +21,13 @@ interface HeaderProps { }
 
 const Product = () => {
   const history = useHistory();
-  const userToken = useSelector((appState: any) => appState.LoginReducer.userData.userToken);
   const [goodsList, getGoodsList] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   useEffect(() => {
     getGoodsListInfo()
   }, []);
   function getGoodsListInfo(){
-    sellerApi.getSellerGoodsList(userToken)
+    sellerApi.getSellerGoodsList()
       .then((res) => {
         console.log("success")
         console.log(res.data)

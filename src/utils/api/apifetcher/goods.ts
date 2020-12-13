@@ -26,8 +26,12 @@ const GoodsApi = {
   getGoodsList: () => {
     return new Promise((resolve) => resolve(goodList));
   },
-  getGoodsItemInfo: (goodsID) => {
-    return new Promise((resolve) => resolve(goodList[goodsID]));
+
+  getItemInfo:(id) =>{
+    console.log(id)
+    return api.userApi({ url: "/items/getItem",method: "GET",params: {
+      id,
+    },})
   },
 };
 

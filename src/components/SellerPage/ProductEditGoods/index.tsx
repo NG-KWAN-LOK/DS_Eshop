@@ -9,32 +9,12 @@ import {
 } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
-import { getParams } from "../../../utils/tools";
 import useParams from 'Customhooks/useParams';
 import sellerApi from "../../../utils/api/apifetcher/seller"
 import Loading from "../../PopUpLayer/Loading"
 import styles from "./styles.scss";
 
-// const ArtistLink = ({ audioData, customClass = undefined, children }) => {
-//   {
-//     return audioData.artist.length === 1 ? (
-//       <Link
-//         to={PATH.getArtistLink(audioData.artist[0].id)}
-//         className={customClass}
-//       >
-//         {children}
-//       </Link>
-//     ) : (
-//         <AudioLink id={audioData.id} customClass={customClass}>
-//           {children}
-//         </AudioLink>
-//       );
-//   }
-// };
 const ProductEditGoods = () => {
-  // const artistName = useMemo(() => {
-  //   return audioData.artist.map((artist) => artist.name).join(", ");
-  // }, [audioData]);
   const history = useHistory();
   const { goodsID:id } =useParams({keys:["goodsID"]});
   const [goodsName, setGoodsName] = useState("");

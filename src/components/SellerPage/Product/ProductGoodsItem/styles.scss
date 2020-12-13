@@ -43,6 +43,11 @@
   font-weight: 200;
   font-style: normal;
 }
+.productGoodsItemContainer_goodsName_text {
+  &:hover {
+    text-decoration: underline;
+  }
+}
 .productGoodsItemContainer_goodsName_imageContainer {
   display: flex;
   width: 56px;
@@ -94,4 +99,7 @@
   width: 100%;
   margin: 5px;
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }

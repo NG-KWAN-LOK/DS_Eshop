@@ -28,6 +28,14 @@ const userApi = {
     console.log(userData)
     return api.userApi({ url: "/users/signUp",method: "POST",data: userData })
   },
+
+  getUserData:() =>{
+    let userData = {
+      "userToken" : localStorage.getItem('userToken'),
+    }
+    console.log(userData)
+    return api.userApi({ url: "/users/getUserData",method: "POST",data: userData })
+  },
 };
 
 export default userApi;

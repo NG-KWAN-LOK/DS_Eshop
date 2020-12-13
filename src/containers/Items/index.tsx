@@ -5,34 +5,57 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./styles.scss";
 
 import GoodsApi from "../../utils/api/apifetcher/goods";
+import sellerApi from "../../utils/api/apifetcher/seller"
 import CommentApi from "../../utils/api/apifetcher/goodsComment";
 
-import { getParams } from "../../utils/tools";
+import useParams from 'Customhooks/useParams';
 import Header from "../../components/Header/MainHeader";
 import GoodsCommentCard from "../../components/goodsCommentCard";
+import Loading from "../../components/PopUpLayer/Loading"
 
 import * as loginActions from "../../containers/Login/actions";
 
 import * as SearchActions from "./actions";
 interface DashboardProps { }
 
-interface location {
-  pathname: string;
-  search: string;
-}
 
 const Item = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
-  const location: location = useLocation();
-  const { pathname, search } = location;
-  const { goodsID: goodsID } = getParams(search, ["goodsID"]);
+  const { goodsID:id } =useParams({keys:["goodsID"]});
   const [goodsItemInfo, setGoodsItemInfo] = useState([]);
   const [goodsCommentInfo, setGoodsCommentInfo] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [newCommentContent, setNewCommentContent] = useState("");
   const [commentContentIsBlank, setCommentContentIsBlank] = useState(true);
+  const[isLoading, setIsloading] = useState(true);
+  useEffect(() => {
+    getGoodInfo()
+    getCommentInfo()
+  }, []);
+  async function getGoodInfo(){
+    await GoodsApi.getItemInfo(id)
+    .then((res) => {
+      console.log("success")
+      console.log(res.data)
+      setGoodsItemInfo(res.data)
+    })
+    .catch((err) => {
+      console.log("fail")
+    });
+    setIsloading(false)
+  }
+  async function getCommentInfo(){
+    await CommentApi.getCommentData()
+    .then((res) => {
+      //console.log(res);
+      setGoodsCommentInfo(res);
+    })
+    .catch((err) => {
+      console.log("error");
+    });
+  }
   const handleChangeNewCommentContent = (e) => {
     setNewCommentContent(e.target.value);
   };
@@ -51,26 +74,6 @@ const Item = () => {
   const handleChangeQuantityPlus = () => {
     setQuantity(Number(quantity) + 1);
   };
-  console.log("goodsID:" + goodsID);
-  useEffect(() => {
-    GoodsApi.getGoodsItemInfo(goodsID)
-      .then((res) => {
-        setGoodsItemInfo(res);
-      })
-      .catch((err) => {
-        console.log("error");
-      });
-  }, []);
-  useEffect(() => {
-    CommentApi.getCommentData()
-      .then((res) => {
-        //console.log(res);
-        setGoodsCommentInfo(res);
-      })
-      .catch((err) => {
-        console.log("error");
-      });
-  }, []);
   function callToAddShoppingCart(status) {
     console.log("call api");
     if (isLogin) {
@@ -87,7 +90,7 @@ const Item = () => {
       history.push(path);
     }
   }
-  console.log(goodsItemInfo);
+  //console.log(goodsItemInfo);
   console.log(quantity);
   function chooseCommentMode() {
     if (isLogin == true) {
@@ -256,7 +259,8 @@ const Item = () => {
           </div>
         </div>
       </div>
-    </div >
+      {isLoading && <Loading />}
+    </div>
   );
 };
 

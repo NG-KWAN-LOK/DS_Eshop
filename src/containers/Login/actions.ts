@@ -6,10 +6,11 @@ export const tryLogin = (userName, password) => (dispatch) => {
   return Api.userLogin(userName, password)
     .then((res) => {
       if(res.data != "密碼錯誤"){
+        localStorage.setItem('userToken',res.data.userToken);
         dispatch({ type: SET_USERDATA, payload: res.data });
         dispatch({ type: SET_LOGIN_STAUTS, payload: true });
+        console.log(res.data.userToken)
       }
-      console.log(res.data)
     })
     .catch((err) => {
       console.log("wrong password")
@@ -17,8 +18,12 @@ export const tryLogin = (userName, password) => (dispatch) => {
     });
 };
 
-export const setIsCheckLogin = (isCheckLogin) => (dispatch) => {
-  dispatch({ type: SET_IS_CHECK_LOGIN, payload: isCheckLogin });
+export const setIsCheckLogin = (newState) => (dispatch) => {
+  dispatch({ type: SET_IS_CHECK_LOGIN, payload: newState });
+};
+
+export const setLogInStatus = (newState) => (dispatch) => {
+  dispatch({ type: SET_LOGIN_STAUTS, payload: newState });
 };
 
 export const setSignUpUserName = (_signUpUserName) => (dispatch) => {
@@ -26,9 +31,8 @@ export const setSignUpUserName = (_signUpUserName) => (dispatch) => {
   console.log(_signUpUserName);
 };
 
-export const setUserData = () => (dispatch) => {
-  const username = "admin";
-  dispatch({ type: SET_USERDATA, payload: username });
+export const setUserData = (userData) => (dispatch) => {
+  dispatch({ type: SET_USERDATA, payload: userData });
 };
 
 // export const getDashboradList = () => (dispatch, getAppState) => {

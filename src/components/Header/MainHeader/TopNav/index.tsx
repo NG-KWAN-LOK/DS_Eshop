@@ -32,10 +32,11 @@ const NavItem: React.FC<HeaderProps> = () => {
   }, []);
   function logOut(){
     history.push("/");
+    localStorage.removeItem('userToken');
     window.location.reload(false);
   }
-  const chooseLogin = (isLogin) => {
-    if (isLogin === true) {
+  function isLogined(){
+    console.log("show login")
       return (
         <div className={styles.signinLogin}>
           <div className={styles.title} onClick={routeChangeToUserPage}>
@@ -55,27 +56,27 @@ const NavItem: React.FC<HeaderProps> = () => {
         </div>
         </div>
       );
-    } else {
-      return (
-        <div className={styles.noSigninLogin}>
-          <div className={styles.title} onClick={routeChangeToSignUp}>
-            註冊
-          </div>
-          <div className={styles.title} onClick={routeChangeToLogin}>
-            登入
-          </div>
-        </div>
-      );
     }
-  };
-
+    function isNotLogined(){
+    console.log("show notlogin")
+    return (
+      <div className={styles.noSigninLogin}>
+        <div className={styles.title} onClick={routeChangeToSignUp}>
+          註冊
+        </div>
+        <div className={styles.title} onClick={routeChangeToLogin}>
+          登入
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={styles.navItem_container}>
       <div className={styles.navItem_container_contain}>
         <div className={styles.title} onClick={routeChangeToSeller}>
           賣家中心
         </div>
-        {chooseLogin(isLogin)}
+        {isLogin ? isLogined() : isNotLogined()}
       </div>
     </div>
   );

@@ -18,7 +18,6 @@ interface HeaderProps { }
 const AddProduct = () => {
   const history = useHistory();
   const { pathname } = useLocation();
-  const userToken = useSelector((appState: any) => appState.LoginReducer.userData.userToken);
   const [goodsName, setGoodsName] = useState();
   const [goodsDesription, setGoodsDesription] = useState();
   const [goodsPrice, setGoodsPrice] = useState();
@@ -29,9 +28,9 @@ const AddProduct = () => {
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log(userToken, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
+    console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
     setIsloading(true)
-    await sellerApi.newItem(userToken, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock)
+    await sellerApi.newItem(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock)
       .then((res) => {
         console.log("success")
         history.push("/seller/product")

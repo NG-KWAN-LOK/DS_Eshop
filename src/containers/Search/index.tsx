@@ -71,7 +71,7 @@ const Search = () => {
             }
           >
             {goodsList.map((data, index) => {
-              return <GoodsCard goodsData={data} />;
+              return <GoodsCard key={data.id} goodsData={data} />;
             })}
           </div>
         </div>

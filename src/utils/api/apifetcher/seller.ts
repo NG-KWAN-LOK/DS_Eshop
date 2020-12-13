@@ -32,20 +32,16 @@ const userApi = {
     return api.userApi({ url: "/items/updateInfo",method: "POST",data: userData })
   },
 
-  getSellerGoodsList:(userToken) =>{
-    //const signUpUserToken = useSelector((appState: any) => appState.LoginReducer.userData.userToken);
-    console.log(userToken)
+  getSellerGoodsList:() =>{
     let userData = {
-      "userToken" : userToken
+      "userToken" : localStorage.getItem('userToken')
     }
     return api.userApi({ url: "/items/getAllItems",method: "POST", data: userData })
   },
 
-  newItem:(userToken, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock) =>{
-    //const userToken = useSelector((appState: any) => appState.LoginReducer.userData);
-    //console.log(userToken)
+  newItem:(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock) =>{
     let userData = {
-      "userToken" : userToken,
+      "userToken" : localStorage.getItem('userToken'),
       "name":goodsName,
       "description":goodsDesription,
       "imgURL":goodsImg,
@@ -59,7 +55,6 @@ const userApi = {
   },
 
   deleteItem:(id) =>{
-    //const signUpUserToken = useSelector((appState: any) => appState.LoginReducer.userData.userToken);
     console.log(id)
     let userData = {
       "id" : id

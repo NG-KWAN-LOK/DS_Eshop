@@ -27,7 +27,6 @@ const GoodsCard = ({ data, getGoodsAPI }) => {
       .then((res) => {
         console.log("success")
         getGoodsAPI();
-        setIsloading(false);
       })
       .catch((err) => {
         console.log("fail")

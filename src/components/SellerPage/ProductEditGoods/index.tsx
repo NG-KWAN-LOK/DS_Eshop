@@ -10,6 +10,7 @@ import {
 
 import PATH from "Utils/pathConst";
 import { getParams } from "../../../utils/tools";
+import useParams from 'Customhooks/useParams';
 import sellerApi from "../../../utils/api/apifetcher/seller"
 import Loading from "../../PopUpLayer/Loading"
 import styles from "./styles.scss";
@@ -30,26 +31,12 @@ import styles from "./styles.scss";
 //       );
 //   }
 // };
-interface location {
-  pathname: string;
-  search: string;
-  state:
-    | {
-        from: string;
-      }
-    | undefined;
-}
 const ProductEditGoods = () => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
   const history = useHistory();
-  const location: location = useLocation();
-  const { pathname } = useLocation();
-  const {search} = location;
-  const { goodsID:id } = getParams(search, [
-    "goodsID",
-  ]);
+  const { goodsID:id } =useParams({keys:["goodsID"]});
   const [goodsName, setGoodsName] = useState("");
   const [goodsDesription, setGoodsDesription] = useState();
   const [goodsPrice, setGoodsPrice] = useState();

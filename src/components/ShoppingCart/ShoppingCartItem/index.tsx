@@ -1,9 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
 
+import ShoppingCartGoodsItems from "../ShoppingCartGoodsList";
 // const ArtistLink = ({ audioData, customClass = undefined, children }) => {
 //   {
 //     return audioData.artist.length === 1 ? (
@@ -21,37 +22,20 @@ import styles from "./styles.scss";
 //   }
 // };
 
-const GoodsCard = ({ goodsData }) => {
+const CartCard = ({ cartData }) => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
-  console.log(goodsData);
-  function countTotalPrice() {
-    return parseInt(goodsData.stock) * parseInt(goodsData.price)
-  }
+  //console.log(cartData);
   return (
     <div className={styles.productGoodsItemContainer}>
-      <div className={styles.productGoodsItemContainer_goodsName}>
-        <div className={styles.productGoodsItemContainer_goodsName_imageContainer}><img
-          className={styles.productContainer_productHeader_porductName_imageContainer_img}
-          src={goodsData.imgURL}
-        ></img></div>
-        <span>{goodsData.name}</span>
-      </div>
-      <div className={styles.productContainer_productHeader_unitPrice}>
-        <span>${goodsData.price}</span>
-      </div>
-      <div className={styles.productContainer_productHeader_count}>
-        <span>{goodsData.stock}</span>
-      </div>
-      <div className={styles.productContainer_productHeader_totalPrice}>
-        <span>${countTotalPrice()}</span>
-      </div>
-      <div className={styles.productContainer_productHeader_action}>
-        <div className={styles.productContainer_productHeader_action_text}>刪除</div>
+      <div className={styles.productGoodsItemContainer_sellerBlock}>
+        {cartData.goodsList.map((data, index) => {
+          return <ShoppingCartGoodsItems key={data.goodId} goodsData={data} />;
+        })}
       </div>
     </div>
   );
 };
 
-export default GoodsCard;
+export default CartCard;

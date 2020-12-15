@@ -10,7 +10,7 @@ import { checkIslogIn } from "../../utils/tools/index";
 
 import Header from "../../components/Header/ShoppingCartHeader";
 import ShoppingCartItem from "../../components/ShoppingCart/ShoppingCartItem";
-import GoodsApi from "../../utils/api/apifetcher/goods"
+import ShoppingCartApi from "../../utils/api/apifetcher/shoppingCart"
 interface LoginProps { }
 
 const ShoppingCart = () => {
@@ -22,9 +22,8 @@ const ShoppingCart = () => {
     history.push(path);
   }
   useEffect(() => {
-    GoodsApi.getGoodsList()
+    ShoppingCartApi.getShoppingCartList()
       .then((res) => {
-        //console.log(res);
         getGoodsList(res);
       })
       .catch((err) => {
@@ -33,15 +32,22 @@ const ShoppingCart = () => {
   }, []);
   function countTotalGoods() {
     var totalGoods = 0;
-    goodsList.forEach(data => {
-      totalGoods += parseInt(data.stock)
+    goodsList.forEach(sellerData => {
+      var sellerTotalPrice = 0;
+      sellerData.goodsList.forEach(goodsData => {
+        totalGoods += parseInt(goodsData.count)
+      })
     })
     return totalGoods
   }
   function countTotalPrice() {
     var totalPrice = 0;
-    goodsList.forEach(data => {
-      totalPrice += parseInt(data.price) * parseInt(data.stock)
+    goodsList.forEach(sellerData => {
+      var sellerTotalPrice = 0;
+      sellerData.goodsList.forEach(goodsData => {
+        sellerTotalPrice += parseInt(goodsData.count) * parseInt(goodsData.price)
+      })
+      totalPrice += sellerTotalPrice
     })
     return totalPrice
   }
@@ -49,6 +55,7 @@ const ShoppingCart = () => {
     var path = "/Casher";
     history.push(path);
   }, []);
+  console.log(goodsList)
   return (
     <div className={styles.container}>
       <Header />
@@ -94,7 +101,7 @@ const ShoppingCart = () => {
           </div>
           <div className={styles.container_goodsItemListContainer_item}>
             {goodsList.map((data, index) => {
-              return <ShoppingCartItem goodsData={data} />;
+              return <ShoppingCartItem key={data.shoppingCartID} cartData={data} />;
             })}
           </div>
           <div className={styles.container_cartFooter}>

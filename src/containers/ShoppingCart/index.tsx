@@ -33,7 +33,6 @@ const ShoppingCart = () => {
   function countTotalGoods() {
     var totalGoods = 0;
     goodsList.forEach(sellerData => {
-      var sellerTotalPrice = 0;
       sellerData.goodsList.forEach(goodsData => {
         totalGoods += parseInt(goodsData.count)
       })

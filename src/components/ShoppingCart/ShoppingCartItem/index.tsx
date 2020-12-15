@@ -30,9 +30,17 @@ const CartCard = ({ cartData }) => {
   return (
     <div className={styles.productGoodsItemContainer}>
       <div className={styles.productGoodsItemContainer_sellerBlock}>
-        {cartData.goodsList.map((data, index) => {
-          return <ShoppingCartGoodsItems key={data.goodId} goodsData={data} />;
-        })}
+        <div className={styles.productGoodsItemContainer_sellerBlock_header}>
+          <div className={styles.productGoodsItemContainer_sellerBlock_header_sellerUserName}>
+            <div className={styles.productGoodsItemContainer_sellerBlock_header_sellerUserName_icon}>
+            </div>{cartData.sellerUserName}
+          </div>
+        </div>
+        <div className={styles.productGoodsItemContainer_sellerBlock_goodsList}>
+          {cartData.goodsList.map((data, index) => {
+            return <ShoppingCartGoodsItems key={data.goodId} goodsData={data} />;
+          })}
+        </div>
       </div>
     </div>
   );

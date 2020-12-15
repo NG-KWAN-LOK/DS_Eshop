@@ -1,8 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useMemo,useState } from "react";
 import { Link } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
+
+import CasherGoodsItem from "../CasherGoodsItem"
 
 // const ArtistLink = ({ audioData, customClass = undefined, children }) => {
 //   {
@@ -21,34 +23,51 @@ import styles from "./styles.scss";
 //   }
 // };
 
-const GoodsCard = ({ goodsData }) => {
+const CartCard = ({ cartData }) => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
-  function countTotalPrice() {
-    return parseInt(goodsData.stock) * parseInt(goodsData.price)
+  const [sellerTotalPrice, setSellerTotalPrice] = useState(0);
+  console.log(cartData);
+  function countTotalGoods() {
+    var totalGoods = 0;
+    cartData.goodsList.forEach(goodsData => {
+      totalGoods += parseInt(goodsData.count)
+    })
+    return totalGoods
   }
-  console.log(goodsData);
+  function countTotalPrice() {
+    var totalPrice = 0;
+    var sellerTotalPrice = 0;
+    cartData.goodsList.forEach(goodsData => {
+      sellerTotalPrice += parseInt(goodsData.count) * parseInt(goodsData.price)
+    })
+    totalPrice += sellerTotalPrice
+    return totalPrice
+  }
   return (
-    <div className={styles.productGoodsItemContainer}>
-      <div className={styles.productGoodsItemContainer_goodsName}>
-        <div className={styles.productGoodsItemContainer_goodsName_imageContainer}><img
-          className={styles.productContainer_productHeader_porductName_imageContainer_img}
-          src={goodsData.imgURL}
-        ></img></div>
-        <span>{goodsData.name}</span>
+    <div className={styles.productSellerItemContainer}>
+      <div className={styles.productSellerItemContainer_header}>
+        <div className={styles.productSellerItemContainer_header_sellerUserName}>
+          <div className={styles.productSellerItemContainer_header_sellerUserName_icon}>
+          </div>{cartData.sellerUserName}
+        </div>
       </div>
-      <div className={styles.productContainer_productHeader_unitPrice}>
-        <span>${goodsData.price}</span>
+      <div className={styles.productSellerItemContainer_goodsList}>
+        {cartData.goodsList.map((data, index) => {
+          return <CasherGoodsItem key={data.goodId} goodsData={data}/>;
+        })}
       </div>
-      <div className={styles.productContainer_productHeader_count}>
-        <span>{goodsData.stock}</span>
-      </div>
-      <div className={styles.productContainer_productHeader_totalPrice}>
-        <span>${countTotalPrice()}</span>
+      <div className={styles.productSellerItemContainer_footer}>
+        <div className={styles.productSellerItemContainer_footer_totalGoods}>
+        訂單金額({countTotalGoods()}商品):
+        </div>
+        <div className={styles.productSellerItemContainer_footer_totalPrice}>
+          ${countTotalPrice()}
+        </div>
       </div>
     </div>
   );
 };
 
-export default GoodsCard;
+export default CartCard;

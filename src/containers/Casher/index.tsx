@@ -10,7 +10,7 @@ import { checkIslogIn } from "../../utils/tools/index";
 
 import Header from "../../components/Header/CasherHeader";
 import CasherItem from "../../components/Casher/CasherItem";
-import GoodsApi from "../../utils/api/apifetcher/goods"
+import ShoppingCartApi from "../../utils/api/apifetcher/shoppingCart"
 interface LoginProps { }
 
 const ShoppingCart = () => {
@@ -23,9 +23,9 @@ const ShoppingCart = () => {
     history.push(path);
   }
   useEffect(() => {
-    GoodsApi.getGoodsList()
+    ShoppingCartApi.getShoppingCartList()
       .then((res) => {
-        //console.log(res);
+        console.log(res);
         getGoodsList(res);
       })
       .catch((err) => {
@@ -34,15 +34,21 @@ const ShoppingCart = () => {
   }, []);
   function countTotalGoods() {
     var totalGoods = 0;
-    goodsList.forEach(data => {
-      totalGoods += parseInt(data.stock)
+    goodsList.forEach(sellerData => {
+      sellerData.goodsList.forEach(goodsData => {
+        totalGoods += parseInt(goodsData.count)
+      })
     })
     return totalGoods
   }
   function countTotalPrice() {
     var totalPrice = 0;
-    goodsList.forEach(data => {
-      totalPrice += parseInt(data.price) * parseInt(data.stock)
+    goodsList.forEach(sellerData => {
+      var sellerTotalPrice = 0;
+      sellerData.goodsList.forEach(goodsData => {
+        sellerTotalPrice += parseInt(goodsData.count) * parseInt(goodsData.price)
+      })
+      totalPrice += sellerTotalPrice
     })
     return totalPrice
   }
@@ -62,7 +68,7 @@ const ShoppingCart = () => {
                 styles._pageContainer_productContainer_productHeader_porductName
               }
             >
-              商品
+              訂單商品
             </div>
             <div
               className={
@@ -88,7 +94,7 @@ const ShoppingCart = () => {
           </div>
           <div className={styles.container_goodsItemListContainer_item}>
             {goodsList.map((data, index) => {
-              return <CasherItem goodsData={data} />;
+              return <CasherItem key={data.shoppingCartID} cartData={data} />;
             })}
           </div>
           <div className={styles.container_cartFooter}>

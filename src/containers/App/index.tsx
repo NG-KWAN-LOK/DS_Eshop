@@ -25,7 +25,7 @@ function App() {
       <Router>
         <Switch>
           <WithAuth>
-            {/* <Header /> */}
+            {/* <Header /1> */}
             <Route exact path={"/"} component={Dashboard} />
             <Route path={"/search"} component={Search} />
             <Route path={"/login"} component={Login} />

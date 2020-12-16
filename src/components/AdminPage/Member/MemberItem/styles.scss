@@ -1,0 +1,119 @@
+.productGoodsItemContainer {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 24px 0;
+}
+.productGoodsItemContainer_cancel {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffffbd;
+}
+.productGoodsItemContainer_cancel_undo {
+  cursor: pointer;
+  color: #fff;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #fb5533;
+  border-radius: 10px;
+  padding: 10px 30px;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+.productGoodsItemContainer_userName {
+  display: flex;
+  align-items: center;
+  width: 10%;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 200;
+  font-style: normal;
+}
+.productGoodsItemContainer_customerName {
+  display: flex;
+  justify-content: center;
+  width: 10%;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 100;
+  font-style: normal;
+}
+.productGoodsItemContainer_phoneNumber {
+  display: flex;
+  justify-content: center;
+  width: 15%;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 100;
+  font-style: normal;
+}
+.productGoodsItemContainer_email {
+  display: flex;
+  justify-content: center;
+  width: 20%;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 100;
+  font-style: normal;
+}
+.productGoodsItemContainer_address {
+  display: flex;
+  justify-content: center;
+  width: 25%;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 100;
+  font-style: normal;
+}
+.productGoodsItemContainer_createTime {
+  display: flex;
+  justify-content: center;
+  width: 15%;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 100;
+  font-style: normal;
+}
+.productGoodsItemContainer_goodsControl {
+  display: block;
+  width: 5%;
+  color: #3d79fc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 100;
+}
+.productGoodsItemContainer_goodsControl_text {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 5px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}

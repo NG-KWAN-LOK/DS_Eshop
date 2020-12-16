@@ -11,6 +11,7 @@ import ShoppingCart from "../ShoppingCart";
 import Items from "../Items";
 import Casher from "../Casher";
 import User from "../User";
+import Admin from "../Admin";
 
 
 
@@ -34,6 +35,7 @@ function App() {
             <Route path={"/items"} component={Items} />
             <Route path={"/casher"} component={Casher} />
             <Route path={"/user"} component={User} />
+            <Route path={"/admin"} component={Admin} />
           </WithAuth>
         </Switch>
       </Router>

@@ -1,0 +1,95 @@
+.top_Padding {
+  padding-top: 8.4rem;
+}
+.container {
+  display: flex;
+  padding: 24px;
+  width: 100%;
+  background-color: #ffffff;
+}
+.container_titleBar {
+  display: block;
+  width: 100%;
+}
+.container_titleBar_titleContent {
+  display: flex;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 2.2rem;
+  color: #333333;
+}
+.container_goodsItemListContainer {
+  display: block;
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  margin-top: 24px;
+}
+.container_goodsItemListContainer_header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #f6f6f6;
+  color: #999999;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+  padding: 11px 16px;
+}
+.container_goodsItemListContainer_header_userName {
+  display: flex;
+  width: 10%;
+}
+.container_goodsItemListContainer_header_customerName {
+  display: flex;
+  justify-content: center;
+  width: 10%;
+}
+.container_goodsItemListContainer_header_phoneNumber {
+  display: flex;
+  justify-content: center;
+  width: 15%;
+}
+.container_goodsItemListContainer_header_email {
+  display: flex;
+  justify-content: center;
+  width: 20%;
+}
+.container_goodsItemListContainer_header_address {
+  display: flex;
+  justify-content: center;
+  width: 25%;
+}
+.container_goodsItemListContainer_header_createTime {
+  display: flex;
+  justify-content: center;
+  width: 15%;
+}
+.container_goodsItemListContainer_header_control {
+  display: flex;
+  justify-content: center;
+  width: 5%;
+}
+.container_goodsItemListContainer_item {
+  display: block;
+  padding: 0 16px;
+}
+.container_titleBar_itemEmpty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container_titleBar_itemEmpty_text {
+  width: 100%;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 18px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+  color: #999;
+  text-align: center;
+  padding: 124px 0;
+}

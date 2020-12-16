@@ -5,13 +5,15 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./styles.scss";
 
 import GoodsApi from "../../utils/api/apifetcher/goods";
-import sellerApi from "../../utils/api/apifetcher/seller"
+import ShoppingCartApi from "../../utils/api/apifetcher/shoppingCart"
 import CommentApi from "../../utils/api/apifetcher/goodsComment";
 
 import useParams from 'Customhooks/useParams';
 import Header from "../../components/Header/MainHeader";
 import GoodsCommentCard from "../../components/goodsCommentCard";
 import Loading from "../../components/PopUpLayer/Loading"
+import Alert from "../../components/PopUpLayer/Alert"
+
 
 import * as loginActions from "../../containers/Login/actions";
 
@@ -23,38 +25,56 @@ const Item = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
-  const { goodsID:id } =useParams({keys:["goodsID"]});
+  const { goodsID: id } = useParams({ keys: ["goodsID"] });
   const [goodsItemInfo, setGoodsItemInfo] = useState([]);
   const [goodsCommentInfo, setGoodsCommentInfo] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [newCommentContent, setNewCommentContent] = useState("");
   const [commentContentIsBlank, setCommentContentIsBlank] = useState(true);
-  const[isLoading, setIsloading] = useState(true);
+  const [isLoading, setIsloading] = useState(true);
+  const [isSuccessAlert, setIsSuccessAlert] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
   useEffect(() => {
     getGoodInfo()
     getCommentInfo()
   }, []);
-  async function getGoodInfo(){
+  async function getGoodInfo() {
     await GoodsApi.getItemInfo(id)
-    .then((res) => {
-      console.log("success")
-      console.log(res.data)
-      setGoodsItemInfo(res.data)
-    })
-    .catch((err) => {
-      console.log("fail")
-    });
+      .then((res) => {
+        console.log("success")
+        console.log(res.data)
+        setGoodsItemInfo(res.data)
+      })
+      .catch((err) => {
+        console.log("fail")
+      });
     setIsloading(false)
   }
-  async function getCommentInfo(){
+  async function getCommentInfo() {
     await CommentApi.getCommentData()
-    .then((res) => {
-      //console.log(res);
-      setGoodsCommentInfo(res);
-    })
-    .catch((err) => {
-      console.log("error");
-    });
+      .then((res) => {
+        //console.log(res);
+        setGoodsCommentInfo(res);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+  }
+  async function addItemToShoppingCart() {
+    setIsloading(true)
+    await ShoppingCartApi.newItem(id, quantity.toString())
+      .then((res) => {
+        console.log("success");
+        setIsloading(false)
+        setIsSuccessAlert(true)
+        return true
+      })
+      .catch((err) => {
+        console.log("error");
+        setIsloading(false)
+        setIsErrorAlert(true)
+        return false
+      });
   }
   const handleChangeNewCommentContent = (e) => {
     setNewCommentContent(e.target.value);
@@ -78,11 +98,14 @@ const Item = () => {
     console.log("call api");
     if (isLogin) {
       if (status == 1) {
-        const path = "/ShoppingCart";
-        history.push(path);
+        if (addItemToShoppingCart()) {
+          const path = "/ShoppingCart";
+          history.push(path);
+        }
       }
       else if (status == 0) {
-        console.log("add to shopping cary");
+        addItemToShoppingCart();
+        console.log("add to shopping cart");
       }
     }
     else {
@@ -219,6 +242,13 @@ const Item = () => {
                     onClick={handleChangeQuantityPlus}
                   />
                 </div>
+                <div
+                  className={
+                    styles.pageContainer_itemContainer_header_right_optionContainer_title
+                  }
+                >
+                  還剩{goodsItemInfo.stock}件
+                </div>
               </div>
               <div className={styles.pageContainer_itemContainer_header_right_btnContainer}>
                 <div className={styles.pageContainer_itemContainer_header_right_btnContainer_addShoppingCart} onClick={() => callToAddShoppingCart(0)}>
@@ -253,13 +283,15 @@ const Item = () => {
             {chooseCommentMode()}
             <div className={styles.commentContainer_body_desription_commentItem}>
               {goodsCommentInfo.map((data, index) => {
-                return <GoodsCommentCard commentData={data} />;
+                return <GoodsCommentCard key={data.commentId} commentData={data} />;
               })}
             </div>
           </div>
         </div>
       </div>
       {isLoading && <Loading />}
+      {isSuccessAlert && <Alert type={"success"} content={"商品已加入購物車"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsSuccessAlert(false); }, 2000); }} />}
+      {isErrorAlert && <Alert type={"error"} content={"失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
     </div>
   );
 };

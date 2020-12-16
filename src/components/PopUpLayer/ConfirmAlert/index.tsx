@@ -1,14 +1,11 @@
-import React, { useCallback, useRef, useState } from "react";
-import { Link, Router, Route, useHistory, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { createStore } from "redux";
+import React from "react";
 
 import styles from "./styles.scss";
 
 
 interface HeaderProps { }
 
-const ConfirmAlert = ({ title, content, onCancel, onConfirm}) => {
+const ConfirmAlert = ({ title, content, onCancel, onConfirm }) => {
   return (
     <div className={styles.containers}>
       <div className={styles.containers_block}>
@@ -19,11 +16,11 @@ const ConfirmAlert = ({ title, content, onCancel, onConfirm}) => {
           {content}
         </div>
         <div className={styles.containers_block_footer}>
-        <div className={styles.containers_block_footer_cancelBtn} onClick={onCancel}>
-          取消
+          <div className={styles.containers_block_footer_cancelBtn} onClick={onCancel}>
+            取消
         </div>
-        <div className={styles.containers_block_footer_confirmBtn} onClick={onConfirm}>
-          確定
+          <div className={styles.containers_block_footer_confirmBtn} onClick={onConfirm}>
+            確定
         </div>
         </div>
       </div>

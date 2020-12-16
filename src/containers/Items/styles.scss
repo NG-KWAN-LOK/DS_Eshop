@@ -75,6 +75,7 @@
 }
 .pageContainer_itemContainer_header_right_optionContainer {
   display: flex;
+  align-items: center;
   margin-top: 1.5625rem;
   padding: 0 1.25rem;
 }
@@ -93,6 +94,7 @@
 }
 .pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity {
   display: inline-block;
+  margin: 0 15px 0 0;
 }
 
 .pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity_text {
@@ -101,7 +103,7 @@
   vertical-align: top;
   box-shadow: none;
   width: 35px;
-  height: 39px;
+  height: 41px;
   padding: 0 5px;
   text-align: center;
   background-color: transparent;

@@ -47,6 +47,15 @@ const ShoppingCartApi = {
   getShoppingCartList: () => {
     return new Promise((resolve) => resolve(shoppingCartData));
   },
+  newItem: (goodID, count) => {
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+      "goodId": goodID,
+      "count": count,
+    }
+    console.log(userData)
+    return api.userApi({ url: "shoppingCart/addGoods", method: "POST", data: userData })
+  },
 };
 
 export default ShoppingCartApi;

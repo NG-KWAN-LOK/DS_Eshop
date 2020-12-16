@@ -30,34 +30,34 @@ const NavItem: React.FC<HeaderProps> = () => {
     var path = "/login";
     history.push(path);
   }, []);
-  function logOut(){
+  function logOut() {
     history.push("/");
     localStorage.removeItem('userToken');
     window.location.reload(false);
   }
-  function isLogined(){
+  function isLogined() {
     console.log("show login")
-      return (
-        <div className={styles.signinLogin}>
-          <div className={styles.title} onClick={routeChangeToUserPage}>
-            {username}
+    return (
+      <div className={styles.signinLogin}>
+        <div className={styles.title} onClick={routeChangeToUserPage}>
+          {username}
+        </div>
+        <div className={styles.title_under}>
+          <div className={styles.title_under_subtitle} onClick={routeChangeToUserPage}>
+            <span className={styles.title_under_text}>
+              我的帳戶
+                </span>
           </div>
-          <div className={styles.title_under}>
-            <div className={styles.title_under_subtitle} onClick={routeChangeToUserPage}>
-                <span className={styles.title_under_text}>
-                    我的帳戶
+          <div className={styles.title_under_subtitle} onClick={logOut}>
+            <span className={styles.title_under_text}>
+              登出
                 </span>
-            </div>
-            <div className={styles.title_under_subtitle} onClick={logOut}>
-                <span className={styles.title_under_text}>
-                    登出
-                </span>
-            </div>
+          </div>
         </div>
-        </div>
-      );
-    }
-    function isNotLogined(){
+      </div>
+    );
+  }
+  function isNotLogined() {
     console.log("show notlogin")
     return (
       <div className={styles.noSigninLogin}>
@@ -73,6 +73,10 @@ const NavItem: React.FC<HeaderProps> = () => {
   return (
     <div className={styles.navItem_container}>
       <div className={styles.navItem_container_contain}>
+        {username === "admin" && <Link to={{ pathname: "/admin" }}><div className={styles.title}>
+          管理員頁面
+        </div>
+        </Link>}
         <div className={styles.title} onClick={routeChangeToSeller}>
           賣家中心
         </div>

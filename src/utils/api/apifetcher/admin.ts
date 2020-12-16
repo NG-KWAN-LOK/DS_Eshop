@@ -1,10 +1,34 @@
 import api from "../api";
+const memberList = [
+  {
+    id: "0",
+    userName: "admin",
+    customerName: "陳小明",
+    address: "台北市中正區忠孝東路二段87號",
+    email: "chenming@gmail.com",
+    phoneNumber: "0912345678",
+    createTime: "2020-12-16 04:41:14"
+  },
+  {
+    id: "1",
+    userName: "peter",
+    customerName: "on9",
+    address: "台北市中正區忠孝東路二段87號",
+    email: "chenming@gmail.com",
+    phoneNumber: "0912345678",
+    createTime: "2020-12-16 04:41:14"
+  },
+];
 const userApi = {
   // login: ({ username, password }) =>
   //   api.fire({ url: "", data: { username, password } }),
   // isLogin: () => {
   //   return api.checkIsLogin();
   // },
+  getMemberList: () => {
+    return new Promise((resolve) => resolve(memberList));
+  },
+
   getItemInfo: (id) => {
     console.log(id)
     return api.userApi({
@@ -37,21 +61,6 @@ const userApi = {
       "userToken": localStorage.getItem('userToken')
     }
     return api.userApi({ url: "/items/getAllItems", method: "POST", data: userData })
-  },
-
-  newItem: (goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock) => {
-    let userData = {
-      "userToken": localStorage.getItem('userToken'),
-      "name": goodsName,
-      "description": goodsDesription,
-      "imgURL": goodsImg,
-      "price": goodsPrice,
-      "stock": goodsStock,
-      "isDisplay": 0
-    }
-    //console.log(_signUpUserName._username)
-    console.log(userData)
-    return api.userApi({ url: "/items/new", method: "POST", data: userData })
   },
 
   deleteItem: (id) => {

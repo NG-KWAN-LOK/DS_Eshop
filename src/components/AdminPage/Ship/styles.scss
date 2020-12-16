@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  padding: 24px;
+  width: 100%;
+  background-color: #ffffff;
+}
+.container_titleBar {
+  display: block;
+  width: 100%;
+}
+.container_titleBar_titleContent {
+  display: flex;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 2.2rem;
+  color: #333333;
+}
+.container_goodsItemListContainer {
+  display: block;
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  margin-top: 24px;
+}
+.container_goodsItemListContainer_header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #f6f6f6;
+  color: #999999;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+  padding: 11px 16px;
+}
+.container_goodsItemListContainer_header_goodsName {
+  display: flex;
+  width: 65%;
+}
+.container_goodsItemListContainer_header_goodsPrice {
+  display: flex;
+  justify-content: center;
+  width: 15%;
+}
+.container_goodsItemListContainer_header_orderStatus {
+  display: flex;
+  justify-content: center;
+  width: 10%;
+}
+.container_goodsItemListContainer_header_control {
+  display: flex;
+  justify-content: center;
+  width: 10%;
+}
+.container_goodsItemListContainer_item {
+  display: block;
+}

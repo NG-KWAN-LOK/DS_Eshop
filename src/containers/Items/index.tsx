@@ -13,6 +13,8 @@ import Header from "../../components/Header/MainHeader";
 import GoodsCommentCard from "../../components/goodsCommentCard";
 import Loading from "../../components/PopUpLayer/Loading"
 import Alert from "../../components/PopUpLayer/Alert"
+import NotDisplayLayer from "./NotDisplay"
+
 
 
 import * as loginActions from "../../containers/Login/actions";
@@ -34,6 +36,7 @@ const Item = () => {
   const [isLoading, setIsloading] = useState(true);
   const [isSuccessAlert, setIsSuccessAlert] = useState(false);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
+  const [isNotDisplay, setIsNotDisplay] = useState(false);
   useEffect(() => {
     getGoodInfo()
     getCommentInfo()
@@ -43,7 +46,10 @@ const Item = () => {
       .then((res) => {
         console.log("success")
         console.log(res.data)
-        setGoodsItemInfo(res.data)
+        if(res.data.isDisplay == true)
+          setGoodsItemInfo(res.data)
+        else
+          setIsNotDisplay(true)
       })
       .catch((err) => {
         console.log("fail")
@@ -155,136 +161,139 @@ const Item = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.top_Padding}></div>
-      <div className={styles.pageContainer}>
-        <div className={styles.pageContainer_itemContainer}>
-          <div className={styles.pageContainer_itemContainer_header}>
-            <div className={styles.pageContainer_itemContainer_header_left}>
-              <div
-                className={
-                  styles.pageContainer_itemContainer_header_left_imageContainer
-                }
-              >
-                <img
-                  className={
-                    styles.pageContainer_itemContainer_header_left_imageContainer_img
-                  }
-                  src={goodsItemInfo.imgURL}
-                ></img>
-              </div>
-            </div>
-            <div className={styles.pageContainer_itemContainer_header_right}>
-              <div
-                className={
-                  styles.pageContainer_itemContainer_header_right_itemTitle
-                }
-              >
-                {goodsItemInfo.name}
-              </div>
-              <div
-                className={
-                  styles.pageContainer_itemContainer_header_right_priceContainer
-                }
-              >
+      <div className={styles.page}>
+      {isNotDisplay && <NotDisplayLayer content={"商品未展示"}/>}
+        <div className={styles.pageContainer}>
+          <div className={styles.pageContainer_itemContainer}>
+            <div className={styles.pageContainer_itemContainer_header}>
+              <div className={styles.pageContainer_itemContainer_header_left}>
                 <div
                   className={
-                    styles.pageContainer_itemContainer_header_right_priceContainer_priceTitle
+                    styles.pageContainer_itemContainer_header_left_imageContainer
                   }
                 >
-                  ${goodsItemInfo.price}
-                </div>
-              </div>
-              <div
-                className={
-                  styles.pageContainer_itemContainer_header_right_optionContainer
-                }
-              >
-                <div
-                  className={
-                    styles.pageContainer_itemContainer_header_right_optionContainer_title
-                  }
-                >
-                  數量
-                </div>
-                <div
-                  className={
-                    styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity
-                  }
-                >
-                  <input
-                    type="button"
-                    value="-"
+                  <img
                     className={
-                      styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity_minus
+                      styles.pageContainer_itemContainer_header_left_imageContainer_img
                     }
-                    onClick={handleChangeQuantityMins}
-                  />
-                  <input
-                    type="number"
-                    step={1}
-                    min={0}
-                    max=""
-                    name="quantity"
-                    value={quantity}
-                    title="Qty"
-                    className={
-                      styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity_text
-                    }
-                    size={4}
-                    pattern=""
-                    onChange={handleChangeQuantity}
-                  />
-                  <input
-                    type="button"
-                    value="+"
-                    className={
-                      styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity_plus
-                    }
-                    onClick={handleChangeQuantityPlus}
-                  />
+                    src={goodsItemInfo.imgURL}
+                  ></img>
+                </div>
+              </div>
+              <div className={styles.pageContainer_itemContainer_header_right}>
+                <div
+                  className={
+                    styles.pageContainer_itemContainer_header_right_itemTitle
+                  }
+                >
+                  {goodsItemInfo.name}
                 </div>
                 <div
                   className={
-                    styles.pageContainer_itemContainer_header_right_optionContainer_title
+                    styles.pageContainer_itemContainer_header_right_priceContainer
                   }
                 >
-                  還剩{goodsItemInfo.stock}件
+                  <div
+                    className={
+                      styles.pageContainer_itemContainer_header_right_priceContainer_priceTitle
+                    }
+                  >
+                    ${goodsItemInfo.price}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.pageContainer_itemContainer_header_right_btnContainer}>
-                <div className={styles.pageContainer_itemContainer_header_right_btnContainer_addShoppingCart} onClick={() => callToAddShoppingCart(0)}>
-                  加入購物車
+                <div
+                  className={
+                    styles.pageContainer_itemContainer_header_right_optionContainer
+                  }
+                >
+                  <div
+                    className={
+                      styles.pageContainer_itemContainer_header_right_optionContainer_title
+                    }
+                  >
+                    數量
+                  </div>
+                  <div
+                    className={
+                      styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity
+                    }
+                  >
+                    <input
+                      type="button"
+                      value="-"
+                      className={
+                        styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity_minus
+                      }
+                      onClick={handleChangeQuantityMins}
+                    />
+                    <input
+                      type="number"
+                      step={1}
+                      min={0}
+                      max=""
+                      name="quantity"
+                      value={quantity}
+                      title="Qty"
+                      className={
+                        styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity_text
+                      }
+                      size={4}
+                      pattern=""
+                      onChange={handleChangeQuantity}
+                    />
+                    <input
+                      type="button"
+                      value="+"
+                      className={
+                        styles.pageContainer_itemContainer_header_right_optionContainer_content_inputQuantity_plus
+                      }
+                      onClick={handleChangeQuantityPlus}
+                    />
+                  </div>
+                  <div
+                    className={
+                      styles.pageContainer_itemContainer_header_right_optionContainer_title
+                    }
+                  >
+                    還剩{goodsItemInfo.stock}件
+                  </div>
                 </div>
-                <div className={styles.pageContainer_itemContainer_header_right_btnContainer_buyItNow} onClick={() => callToAddShoppingCart(1)}>
-                  立即購買
+                <div className={styles.pageContainer_itemContainer_header_right_btnContainer}>
+                  <div className={styles.pageContainer_itemContainer_header_right_btnContainer_addShoppingCart} onClick={() => callToAddShoppingCart(0)}>
+                    加入購物車
+                  </div>
+                  <div className={styles.pageContainer_itemContainer_header_right_btnContainer_buyItNow} onClick={() => callToAddShoppingCart(1)}>
+                    立即購買
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className={styles.bodyContainer}>
-        <div className={styles.bodyContainer_body}>
-          <div className={styles.bodyContainer_body_desription}>
-            <div className={styles.bodyContainer_body_desription_title}>
-              商品詳情
+        <div className={styles.bodyContainer}>
+          <div className={styles.bodyContainer_body}>
+            <div className={styles.bodyContainer_body_desription}>
+              <div className={styles.bodyContainer_body_desription_title}>
+                商品詳情
+                </div>
+              <div className={styles.bodyContainer_body_desription_text}>
+                {goodsItemInfo.description}
               </div>
-            <div className={styles.bodyContainer_body_desription_text}>
-              {goodsItemInfo.description}
             </div>
           </div>
         </div>
-      </div>
-      <div className={styles.commentContainer}>
-        <div className={styles.commentContainer_body}>
-          <div className={styles.commentContainer_body_desription}>
-            <div className={styles.commentContainer_body_desription_title}>
-              商品評價
-            </div>
-            {chooseCommentMode()}
-            <div className={styles.commentContainer_body_desription_commentItem}>
-              {goodsCommentInfo.map((data, index) => {
-                return <GoodsCommentCard key={data.commentId} commentData={data} />;
-              })}
+        <div className={styles.commentContainer}>
+          <div className={styles.commentContainer_body}>
+            <div className={styles.commentContainer_body_desription}>
+              <div className={styles.commentContainer_body_desription_title}>
+                商品評價
+              </div>
+              {chooseCommentMode()}
+              <div className={styles.commentContainer_body_desription_commentItem}>
+                {goodsCommentInfo.map((data, index) => {
+                  return <GoodsCommentCard key={data.commentId} commentData={data} />;
+                })}
+              </div>
             </div>
           </div>
         </div>

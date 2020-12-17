@@ -1,10 +1,15 @@
 .top_Padding {
   padding-top: 11.9rem;
 }
+.page {
+  display: block;
+  position: relative;
+}
 .pageContainer,
 .bodyContainer,
 .commentContainer {
   display: flex;
+  position: relative;
   justify-content: center;
   width: 100%;
   padding: 20px 0 0 0;

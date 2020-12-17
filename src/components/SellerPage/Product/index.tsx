@@ -29,8 +29,8 @@ const Product = () => {
   function getGoodsListInfo(){
     sellerApi.getSellerGoodsList()
       .then((res) => {
-        console.log("success")
-        console.log(res.data)
+        console.log("get goods List success")
+        const newData = res.data
         getGoodsList(res.data);
         setIsloading(false)
       })
@@ -38,8 +38,8 @@ const Product = () => {
         console.log("fail")
         setIsloading(false)
       });
-    
   }
+  console.log(goodsList)
   return (
     <div className={styles.container}>
       <div className={styles.container_titleBar}>

@@ -60,6 +60,16 @@ const userApi = {
       "id": id
     }
     return api.userApi({ url: "/items/deleteItem", method: "POST", data: userData })
+  },
+
+  setDisplayStatus: (goodId, status) => {
+    //console.log(goodId,status)
+    let userData = {
+      "goodId": goodId,
+      "status": status
+    }
+    console.log(userData)
+    return api.userApi({ url: "/item/updateDisplayState", method: "POST", data: userData })
   }
 };
 

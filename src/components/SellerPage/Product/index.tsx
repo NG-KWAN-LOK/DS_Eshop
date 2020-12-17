@@ -16,6 +16,9 @@ import * as loginActions from "../../../containers/Login/actions";
 
 import ProductGoodsItem from "./ProductGoodsItem"
 import Loading from "../../PopUpLayer/Loading"
+import Alert from "../../PopUpLayer/Alert"
+
+
 
 interface HeaderProps { }
 
@@ -23,6 +26,8 @@ const Product = () => {
   const history = useHistory();
   const [goodsList, getGoodsList] = useState([]);
   const [isLoading, setIsloading] = useState(true);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
+
   useEffect(() => {
     getGoodsListInfo()
   }, []);
@@ -37,6 +42,7 @@ const Product = () => {
       .catch((err) => {
         console.log("fail")
         setIsloading(false)
+        setIsErrorAlert(true)
       });
   }
   console.log(goodsList)
@@ -75,6 +81,7 @@ const Product = () => {
           </div>}
       </div>
       {isLoading && <Loading />}
+      {isErrorAlert && <Alert type={"error"} content={"網路錯誤"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
     </div>
   );
 };

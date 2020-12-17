@@ -39,6 +39,15 @@ const userApi = {
     return api.userApi({ url: "/items/getAllItems", method: "POST", data: userData })
   },
 
+  getItemsbyIsDisplay: (isDisplayStatus) => {
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+      "isDisplay": isDisplayStatus
+    }
+    console.log(userData)
+    return api.userApi({ url: "/items/getItemsbyIsDisplay", method: "POST", data: userData })
+  },
+
   newItem: (goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock) => {
     let userData = {
       "userToken": localStorage.getItem('userToken'),
@@ -71,6 +80,8 @@ const userApi = {
     console.log(userData)
     return api.userApi({ url: "/item/updateDisplayState", method: "POST", data: userData })
   }
+
+
 };
 
 export default userApi;

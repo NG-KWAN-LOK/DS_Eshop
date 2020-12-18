@@ -37,13 +37,15 @@ const GoodsCard = ({ goodsData}) => {
           className={styles.productContainer_productHeader_porductName_imageContainer_img}
           src={goodsData.imgURL}
         ></img></div>
-        <span>{goodsData.name}</span>
+        <Link to={{ pathname: "/items", search: "?goodsID=" + goodsData.goodId }}>
+          <span className={styles.productGoodsItemContainer_goodsName_text}>{goodsData.name}</span>
+        </Link>
       </div>
       <div className={styles.productContainer_productHeader_unitPrice}>
         <span>${goodsData.price}</span>
       </div>
       <div className={styles.productContainer_productHeader_count}>
-        <span>{goodsData.count}</span>
+      <span>{goodsData.count}</span>
       </div>
       <div className={styles.productContainer_productHeader_totalPrice}>
         <span>${countTotalPrice()}</span>

@@ -1,8 +1,14 @@
-import React, { useMemo } from "react";
+import React, { useMemo,useState } from "react";
 import { Link } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
+
+import Loading from "../../../components/PopUpLayer/Loading"
+
+import ShoppingCartApi from "../../../utils/api/apifetcher/shoppingCart"
+import Alert from "../../PopUpLayer/Alert"
+
 
 // const ArtistLink = ({ audioData, customClass = undefined, children }) => {
 //   {
@@ -21,13 +27,30 @@ import styles from "./styles.scss";
 //   }
 // };
 
-const GoodsCard = ({ goodsData }) => {
+const GoodsCard = ({ goodsData , getGoodsAPI}) => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
+  const [isLoading, setIsloading] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
   function countTotalPrice() {
     let totalPrice = parseInt(goodsData.count) * parseInt(goodsData.price)
     return totalPrice
+  }
+  function cancelGood(){
+    console.log("cancelGood" + goodsData.id)
+    setIsloading(true)
+    ShoppingCartApi.deleteShoppingCartItem(goodsData.goodId)
+      .then((res) => {
+        console.log("success",res)
+        getGoodsAPI();
+        setIsloading(false)
+      })
+      .catch((err) => {
+        console.log("fail")
+        setIsErrorAlert(true)
+        setIsloading(false)
+      });
   }
   return (
     <div className={styles.productGoodsItemContainer}>
@@ -36,7 +59,7 @@ const GoodsCard = ({ goodsData }) => {
           className={styles.productContainer_productHeader_porductName_imageContainer_img}
           src={goodsData.imgURL}
         ></img></div>
-        <span>{goodsData.name}</span>
+        <Link to={{ pathname: "/items", search: "?goodsID=" + goodsData.goodId }}><span className={styles.productGoodsItemContainer_goodsName_text}>{goodsData.name}</span></Link>
       </div>
       <div className={styles.productContainer_productHeader_unitPrice}>
         <span>${goodsData.price}</span>
@@ -48,8 +71,10 @@ const GoodsCard = ({ goodsData }) => {
         <span>${countTotalPrice()}</span>
       </div>
       <div className={styles.productContainer_productHeader_action}>
-        <div className={styles.productContainer_productHeader_action_text}>刪除</div>
+        <div className={styles.productContainer_productHeader_action_text} onClick={cancelGood}>刪除</div>
       </div>
+      {isLoading && <Loading />}
+      {isErrorAlert && <Alert type={"error"} content={"失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
     </div>
   );
 };

@@ -9,6 +9,9 @@ import styles from "./styles.scss";
 import { checkIslogIn } from "../../utils/tools/index";
 
 import Header from "../../components/Header/ShoppingCartHeader";
+import Loading from "../../components/PopUpLayer/Loading"
+import Alert from "../../components/PopUpLayer/Alert"
+
 import ShoppingCartItem from "../../components/ShoppingCart/ShoppingCartItem";
 import ShoppingCartApi from "../../utils/api/apifetcher/shoppingCart"
 interface LoginProps { }
@@ -17,19 +20,29 @@ const ShoppingCart = () => {
   const history = useHistory();
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
   const [goodsList, getGoodsList] = useState([]);
+  const [isLoading, setIsloading] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
+
   if (!isLogin) {
     var path = "/login";
     history.push(path);
   }
   useEffect(() => {
-    ShoppingCartApi.getShoppingCartList()
+    getShoppingCartList();
+  }, []);
+  async function getShoppingCartList(){
+    setIsloading(true)
+    await ShoppingCartApi.getShoppingCartList()
       .then((res) => {
-        getGoodsList(res);
+        getGoodsList(res.data);
       })
       .catch((err) => {
+        setIsErrorAlert(true)
         console.log("error");
       });
-  }, []);
+    setIsloading(false)
+  }
+  console.log(goodsList)
   function countTotalGoods() {
     var totalGoods = 0;
     goodsList.forEach(sellerData => {
@@ -100,7 +113,7 @@ const ShoppingCart = () => {
           </div>
           <div className={styles.container_goodsItemListContainer_item}>
             {goodsList.map((data, index) => {
-              return <ShoppingCartItem key={data.shoppingCartID} cartData={data} />;
+              return <ShoppingCartItem key={data.sellerUserName} cartData={data} getGoodsAPI={getShoppingCartList}/>;
             })}
           </div>
           <div className={styles.container_cartFooter}>
@@ -118,6 +131,8 @@ const ShoppingCart = () => {
           </div>
         </div>
       </div>
+      {isLoading && <Loading />}
+      {isErrorAlert && <Alert type={"error"} content={"網路失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
     </div>
   );
 };

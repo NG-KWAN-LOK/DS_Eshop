@@ -44,9 +44,9 @@ const shoppingCartData = [
 ];
 
 const ShoppingCartApi = {
-  getShoppingCartList: () => {
-    return new Promise((resolve) => resolve(shoppingCartData));
-  },
+  // getShoppingCartList: () => {
+  //   return new Promise((resolve) => resolve(shoppingCartData));
+  // },
   newItem: (goodID, count) => {
     let userData = {
       "userToken": localStorage.getItem('userToken'),
@@ -56,6 +56,22 @@ const ShoppingCartApi = {
     console.log(userData)
     return api.userApi({ url: "shoppingCart/addGoods", method: "POST", data: userData })
   },
+  getShoppingCartList: () => {
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+    }
+    console.log(userData)
+    return api.userApi({ url: "shoppingCart/getCartAll", method: "POST", data: userData })
+  },
+  deleteShoppingCartItem: (goodId) => {
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+      "goodId": goodId
+    }
+    console.log(userData)
+    return api.userApi({ url: "shoppingCart/reduceGoodsAmount", method: "POST", data: userData })
+  },
+
 };
 
 export default ShoppingCartApi;

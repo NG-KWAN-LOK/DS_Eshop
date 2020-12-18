@@ -11,6 +11,9 @@ import { checkIslogIn } from "../../utils/tools/index";
 import Header from "../../components/Header/CasherHeader";
 import CasherItem from "../../components/Casher/CasherItem";
 import ShoppingCartApi from "../../utils/api/apifetcher/shoppingCart"
+import Loading from "../../components/PopUpLayer/Loading"
+import Alert from "../../components/PopUpLayer/Alert"
+
 interface LoginProps { }
 
 const ShoppingCart = () => {
@@ -18,18 +21,25 @@ const ShoppingCart = () => {
   const userData = useSelector((appState: any) => appState.LoginReducer.userData);
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
   const [goodsList, getGoodsList] = useState([]);
+  const [isLoading, setIsloading] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
+
   if (!isLogin) {
     var path = "/login";
     history.push(path);
   }
   useEffect(() => {
+    setIsloading(true)
     ShoppingCartApi.getShoppingCartList()
       .then((res) => {
-        console.log(res);
-        getGoodsList(res);
+        console.log(res.data);
+        getGoodsList(res.data);
+        setIsloading(false)
       })
       .catch((err) => {
         console.log("error");
+        setIsErrorAlert(true)
+        setIsloading(false)
       });
   }, []);
   function countTotalGoods() {
@@ -141,6 +151,8 @@ const ShoppingCart = () => {
           </div>
         </div>
       </div>
+      {isLoading && <Loading />}
+      {isErrorAlert && <Alert type={"error"} content={"網路失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
     </div>
   );
 };

@@ -22,7 +22,7 @@ import ShoppingCartGoodsItems from "../ShoppingCartGoodsList";
 //   }
 // };
 
-const CartCard = ({ cartData }) => {
+const CartCard = ({ cartData,getGoodsAPI }) => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
@@ -38,7 +38,7 @@ const CartCard = ({ cartData }) => {
         </div>
         <div className={styles.productGoodsItemContainer_sellerBlock_goodsList}>
           {cartData.goodsList.map((data, index) => {
-            return <ShoppingCartGoodsItems key={data.goodId} goodsData={data} />;
+            return <ShoppingCartGoodsItems key={data.goodId} goodsData={data} getGoodsAPI={getGoodsAPI} />;
           })}
         </div>
       </div>

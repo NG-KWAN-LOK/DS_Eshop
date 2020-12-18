@@ -1,16 +1,141 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import styles from "./styles.scss";
+import 'swiper/swiper-bundle.css';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
+
+//import styles from "./styles.scss";
 
 import Header from "../../components/Header/MainHeader";
+import GoodsCard from "../../components/GoodsCard";
+import CouponCard from "../../components/CouponCard";
+
+
+import GoodsApi from "../../utils/api/apifetcher/goods";
+import CouponApi from "../../utils/api/apifetcher/coupon";
+
+
 interface DashboardProps {}
 
 const Dashboard = () => {
+  let bannerImgList=[
+    {
+      id:0,
+      url : "https://www.mesa-africa.org/wp-content/uploads/2016/06/beijing-1200x400.jpg"
+    },
+    {
+      id:1,
+      url : "https://upload.wikimedia.org/wikipedia/commons/c/c2/DiamondValleyNV.jpg"
+    },
+    {
+      id:2,
+      url : "https://www.mesa-africa.org/wp-content/uploads/2016/06/beijing-1200x400.jpg"},
+    {
+      id:3,
+      url : "https://upload.wikimedia.org/wikipedia/commons/c/c2/DiamondValleyNV.jpg"
+    },
+  ]
+  const [goodsList, getGoodsList] = useState([]);
+  const [couponList, getCouponList] = useState([]);
+
+
+  useEffect(() => {
+    GoodsApi.getGoodsList()
+      .then((res) => {
+        //console.log(res);
+        getGoodsList(res);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+      CouponApi.getCouponList()
+    .then((res) => {
+      //console.log(res);
+      getCouponList(res);
+    })
+    .catch((err) => {
+      console.log("error");
+    });
+  }, []);
+  console.log(bannerImgList)
   return (
     <div className={styles.container}>
       <Header />
       <div className={styles.top_Padding}></div>
-      <div>Dashboard</div>
+      <div className={styles.page}>
+        <div className={styles.pageContainer}>
+          <div className={styles.pageContainer_TopContainer}>
+            <div className={styles.pageContainer_TopContainer_banner}>
+              <Swiper
+                height={400}
+                width={1200}
+                spaceBetween={50}
+                slidesPerView={1}
+                centeredSlides={true}
+                autoplay={{delay: 3000,disableOnInteraction: false}}
+                loop={true}
+                navigation
+                pagination={{ clickable: true }}
+                onSwiper={(swiper) => console.log(swiper)}
+                onSlideChange={() => console.log('slide change')}
+                className={styles.pageContainer_TopContainer_banner_content}
+              >
+                {bannerImgList.map((data, index) => {
+                  return <SwiperSlide key={data.id}>{
+                    <div className={styles.pageContainer_TopContainer_banner_slide}>
+                      <img src={data.url}></img>
+                    </div>}
+                  </SwiperSlide>;
+                })}
+              </Swiper>
+            </div>
+          </div>
+          <div className={styles.pageContainer_couponItemContainer}>
+            <div className={styles.pageContainer_couponItemContainer_block}>
+            <div className={styles.pageContainer_couponItemContainer_block_header}>
+                <span className={styles.pageContainer_couponItemContainer_block_header_text}>
+                  領取優惠券
+                </span>
+              </div>
+              <Swiper
+                  height={309}
+                  width={1200}
+                  spaceBetween={10}
+                  slidesPerView={6}
+                  navigation
+                  onSwiper={(swiper) => console.log(swiper)}
+                  onSlideChange={() => console.log('slide change')}
+                  className={styles.pageContainer_couponItemContainer_banner_content}
+                >
+                  {couponList.map((data, index) => {
+                    return <SwiperSlide key={data.id}>
+                      <CouponCard key={data.id} couponData={data} />
+                    </SwiperSlide>;
+                  })}
+                </Swiper>
+            </div>
+          </div>
+          <div className={styles.pageContainer_hotItemContainer}>
+            <div className={styles.pageContainer_hotItemContainer_block}>
+              <div className={styles.pageContainer_hotItemContainer_block_header}>
+                <span className={styles.pageContainer_hotItemContainer_block_header_text}>
+                  熱門商品
+                </span>
+              </div>
+              <div className={styles.pageContainer_hotItemContainer_block_item}>
+                {goodsList.map((data, index) => {
+                  return <GoodsCard key={data.id} goodsData={data} />;
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

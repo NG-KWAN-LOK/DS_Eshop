@@ -21,36 +21,42 @@ import styles from "./styles.scss";
 //   }
 // };
 
-const GoodsCard = ({ goodsData }) => {
+const CouponCard = ({ couponData }) => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
-  console.log(goodsData);
+  console.log(couponData);
+  function takeCoupon(){
+    console.log("takeCoupon")
+  }
   return (
-    <Link to={{ pathname: "/items", search: "?goodsID=" + goodsData.id }}>
       <div className={styles.itemContainer}>
         <div className={styles.itemContainer_imageContainer}>
-          <img
+          186X186
+          {/* <img
             className={styles.itemContainer_imageContainer_img}
             src={goodsData.imgURL}
-          ></img>
+          ></img> */}
         </div>
         <div className={styles.itemContainer_info}>
           <div className={styles.itemContainer_info_title}>
-            {`${goodsData.name.substring(0, 30)}${goodsData.name.length > 30?"...":""}`}
+            {couponData.couponName}
           </div>
-          <div className={styles.itemContainer_info_price}>
-            ${goodsData.price}
+          <div className={styles.itemContainer_info_expdate}>
+            有效期期效 {couponData.endDate}
           </div>
           <div className={styles.itemContainer_info_footer}>
-            <div className={styles.itemContainer_footer_sales}>
-              已售出 {goodsData.sales}
+            {couponData.isTook == false?<div className={styles.itemContainer_info_footer_btn_notTook} onClick={takeCoupon}>
+              領取
+            </div>:
+            <div className={styles.itemContainer_info_footer_btn_isTook} onClick={takeCoupon}>
+              已領取
             </div>
+            }
           </div>
         </div>
       </div>
-    </Link>
   );
 };
 
-export default GoodsCard;
+export default CouponCard;

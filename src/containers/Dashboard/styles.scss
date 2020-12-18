@@ -1,3 +1,95 @@
 .top_Padding {
   padding-top: 11.9rem;
 }
+.page {
+  display: block;
+  position: relative;
+}
+.pageContainer,
+.bodyContainer,
+.commentContainer {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+.pageContainer_TopContainer {
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  width: 100%;
+}
+.pageContainer_TopContainer_banner {
+  display: flex;
+  width: 1200px;
+}
+.pageContainer_TopContainer_banner_slide {
+  display: flex;
+  width: 1200px;
+  height: 400px;
+}
+.pageContainer_TopContainer_banner_content {
+  margin: 30px 0;
+}
+.pageContainer_couponItemContainer,
+.bodyContainer_body,
+.commentContainer_body {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 0 0 0;
+}
+.pageContainer_couponItemContainer_block {
+  width: 1200px;
+}
+.pageContainer_couponItemContainer_block_header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 61px;
+  background-color: #ffffff;
+}
+.pageContainer_couponItemContainer_block_header_text {
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.7rem;
+  font-weight: 100;
+  font-style: normal;
+  padding: 0 0 0 20px;
+}
+.pageContainer_couponItemContainer_banner_content {
+}
+.pageContainer_hotItemContainer,
+.bodyContainer_body,
+.commentContainer_body {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 0 0 0;
+}
+.pageContainer_hotItemContainer_block {
+  display: block;
+  width: 1200px;
+}
+.pageContainer_hotItemContainer_block_header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 61px;
+  background-color: #ffffff;
+}
+.pageContainer_hotItemContainer_block_header_text {
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.7rem;
+  font-weight: 100;
+  font-style: normal;
+  padding: 0 0 0 20px;
+}
+.pageContainer_hotItemContainer_block_item {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 100%;
+}

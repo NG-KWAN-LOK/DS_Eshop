@@ -35,19 +35,19 @@ $footer_height: 5rem;
   font-style: normal;
   padding: 0 0 5px 0;
 }
-.itemContainer_info_price {
+.itemContainer_info_expdate {
   display: flex;
-  color: #ee4d2d;
+  color: #000000cc;
   font-family: "Noto Sans TC", sans-serif;
   text-decoration: none;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 300;
   font-style: normal;
 }
 .itemContainer_info_footer {
   display: flex;
   width: 100%;
-  justify-content: flex-end;
+  justify-content: center;
 }
 .itemContainer_footer_sales {
   color: #000000cc;
@@ -57,4 +57,44 @@ $footer_height: 5rem;
   font-weight: 300;
   font-style: normal;
   margin: 5px 0 0 0;
+}
+.itemContainer_info_footer_btn_notTook {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: 40px;
+  color: #ffffff;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 200;
+  background-color: #ee4d2d;
+  border-radius: 3px;
+  border: 1px solid #ee4d2d;
+  margin: 10px 0;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+.itemContainer_info_footer_btn_isTook {
+  cursor: not-allowed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: 40px;
+  color: #ee4d2d;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 200;
+  background-color: #ffffff;
+  border-radius: 3px;
+  border: 1px solid #ee4d2d;
+  margin: 10px 0;
+  &:hover {
+    opacity: 0.8;
+  }
 }

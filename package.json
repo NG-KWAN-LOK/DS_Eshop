@@ -73,6 +73,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "swiper": "^6.4.1",
     "terser-webpack-plugin": "^2.3.5",
     "webpack-merge": "^4.2.2"
   }

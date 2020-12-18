@@ -37,6 +37,7 @@ const Item = () => {
   const [isSuccessAlert, setIsSuccessAlert] = useState(false);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   const [isNotDisplay, setIsNotDisplay] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
   useEffect(() => {
     getGoodInfo()
     getCommentInfo()
@@ -53,6 +54,7 @@ const Item = () => {
       })
       .catch((err) => {
         console.log("fail")
+        setIsNotFound(true)
       });
     setIsloading(false)
   }
@@ -163,6 +165,7 @@ const Item = () => {
       <div className={styles.top_Padding}></div>
       <div className={styles.page}>
       {isNotDisplay && <NotDisplayLayer content={"商品未展示"}/>}
+      {isNotFound && <NotDisplayLayer content={"找不到商品"}/>}
         <div className={styles.pageContainer}>
           <div className={styles.pageContainer_itemContainer}>
             <div className={styles.pageContainer_itemContainer_header}>

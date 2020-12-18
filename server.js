@@ -9,3 +9,11 @@ app.set('port', process.env.PORT || 8080);
 var server = app.listen(app.get('port'), function() {
   console.log('listening on port ', server.address().port);
 });
+
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('dist/public'));
+}
+
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'dist/public', 'index.html'));
+});

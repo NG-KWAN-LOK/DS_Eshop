@@ -88,6 +88,16 @@ const GoodsApi = {
       id,
     },})
   },
+  searchGoods: (keywords, orderBy, orderByKeyword) => {
+    let userData = {
+      "keywords" : keywords,
+      "orderBy" : orderBy,
+      "orderByKeyword" : orderByKeyword
+    }
+    //console.log(_signUpUserName._username)
+    console.log(userData)
+    return api.userApi({ url: "/items/searchGoodsbyKeyword", method: "POST", data: userData })
+  },
 };
 
 export default GoodsApi;

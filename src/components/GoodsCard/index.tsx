@@ -36,11 +36,13 @@ const GoodsCard = ({ goodsData }) => {
           ></img>
         </div>
         <div className={styles.itemContainer_info}>
-          <div className={styles.itemContainer_info_title}>
-            {`${goodsData.name.substring(0, 30)}${goodsData.name.length > 30?"...":""}`}
-          </div>
-          <div className={styles.itemContainer_info_price}>
-            ${goodsData.price}
+        <div className={styles.itemContainer_info_top}>
+            <div className={styles.itemContainer_info_top_title}>
+              {`${goodsData.name.substring(0, 30)}${goodsData.name.length > 30?"...":""}`}
+            </div>
+            <div className={styles.itemContainer_info_top_price}>
+              ${goodsData.price}
+            </div>
           </div>
           <div className={styles.itemContainer_info_footer}>
             <div className={styles.itemContainer_footer_sales}>

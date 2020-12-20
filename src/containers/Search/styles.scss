@@ -19,6 +19,7 @@
   font-size: 1.6rem;
   font-weight: 300;
   font-style: normal;
+  margin: 0 0 24px 0;
   &_heightLight {
     @extend .pageContainer_searchContainer_searchResultText;
     color: #ee4d2d;
@@ -27,53 +28,151 @@
 }
 .pageContainer_searchContainer_searchResultContainer {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
   width: 100%;
 }
-.pageContainer_searchContainer_searchResultContainer_itemContainer {
-  display: block;
-  width: 186px;
-  margin: 5px;
-}
-.pageContainer_searchContainer_searchResultContainer_itemContainer_imageContainer {
+.pageContainer_searchContainer_sortingBar {
   display: flex;
-  width: 186px;
-  height: 186px;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  background-color: #00000008;
+  margin: 0 0 20px;
+  padding: 13px 20px;
+}
+.pageContainer_searchContainer_sortingBar_text {
+  display: flex;
+  color: #555555;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+}
+.pageContainer_searchContainer_sortingBar_btn {
+  cursor: pointer;
+  display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  width: 90px;
+  height: 34px;
+  border-radius: 2px;
+  margin: 0 0 0 15px;
 }
-.pageContainer_searchContainer_searchResultContainer_itemContainer_imageContainer_img {
-  min-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
+.pageContainer_searchContainer_sortingBar_btn_isSelect {
+  @extend .pageContainer_searchContainer_sortingBar_btn;
+  color: #ffffff;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 200;
+  background-color: #ee4d2d;
+  border: 1px solid #ee4d2d;
+  &:hover {
+    opacity: 0.8;
+  }
 }
-.pageContainer_searchContainer_searchResultContainer_itemContainer_info {
-  display: block;
-  width: 186px;
-  height: 123px;
-  padding: 10px;
-}
-.pageContainer_searchContainer_searchResultContainer_itemContainer_info_title {
-  display: flex;
+
+.pageContainer_searchContainer_sortingBar_btn_notSelect {
+  @extend .pageContainer_searchContainer_sortingBar_btn;
   color: #000000cc;
   font-family: "Noto Sans TC", sans-serif;
   text-decoration: none;
-  font-size: 1.6rem;
-  font-weight: 300;
-  font-style: normal;
-  padding: 0 0 5px 0;
+  font-size: 1.4rem;
+  font-weight: 200;
+  background-color: #ffffff;
+  &:hover {
+    opacity: 0.8;
+  }
 }
-.pageContainer_searchContainer_searchResultContainer_itemContainer_info_price {
+
+.pageContainer_searchContainer_sortingBar_sortPrice {
+  cursor: pointer;
+  display: block;
+  position: relative;
+  background-color: #ffffff;
+  margin: 0 0 0 15px;
+  &:hover {
+    .pageContainer_searchContainer_sortingBar_sortPrice_under {
+      height: auto;
+      transition: 0.2s;
+      opacity: 1;
+    }
+  }
+}
+.pageContainer_searchContainer_sortingBar_sortPrice_subtitle {
   display: flex;
-  color: #ee4d2d;
+  width: 200px;
+  height: 34px;
+  align-items: center;
+  border-radius: 2px;
+}
+.pageContainer_searchContainer_sortingBar_sortPrice_text {
+  width: 75%;
   font-family: "Noto Sans TC", sans-serif;
   text-decoration: none;
-  font-size: 1.6rem;
-  font-weight: 300;
-  font-style: normal;
+  font-size: 1.4rem;
+  font-weight: 200;
+  margin: 0 12px;
 }
-.pageContainer_searchContainer_searchResultContainer {
+.pageContainer_searchContainer_sortingBar_sortPrice_text_isSelect {
+  @extend .pageContainer_searchContainer_sortingBar_sortPrice_text;
+  color: #ee4d2d;
+}
+.pageContainer_searchContainer_sortingBar_sortPrice_text_notSelect {
+  @extend .pageContainer_searchContainer_sortingBar_sortPrice_text;
+  color: #000000cc;
+}
+.pageContainer_searchContainer_sortingBar_sortPrice_arrow {
+  background-image: url("../../image/down-arrow.svg");
+  width: 1.2rem;
+  height: 1.2rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.pageContainer_searchContainer_sortingBar_sortPrice_under {
+  display: block;
+  height: 0;
+  position: absolute;
+  overflow: hidden;
+  align-items: center;
+  z-index: 2;
+  padding: 2px 0 0 0;
+  opacity: 0;
+  transition: 0.2s;
+}
+.pageContainer_searchContainer_sortingBar_sortPrice_under_subtitle {
   display: flex;
-  flex-flow: row wrap;
-  width: 100%;
+  width: 200px;
+  height: 40px;
+  background-color: #ffffff;
+  align-items: center;
+  &:hover {
+    .pageContainer_searchContainer_sortingBar_sortPrice_under_text {
+      color: #ee4d2d;
+      transition: 0.2s;
+    }
+  }
+}
+.pageContainer_searchContainer_sortingBar_sortPrice_under_text {
+  width: 75%;
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 200;
+  margin: 0 12px;
+  transition: 0.2s;
+}
+.pageContainer_searchContainer_sortingBar_sortPrice_under_tick {
+  background-image: url("../../image/tick.svg");
+  width: 1.2rem;
+  height: 1.2rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  fill: #ee4d2d;
 }

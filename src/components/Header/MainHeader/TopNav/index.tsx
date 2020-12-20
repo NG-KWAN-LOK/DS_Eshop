@@ -51,7 +51,7 @@ const NavItem: React.FC<HeaderProps> = () => {
           <div className={styles.title_under_subtitle} onClick={logOut}>
             <span className={styles.title_under_text}>
               登出
-                </span>
+            </span>
           </div>
         </div>
       </div>

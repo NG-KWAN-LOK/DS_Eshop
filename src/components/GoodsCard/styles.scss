@@ -25,7 +25,10 @@ $footer_height: 5rem;
   height: 123px;
   padding: 10px;
 }
-.itemContainer_info_title {
+.itemContainer_info_top {
+  height: 75%;
+}
+.itemContainer_info_top_title {
   display: flex;
   color: #000000cc;
   font-family: "Noto Sans TC", sans-serif;
@@ -35,7 +38,7 @@ $footer_height: 5rem;
   font-style: normal;
   padding: 0 0 5px 0;
 }
-.itemContainer_info_price {
+.itemContainer_info_top_price {
   display: flex;
   color: #ee4d2d;
   font-family: "Noto Sans TC", sans-serif;

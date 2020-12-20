@@ -18,12 +18,15 @@ const NavItem: React.FC<HeaderProps> = () => {
   const history = useHistory();
   const { pathname } = useLocation();
   const [searchKey, setSearchKey] = useState();
+  const [orderBy, setOrderBy] = useState("asc");
+  const [orderByKeyword, setOrderByKeyword] = useState("name");
   const handleChangeSearchKey = (e) => {
     setSearchKey(e.target.value);
   };
   const handleSubmit = (event) => {
-    console.log(searchKey);
     event.preventDefault();
+    console.log(searchKey);
+    history.push(`/search?keyword=${searchKey}&orderBy=${orderBy}&orderByKeyword=${orderByKeyword}`)
   };
   const routeChangeToShoppingCart = useCallback(() => {
     var path = "/shoppingCart";
@@ -43,13 +46,11 @@ const NavItem: React.FC<HeaderProps> = () => {
             value={searchKey}
             onChange={handleChangeSearchKey}
           />
-          <Link to={{ pathname: "/search", search: "?keyword=" + searchKey }}>
-            <input
-              type="submit"
-              className={styles.searchBar_submitButton}
-              value=" "
-            />
-          </Link>
+          <input
+            type="submit"
+            className={styles.searchBar_submitButton}
+            value=" "
+          />
         </form>
 
         <div className={styles.shoppingCart}>

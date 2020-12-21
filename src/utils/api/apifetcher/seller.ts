@@ -79,9 +79,23 @@ const userApi = {
     }
     console.log(userData)
     return api.userApi({ url: "/item/updateDisplayState", method: "POST", data: userData })
-  }
-
-
+  },
+  getOrdersList:()=>{
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+    }
+    console.log(userData)
+    return api.userApi({ url: "/sellermenu/getmyorders", method: "POST", data: userData })
+  },
+  setOrderState:(orderId,status)=>{
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+      "orderId": orderId,
+      "status": status, //狀態(0:已取消,1:備貨中,2:待出貨,3:待收貨,4已完成)
+    }
+    console.log(userData)
+    return api.userApi({ url: "/sellermenu/setorderstate", method: "POST", data: userData })
+  },
 };
 
 export default userApi;

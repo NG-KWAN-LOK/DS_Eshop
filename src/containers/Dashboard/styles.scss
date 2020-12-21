@@ -57,7 +57,12 @@
   font-style: normal;
   padding: 0 0 0 20px;
 }
-.pageContainer_couponItemContainer_banner_content {
+.pageContainer_couponItemContainer_content {
+  display: flex;
+  position: relative;
+  min-height: 319px;
+}
+.pageContainer_couponItemContainer_content_item {
 }
 .pageContainer_hotItemContainer,
 .bodyContainer_body,
@@ -89,7 +94,9 @@
 }
 .pageContainer_hotItemContainer_block_item {
   display: flex;
+  position: relative;
   flex-flow: row wrap;
+  min-height: 638px;
   justify-content: space-between;
   width: 100%;
 }

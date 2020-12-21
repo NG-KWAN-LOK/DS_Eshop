@@ -13,7 +13,7 @@ import Header from "../../components/Header/MainHeader";
 import GoodsCommentCard from "../../components/goodsCommentCard";
 import Loading from "../../components/PopUpLayer/Loading"
 import Alert from "../../components/PopUpLayer/Alert"
-import NotDisplayLayer from "./NotDisplay"
+import NotDisplayLayer from "../../components/PopUpLayer/NotDisplay"
 
 
 

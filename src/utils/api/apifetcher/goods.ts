@@ -98,6 +98,9 @@ const GoodsApi = {
     console.log(userData)
     return api.userApi({ url: "/items/searchGoodsbyKeyword", method: "POST", data: userData })
   },
+  getHotsalesGoods:()=>{
+    return api.userApi({ url: "/items/getHotsalesGoods",method: "GET",})
+  }
 };
 
 export default GoodsApi;

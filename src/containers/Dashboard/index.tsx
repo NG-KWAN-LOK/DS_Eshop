@@ -14,6 +14,8 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 import Header from "../../components/Header/MainHeader";
 import GoodsCard from "../../components/GoodsCard";
 import CouponCard from "../../components/CouponCard";
+import DivLoading from "../../components/PopUpLayer/DivLoading"
+import Alert from "../../components/PopUpLayer/Alert"
 
 
 import GoodsApi from "../../utils/api/apifetcher/goods";
@@ -42,25 +44,28 @@ const Dashboard = () => {
   ]
   const [goodsList, getGoodsList] = useState([]);
   const [couponList, getCouponList] = useState([]);
-
+  const [isLoadingHotList, setIsloadingHotList] = useState(true);
+  const [isLoadingCouponList, setIsloadingCouponList] = useState(true);
 
   useEffect(() => {
-    GoodsApi.getGoodsList()
+    GoodsApi.getHotsalesGoods()
       .then((res) => {
         //console.log(res);
-        getGoodsList(res);
+        getGoodsList(res.data);
+        setIsloadingHotList(false)
       })
       .catch((err) => {
         console.log("error");
       });
-      CouponApi.getCouponList()
-    .then((res) => {
-      //console.log(res);
-      getCouponList(res);
-    })
-    .catch((err) => {
-      console.log("error");
-    });
+    CouponApi.getCouponList()
+      .then((res) => {
+        //console.log(res);
+        getCouponList(res);
+        setIsloadingCouponList(false)
+      })
+      .catch((err) => {
+        console.log("error");
+      });
   }, []);
   console.log(bannerImgList)
   return (
@@ -110,13 +115,15 @@ const Dashboard = () => {
                   navigation
                   onSwiper={(swiper) => console.log(swiper)}
                   onSlideChange={() => console.log('slide change')}
-                  className={styles.pageContainer_couponItemContainer_banner_content}
+                  className={styles.pageContainer_couponItemContainer_content}
                 >
                   {couponList.map((data, index) => {
-                    return <SwiperSlide key={data.id}>
+                    return (
+                    <SwiperSlide key={data.id} className={styles.pageContainer_couponItemContainer_content_item}>
                       <CouponCard key={data.id} couponData={data} />
-                    </SwiperSlide>;
+                    </SwiperSlide>);
                   })}
+                  {isLoadingCouponList && <DivLoading />}
                 </Swiper>
             </div>
           </div>
@@ -131,6 +138,7 @@ const Dashboard = () => {
                 {goodsList.map((data, index) => {
                   return <GoodsCard key={data.id} goodsData={data} />;
                 })}
+                {isLoadingHotList && <DivLoading />}
               </div>
             </div>
           </div>

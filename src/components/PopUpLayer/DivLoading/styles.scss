@@ -1,38 +1,14 @@
 .containers {
   display: flex;
+  position: absolute;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+  z-index: 1;
   top: 0;
   left: 0;
   background-color: #ffffffb6;
-}
-.containersMain {
-  @extend .containers;
-  position: fixed;
-  z-index: 2;
-}
-.containersDiv {
-  @extend .containers;
-  position: absolute;
-  z-index: 1;
-}
-.loader_container {
-}
-.loader_message {
-  display: flex;
-  justify-content: center;
-  color: #ee4d2d;
-  font-family: "Noto Sans TC", sans-serif;
-  text-decoration: none;
-  font-size: 1.6rem;
-  font-weight: 300;
-  margin: 5px;
-}
-.loader_container_top {
-  display: flex;
-  justify-content: center;
 }
 .loader {
   display: inline-block;

@@ -7,6 +7,7 @@ import styles from "./styles.scss";
 
 import * as loginActions from "../../../containers/Login/actions";
 import Loading from "../../PopUpLayer/Loading"
+import Alert from "../../PopUpLayer/Alert"
 import Header from "../../Header/LoginHeader";
 
 interface HeaderProps { }
@@ -19,6 +20,7 @@ const NavItem: React.FC<HeaderProps> = () => {
   const [password, setPassword] = useState("");
   const [wrongText, setwWongText] = useState("　");
   const [isLoading, setIsloading] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
   const [userNameBlankText, setUserNameBlankText] = useState("");
   const [passwordBlankText, setPasswordBlankText] = useState("");
   const handleChangeUsername = (e) => {

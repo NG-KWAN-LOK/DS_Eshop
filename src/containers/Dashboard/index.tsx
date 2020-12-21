@@ -17,6 +17,9 @@ import CouponCard from "../../components/CouponCard";
 import DivLoading from "../../components/PopUpLayer/DivLoading"
 import Alert from "../../components/PopUpLayer/Alert"
 
+import banner1 from "Image/1608418919930.jpg";
+
+
 
 import GoodsApi from "../../utils/api/apifetcher/goods";
 import CouponApi from "../../utils/api/apifetcher/coupon";
@@ -28,7 +31,7 @@ const Dashboard = () => {
   let bannerImgList=[
     {
       id:0,
-      url : "https://www.mesa-africa.org/wp-content/uploads/2016/06/beijing-1200x400.jpg"
+      url : banner1
     },
     {
       id:1,

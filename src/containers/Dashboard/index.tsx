@@ -17,7 +17,7 @@ import CouponCard from "../../components/CouponCard";
 import DivLoading from "../../components/PopUpLayer/DivLoading"
 import Alert from "../../components/PopUpLayer/Alert"
 
-import banner1 from "Image/1608418919930.jpg";
+// import banner1 from "Image/1608418919930.jpg";
 
 
 
@@ -31,7 +31,8 @@ const Dashboard = () => {
   let bannerImgList=[
     {
       id:0,
-      url : banner1
+      url : "../../image/banner/1608418919930.jpg"
+      //url : banner1
     },
     {
       id:1,

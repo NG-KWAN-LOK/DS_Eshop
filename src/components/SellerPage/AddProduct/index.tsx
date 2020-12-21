@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "./styles.scss";
+import { categoryList } from "../../../utils/constants"
 
 import sellerApi from "../../../utils/api/apifetcher/seller"
 import Loading from "../../PopUpLayer/Loading"
@@ -20,13 +21,13 @@ const AddProduct = () => {
   const { pathname } = useLocation();
   const [goodsName, setGoodsName] = useState();
   const [goodsDesription, setGoodsDesription] = useState();
+  const [goodsCetogory, setGoodsCetogory] = useState("請選擇");
   const [goodsPrice, setGoodsPrice] = useState();
   const [goodsStock, setGoodsStock] = useState();
   const [goodsImg, setGoodsImg] = useState();
   const [isLoading, setIsloading] = useState(false);
 
-
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
     setIsloading(true)
@@ -104,7 +105,8 @@ const AddProduct = () => {
       numberExpression.test(String(goodsPrice)) != true ||
       numberExpression.test(String(goodsStock)) != true ||
       (goodsImg != "" &&
-        urlExpression.test(String(goodsImg)) != true)
+        urlExpression.test(String(goodsImg)) != true) ||
+      goodsCetogory === "請選擇"
     ) {
       console.log("blank");
       isButtonDisable = true;
@@ -115,7 +117,6 @@ const AddProduct = () => {
       return `${styles["loginContent_submitBtn"]} ${styles["loginContent_submitBtn-allow"]}`;
     }
   }
-
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
@@ -146,6 +147,36 @@ const AddProduct = () => {
               value={goodsDesription}
               onChange={handleChangeGoodsDesription}
             />
+          </div>
+          <div className={styles.container_basicInfo_goodsCategory}>
+            <div className={styles.container_basicInfo_goodsCategory_title}>
+              *類別
+            </div>
+            <div className={styles.container_basicInfo_goodsCategory_dropList}>
+              <div className={styles.container_basicInfo_goodsCategory_dropList_subtitle}>
+                <span className={styles.container_basicInfo_goodsCategory_dropList_text_notSelect}>
+                  {goodsCetogory}
+                </span>
+                <span className={styles.container_basicInfo_goodsCategory_dropList_arrow}>
+                </span>
+              </div>
+              <div className={styles.container_basicInfo_goodsCategory_dropList_under}>
+                {categoryList.map((data, index) => {
+                  return (
+                    <div className={styles.container_basicInfo_goodsCategory_dropList_under_subtitle} onClick={() => setGoodsCetogory(data.name)}>
+                      <span className={goodsCetogory == data.name ? styles.container_basicInfo_goodsCategory_dropList_under_text_isSelect : styles.container_basicInfo_goodsCategory_dropList_under_text}>
+                        {data.name}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.container_sellInfo}>
+          <div className={styles.container_sellInfo_title}>
+            媒體管理
           </div>
           <div className={styles.container_basicInfo_goodsImg}>
             <div className={styles.container_basicInfo_goodsImg_title}>

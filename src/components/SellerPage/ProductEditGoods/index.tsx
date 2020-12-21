@@ -10,21 +10,25 @@ import {
 
 import PATH from "Utils/pathConst";
 import useParams from 'Customhooks/useParams';
+import { categoryList } from "../../../utils/constants"
+
+
 import sellerApi from "../../../utils/api/apifetcher/seller"
 import Loading from "../../PopUpLayer/Loading"
 import styles from "./styles.scss";
 
 const ProductEditGoods = () => {
   const history = useHistory();
-  const { goodsID:id } =useParams({keys:["goodsID"]});
+  const { goodsID: id } = useParams({ keys: ["goodsID"] });
   const [goodsName, setGoodsName] = useState("");
   const [goodsDesription, setGoodsDesription] = useState();
+  const [goodsCetogory, setGoodsCetogory] = useState("請選擇");
   const [goodsPrice, setGoodsPrice] = useState();
   const [goodsStock, setGoodsStock] = useState();
   const [goodsImg, setGoodsImg] = useState();
   const [goodsSale, setGoodsSale] = useState();
   const [isLoading, setIsloading] = useState(true);
-  async function getGoodInfo(){
+  async function getGoodInfo() {
     await sellerApi.getItemInfo(id)
       .then((res) => {
         console.log("success")
@@ -39,17 +43,17 @@ const ProductEditGoods = () => {
       .catch((err) => {
         console.log("fail")
       });
-      setIsloading(false)
+    setIsloading(false)
   }
-  if(goodsName === ""){
+  if (goodsName === "") {
     getGoodInfo()
   }
-  
-  const handleSubmit = async(event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(id,goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale);
+    console.log(id, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale);
     setIsloading(true)
-    await sellerApi.updateItemInfo(id,goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale)
+    await sellerApi.updateItemInfo(id, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale)
       .then((res) => {
         console.log("success")
         history.push("/seller/product")
@@ -123,7 +127,8 @@ const ProductEditGoods = () => {
       numberExpression.test(String(goodsPrice)) != true ||
       numberExpression.test(String(goodsStock)) != true ||
       (goodsImg != "" &&
-        urlExpression.test(String(goodsImg)) != true)
+        urlExpression.test(String(goodsImg)) != true) ||
+      goodsCetogory === "請選擇"
     ) {
       console.log("blank");
       isButtonDisable = true;
@@ -164,6 +169,36 @@ const ProductEditGoods = () => {
               value={goodsDesription}
               onChange={handleChangeGoodsDesription}
             />
+          </div>
+          <div className={styles.container_basicInfo_goodsCategory}>
+            <div className={styles.container_basicInfo_goodsCategory_title}>
+              *類別
+            </div>
+            <div className={styles.container_basicInfo_goodsCategory_dropList}>
+              <div className={styles.container_basicInfo_goodsCategory_dropList_subtitle}>
+                <span className={styles.container_basicInfo_goodsCategory_dropList_text_notSelect}>
+                  {goodsCetogory}
+                </span>
+                <span className={styles.container_basicInfo_goodsCategory_dropList_arrow}>
+                </span>
+              </div>
+              <div className={styles.container_basicInfo_goodsCategory_dropList_under}>
+                {categoryList.map((data, index) => {
+                  return (
+                    <div className={styles.container_basicInfo_goodsCategory_dropList_under_subtitle} onClick={() => setGoodsCetogory(data.name)}>
+                      <span className={goodsCetogory == data.name ? styles.container_basicInfo_goodsCategory_dropList_under_text_isSelect : styles.container_basicInfo_goodsCategory_dropList_under_text}>
+                        {data.name}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.container_sellInfo}>
+          <div className={styles.container_sellInfo_title}>
+            媒體管理
           </div>
           <div className={styles.container_basicInfo_goodsImg}>
             <div className={styles.container_basicInfo_goodsImg_title}>
@@ -230,8 +265,8 @@ const ProductEditGoods = () => {
           />
         </div>
       </form>
-      {isLoading && <Loading />}
-    </div>
+      { isLoading && <Loading />}
+    </div >
   );
 };
 

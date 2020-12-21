@@ -31,7 +31,7 @@ const AddProduct = () => {
     event.preventDefault();
     console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
     setIsloading(true)
-    await sellerApi.newItem(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock)
+    await sellerApi.newItem(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock,goodsCetogory)
       .then((res) => {
         console.log("success")
         history.push("/seller/product")

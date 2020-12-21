@@ -39,6 +39,7 @@ const ProductEditGoods = () => {
         setGoodsStock(res.data.stock)
         setGoodsImg(res.data.imgURL)
         setGoodsSale(res.data.sales)
+        setGoodsCetogory(res.data.category !== ""? res.data.category:"未選擇")
       })
       .catch((err) => {
         console.log("fail")
@@ -53,7 +54,7 @@ const ProductEditGoods = () => {
     event.preventDefault();
     console.log(id, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale);
     setIsloading(true)
-    await sellerApi.updateItemInfo(id, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale)
+    await sellerApi.updateItemInfo(id, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale,goodsCetogory)
       .then((res) => {
         console.log("success")
         history.push("/seller/product")

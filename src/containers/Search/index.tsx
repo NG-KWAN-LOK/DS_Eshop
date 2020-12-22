@@ -15,6 +15,7 @@ import Alert from "../../components/PopUpLayer/Alert"
 
 import * as SearchActions from "./actions";
 import { min } from "date-fns";
+import { categoryList } from "Utils/constants";
 interface DashboardProps { }
 
 interface location {
@@ -26,7 +27,7 @@ const Search = () => {
   const location: location = useLocation();
   const history = useHistory();
   const { pathname, search } = location;
-  const { keyword: keyWord, orderBy: orderBy, orderByKeyword: orderByKeyword } = getParams(search, ["keyword", "orderBy", "orderByKeyword"]);
+  const { keyword: keyWord, orderBy: orderBy, orderByKeyword: orderByKeyword, category: category } = getParams(search, ["keyword", "orderBy", "orderByKeyword", "category"]);
   const [goodsList, getGoodsList] = useState([]);
   const [goodsCetogoryList, setGoodsCetogoryList] = useState([]);
   const [goodsCetogorySelect, setGoodsCetogorySelect] = useState("");
@@ -44,7 +45,7 @@ const Search = () => {
   function searchGoods() {
     console.log("getkeyword:" + keyWord + "orderBy:" + orderBy + "orderByKeyword:" + orderByKeyword);
     setIsloading(true)
-    GoodsApi.searchGoods(keyWord, orderBy, orderByKeyword, goodsCetogorySelect, minPrice, maxPrice)
+    GoodsApi.searchGoods(keyWord, orderBy, orderByKeyword, category == null ? "" : category, minPrice, maxPrice)
       .then((res) => {
         //console.log(res);
         const newData = res.data
@@ -70,6 +71,7 @@ const Search = () => {
     history.push(`/search?keyword=${keyWord}&orderBy=${orderMode}&orderByKeyword=${mode}`)
   }
   function setFilterMethon() {
+    console.log("hi");
     history.push(`/search?keyword=${keyWord}&orderBy=${orderByKeyword}&orderByKeyword=${orderBy}${goodsCetogorySelect !== "" ? "&category=" + goodsCetogorySelect : ""}`)
   }
   const handleChangeRadios = (event) => {
@@ -101,7 +103,7 @@ const Search = () => {
                   </div>
                   <div className={styles.PageContainer_searchContainer_left_filterContainer_filterRow_interContainerBlock}>
                     {Array.from(goodsCetogoryList).map((data) => {
-                      return <span><input type="radio" value={data} name="category" checked={goodsCetogorySelect === data} onChange={handleChangeRadios} /> {data}</span>
+                      return <span><input type="radio" value={data} name="category" checked={goodsCetogorySelect === data} onChange={(e) => { handleChangeRadios(e); setFilterMethon() }} /> {data}</span>
                     })
                     }
                   </div>

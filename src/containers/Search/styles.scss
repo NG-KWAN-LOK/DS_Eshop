@@ -11,6 +11,79 @@
   display: block;
   width: 1200px;
 }
+.pageContainer_searchContainer_main {
+  display: flex;
+}
+.pageContainer_searchContainer_left {
+  display: block;
+  width: 18%;
+}
+.pageContainer_searchContainer_left_filterBar {
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0 0 24px 0;
+}
+.pageContainer_searchContainer_left_filterContainer {
+}
+.pageContainer_searchContainer_left_filterContainer_filterRow {
+  display: block;
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 3px solid #00000008;
+}
+.pageContainer_searchContainer_left_filterContainer_filterRow_title {
+  display: flex;
+  width: 100%;
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: normal;
+  margin: 0 0 10px 0;
+}
+.PageContainer_searchContainer_left_filterContainer_filterRow_interContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0;
+}
+.PageContainer_searchContainer_left_filterContainer_filterRow_interContainer_line {
+  width: 25px;
+  height: 2px;
+  background-color: #0000001f;
+  margin: 0 15px;
+}
+.loginContent_inputBar {
+  display: flex;
+  width: 70px;
+  height: 30px;
+  background-color: #fff;
+  font-weight: 100;
+  padding: 1px 2px 1px 4px;
+  align-items: center;
+  border: 1px solid #dfdfdf;
+  border-radius: 2px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 300;
+  font-size: 1.3rem;
+  &::placeholder {
+    opacity: 0.7;
+  }
+  &-error {
+    z-index: 100;
+    border: 1px solid #ff424f;
+    background-color: #fff6f7;
+  }
+}
+.pageContainer_searchContainer_right {
+  display: block;
+  width: 82%;
+}
 .pageContainer_searchContainer_searchResultText {
   color: #000000cc;
   font-family: "Noto Sans TC", sans-serif;

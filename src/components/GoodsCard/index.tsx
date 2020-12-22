@@ -25,7 +25,7 @@ const GoodsCard = ({ goodsData }) => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
-  console.log(goodsData);
+  //console.log(goodsData);
   return (
     <Link to={{ pathname: "/items", search: "?goodsID=" + goodsData.id }}>
       <div className={styles.itemContainer}>
@@ -36,9 +36,9 @@ const GoodsCard = ({ goodsData }) => {
           ></img>
         </div>
         <div className={styles.itemContainer_info}>
-        <div className={styles.itemContainer_info_top}>
+          <div className={styles.itemContainer_info_top}>
             <div className={styles.itemContainer_info_top_title}>
-              {`${goodsData.name.substring(0, 30)}${goodsData.name.length > 30?"...":""}`}
+              {`${goodsData.name.substring(0, 30)}${goodsData.name.length > 30 ? "..." : ""}`}
             </div>
             <div className={styles.itemContainer_info_top_price}>
               ${goodsData.price}

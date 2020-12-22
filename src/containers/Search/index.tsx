@@ -26,27 +26,36 @@ const Search = () => {
   const location: location = useLocation();
   const history = useHistory();
   const { pathname, search } = location;
-  const { keyword: keyWord , orderBy:orderBy, orderByKeyword:orderByKeyword} = getParams(search, ["keyword", "orderBy", "orderByKeyword"]);
+  const { keyword: keyWord, orderBy: orderBy, orderByKeyword: orderByKeyword } = getParams(search, ["keyword", "orderBy", "orderByKeyword"]);
   const [goodsList, getGoodsList] = useState([]);
+  const [goodsCetogoryList, setGoodsCetogoryList] = useState();
+  const [goodsCetogorySelect, setGoodsCetogorySelect] = useState("");
   const [minPrice, setMinPrice] = useState();
   const [maxPrice, setMaxPrice] = useState();
   const [isLoading, setIsloading] = useState(true);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   useEffect(() => {
-  searchGoods()
-  history.listen((location, action) => {
-    //console.log("getkeyword:" + keyWord, location);
-    // Do stuff.
-  })
+    searchGoods()
+    history.listen((location, action) => {
+      //console.log("getkeyword:" + keyWord, location);
+      // Do stuff.
+    })
   }, [location]);
-  function searchGoods(){
+  function searchGoods() {
     console.log("getkeyword:" + keyWord + "orderBy:" + orderBy + "orderByKeyword:" + orderByKeyword);
     setIsloading(true)
-    GoodsApi.searchGoods(keyWord, orderBy, orderByKeyword)
+    GoodsApi.searchGoods(keyWord, orderBy, orderByKeyword, goodsCetogorySelect)
       .then((res) => {
         //console.log(res);
         const newData = res.data
         getGoodsList(newData);
+        if (newData.length !== 0) {
+          let newCetogory = new Set()
+          newData.forEach(item => {
+            newCetogory.has(item.category) ? newCetogory.add(item.category) : newCetogory.add(item.category);
+          })
+          setGoodsCetogoryList(newCetogory)
+        }
         setIsloading(false)
       })
       .catch((err) => {
@@ -55,16 +64,21 @@ const Search = () => {
         setIsErrorAlert(true)
       });
   }
-  function setSortingMethon(mode, orderMode = "asc"){
+  console.log(goodsList, goodsCetogoryList)
+
+  function setSortingMethon(mode, orderMode = "asc") {
     history.push(`/search?keyword=${keyWord}&orderBy=${orderMode}&orderByKeyword=${mode}`)
   }
+  const handleChangeRadios = (event) => {
+    setGoodsCetogorySelect(event.currentTarget.value)
+  };
   const handleChangeMinPrice = (e) => {
     setMinPrice(e.target.value);
   };
   const handleChangeMaxPrice = (e) => {
     setMaxPrice(e.target.value);
   };
-  //console.log(goodsList);
+  console.log(goodsCetogorySelect);
 
   return (
     <div className={styles.container}>
@@ -81,6 +95,10 @@ const Search = () => {
                 <div className={styles.pageContainer_searchContainer_left_filterContainer_filterRow}>
                   <div className={styles.pageContainer_searchContainer_left_filterContainer_filterRow_title}>
                     分類
+                  </div>
+                  <div className={styles.PageContainer_searchContainer_left_filterContainer_filterRow_interContainerBlock}>
+                    <span><input type="radio" value="Male" name="category" checked={goodsCetogorySelect === "Male"} onChange={handleChangeRadios} /> Male</span>
+                    <span><input type="radio" value="Female" name="category" checked={goodsCetogorySelect === "Female"} onChange={handleChangeRadios} /> Female</span>
                   </div>
                 </div>
               </div>
@@ -110,53 +128,53 @@ const Search = () => {
               </div>
             </div>
             <div className={styles.pageContainer_searchContainer_right}>
-                <div className={styles.pageContainer_searchContainer_searchResultText}>
-                  '
+              <div className={styles.pageContainer_searchContainer_searchResultText}>
+                '
                   <span className={styles.pageContainer_searchContainer_searchResultText_heightLight}>
-                    {keyWord}
-                  </span>
+                  {keyWord}
+                </span>
                   '搜尋結果
               </div>
-              <div className= {styles.pageContainer_searchContainer_sortingBar}>
-                <div className= {styles.pageContainer_searchContainer_sortingBar_text}>
+              <div className={styles.pageContainer_searchContainer_sortingBar}>
+                <div className={styles.pageContainer_searchContainer_sortingBar_text}>
                   篩選
                 </div>
-                {orderByKeyword === "name"?<div className={styles.pageContainer_searchContainer_sortingBar_btn_isSelect}>
+                {orderByKeyword === "name" ? <div className={styles.pageContainer_searchContainer_sortingBar_btn_isSelect}>
                   名稱
-                </div>:
-                <div className={styles.pageContainer_searchContainer_sortingBar_btn_notSelect} onClick={()=>setSortingMethon("name")}>
-                  名稱
+                </div> :
+                  <div className={styles.pageContainer_searchContainer_sortingBar_btn_notSelect} onClick={() => setSortingMethon("name")}>
+                    名稱
                 </div>
                 }
-                {orderByKeyword === "sales"?<div className={styles.pageContainer_searchContainer_sortingBar_btn_isSelect}>
+                {orderByKeyword === "sales" ? <div className={styles.pageContainer_searchContainer_sortingBar_btn_isSelect}>
                   最熱銷
-                </div>:
-                <div className={styles.pageContainer_searchContainer_sortingBar_btn_notSelect} onClick={()=>setSortingMethon("sales")}>
-                  最熱銷
+                </div> :
+                  <div className={styles.pageContainer_searchContainer_sortingBar_btn_notSelect} onClick={() => setSortingMethon("sales")}>
+                    最熱銷
                 </div>
                 }
-                <div className= {styles.pageContainer_searchContainer_sortingBar_sortPrice}>
-                  <div className= {styles.pageContainer_searchContainer_sortingBar_sortPrice_subtitle}>
-                    <span className= {orderByKeyword === "price"?styles.pageContainer_searchContainer_sortingBar_sortPrice_text_isSelect:styles.pageContainer_searchContainer_sortingBar_sortPrice_text_notSelect}>
-                      價格：{orderByKeyword === "price"?orderBy === "asc"?"低至高":"高至低" : ""}
+                <div className={styles.pageContainer_searchContainer_sortingBar_sortPrice}>
+                  <div className={styles.pageContainer_searchContainer_sortingBar_sortPrice_subtitle}>
+                    <span className={orderByKeyword === "price" ? styles.pageContainer_searchContainer_sortingBar_sortPrice_text_isSelect : styles.pageContainer_searchContainer_sortingBar_sortPrice_text_notSelect}>
+                      價格：{orderByKeyword === "price" ? orderBy === "asc" ? "低至高" : "高至低" : ""}
                     </span>
-                    <span className= {styles.pageContainer_searchContainer_sortingBar_sortPrice_arrow}>
+                    <span className={styles.pageContainer_searchContainer_sortingBar_sortPrice_arrow}>
                     </span>
                   </div>
                   <div className={styles.pageContainer_searchContainer_sortingBar_sortPrice_under}>
-                    <div className={styles.pageContainer_searchContainer_sortingBar_sortPrice_under_subtitle} onClick={()=>setSortingMethon("price", "asc")}>
+                    <div className={styles.pageContainer_searchContainer_sortingBar_sortPrice_under_subtitle} onClick={() => setSortingMethon("price", "asc")}>
                       <span className={styles.pageContainer_searchContainer_sortingBar_sortPrice_under_text}>
                         價格：低至高
                       </span>
-                      {orderByKeyword === "price" && orderBy === "asc"? <span className= {styles.pageContainer_searchContainer_sortingBar_sortPrice_under_tick}>
-                      </span>:""}
+                      {orderByKeyword === "price" && orderBy === "asc" ? <span className={styles.pageContainer_searchContainer_sortingBar_sortPrice_under_tick}>
+                      </span> : ""}
                     </div>
-                    <div className={styles.pageContainer_searchContainer_sortingBar_sortPrice_under_subtitle} onClick={()=>setSortingMethon("price","desc")}>
+                    <div className={styles.pageContainer_searchContainer_sortingBar_sortPrice_under_subtitle} onClick={() => setSortingMethon("price", "desc")}>
                       <span className={styles.pageContainer_searchContainer_sortingBar_sortPrice_under_text}>
                         價格：高至低
                       </span>
-                      {orderByKeyword === "price" && orderBy === "desc"? <span className= {styles.pageContainer_searchContainer_sortingBar_sortPrice_under_tick}>
-                      </span>:""}
+                      {orderByKeyword === "price" && orderBy === "desc" ? <span className={styles.pageContainer_searchContainer_sortingBar_sortPrice_under_tick}>
+                      </span> : ""}
                     </div>
                   </div>
                 </div>

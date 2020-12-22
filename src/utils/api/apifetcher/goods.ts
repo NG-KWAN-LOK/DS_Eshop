@@ -82,24 +82,27 @@ const GoodsApi = {
     return new Promise((resolve) => resolve(goodList));
   },
 
-  getItemInfo:(id) =>{
+  getItemInfo: (id) => {
     console.log(id)
-    return api.userApi({ url: "/items/getItem",method: "GET",params: {
-      id,
-    },})
+    return api.userApi({
+      url: "/items/getItem", method: "GET", params: {
+        id,
+      },
+    })
   },
-  searchGoods: (keywords, orderBy, orderByKeyword) => {
+  searchGoods: (keywords, orderBy, orderByKeyword, category) => {
     let userData = {
-      "keywords" : keywords,
-      "orderBy" : orderBy,
-      "orderByKeyword" : orderByKeyword
+      "keywords": keywords,
+      "orderBy": orderBy,
+      "orderByKeyword": orderByKeyword,
+      "category": category
     }
     //console.log(_signUpUserName._username)
     console.log(userData)
     return api.userApi({ url: "/items/searchGoodsbyKeyword", method: "POST", data: userData })
   },
-  getHotsalesGoods:()=>{
-    return api.userApi({ url: "/items/getHotsalesGoods",method: "GET",})
+  getHotsalesGoods: () => {
+    return api.userApi({ url: "/items/getHotsalesGoods", method: "GET", })
   }
 };
 

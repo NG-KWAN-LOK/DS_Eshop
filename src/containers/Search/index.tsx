@@ -28,10 +28,10 @@ const Search = () => {
   const { pathname, search } = location;
   const { keyword: keyWord, orderBy: orderBy, orderByKeyword: orderByKeyword } = getParams(search, ["keyword", "orderBy", "orderByKeyword"]);
   const [goodsList, getGoodsList] = useState([]);
-  const [goodsCetogoryList, setGoodsCetogoryList] = useState();
+  const [goodsCetogoryList, setGoodsCetogoryList] = useState([]);
   const [goodsCetogorySelect, setGoodsCetogorySelect] = useState("");
-  const [minPrice, setMinPrice] = useState();
-  const [maxPrice, setMaxPrice] = useState();
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const [isLoading, setIsloading] = useState(true);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   useEffect(() => {
@@ -44,7 +44,7 @@ const Search = () => {
   function searchGoods() {
     console.log("getkeyword:" + keyWord + "orderBy:" + orderBy + "orderByKeyword:" + orderByKeyword);
     setIsloading(true)
-    GoodsApi.searchGoods(keyWord, orderBy, orderByKeyword, goodsCetogorySelect)
+    GoodsApi.searchGoods(keyWord, orderBy, orderByKeyword, goodsCetogorySelect, minPrice, maxPrice)
       .then((res) => {
         //console.log(res);
         const newData = res.data
@@ -68,6 +68,9 @@ const Search = () => {
 
   function setSortingMethon(mode, orderMode = "asc") {
     history.push(`/search?keyword=${keyWord}&orderBy=${orderMode}&orderByKeyword=${mode}`)
+  }
+  function setFilterMethon() {
+    history.push(`/search?keyword=${keyWord}&orderBy=${orderByKeyword}&orderByKeyword=${orderBy}${goodsCetogorySelect !== "" ? "&category=" + goodsCetogorySelect : ""}`)
   }
   const handleChangeRadios = (event) => {
     setGoodsCetogorySelect(event.currentTarget.value)
@@ -97,8 +100,10 @@ const Search = () => {
                     分類
                   </div>
                   <div className={styles.PageContainer_searchContainer_left_filterContainer_filterRow_interContainerBlock}>
-                    <span><input type="radio" value="Male" name="category" checked={goodsCetogorySelect === "Male"} onChange={handleChangeRadios} /> Male</span>
-                    <span><input type="radio" value="Female" name="category" checked={goodsCetogorySelect === "Female"} onChange={handleChangeRadios} /> Female</span>
+                    {Array.from(goodsCetogoryList).map((data) => {
+                      return <span><input type="radio" value={data} name="category" checked={goodsCetogorySelect === data} onChange={handleChangeRadios} /> {data}</span>
+                    })
+                    }
                   </div>
                 </div>
               </div>

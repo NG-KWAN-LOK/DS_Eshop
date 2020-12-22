@@ -90,12 +90,14 @@ const GoodsApi = {
       },
     })
   },
-  searchGoods: (keywords, orderBy, orderByKeyword, category) => {
+  searchGoods: (keywords, orderBy, orderByKeyword, category, minPrice, maxPrice) => {
     let userData = {
       "keywords": keywords,
       "orderBy": orderBy,
       "orderByKeyword": orderByKeyword,
-      "category": category
+      "category": category,
+      "minPrice": minPrice,
+      "maxPrice": maxPrice
     }
     //console.log(_signUpUserName._username)
     console.log(userData)

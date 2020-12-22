@@ -14,6 +14,7 @@ import { categoryList } from "../../../utils/constants";
 import sellerApi from "../../../utils/api/apifetcher/seller";
 import imgurApi from "../../../utils/api/apifetcher/imgur";
 import Loading from "../../PopUpLayer/Loading";
+import Alert from "../../PopUpLayer/Alert";
 
 interface HeaderProps {}
 
@@ -27,43 +28,51 @@ const AddProduct = () => {
   const [goodsStock, setGoodsStock] = useState();
   const [goodsImg, setGoodsImg] = useState();
   const [isLoading, setIsloading] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("網路錯誤");
   const [selectedFile, setSelectedFile] = useState(null);
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
+    let tempGoodsImg = null;
     setIsloading(true);
     if (selectedFile != null) {
       await imgurApi
         .uploadImage(selectedFile)
         .then((res) => {
           console.log("success");
+          setGoodsImg(res.data.data.link);
+          tempGoodsImg = res.data.data.link;
+          console.log(res.data.data.link);
           console.log(res);
-          setIsloading(false);
         })
         .catch((err) => {
           console.log("fail");
           setIsloading(false);
+          setErrorMessage("圖片伺服器錯誤");
+          setIsErrorAlert(true);
         });
     }
+    await sellerApi
+      .newItem(
+        goodsName,
+        goodsDesription,
+        tempGoodsImg != null ? tempGoodsImg : goodsImg,
+        goodsPrice,
+        goodsStock,
+        goodsCetogory
+      )
+      .then((res) => {
+        console.log("success");
+        history.push("/seller/product");
+      })
+      .catch((err) => {
+        console.log("fail");
+        setIsloading(false);
+        setErrorMessage("網路錯誤");
+        setIsErrorAlert(true);
+      });
   };
-  //   await sellerApi
-  //     .newItem(
-  //       goodsName,
-  //       goodsDesription,
-  //       goodsImg,
-  //       goodsPrice,
-  //       goodsStock,
-  //       goodsCetogory
-  //     )
-  //     .then((res) => {
-  //       console.log("success");
-  //       history.push("/seller/product");
-  //     })
-  //     .catch((err) => {
-  //       console.log("fail");
-  //       setIsloading(false);
-  //     });
-  // };
   const handleChangeGoodsName = (e) => {
     setGoodsName(e.target.value);
   };
@@ -239,9 +248,12 @@ const AddProduct = () => {
             <input
               className={printIsGoodsImgURL()}
               type="text"
-              placeholder={"請輸入圖片URL"}
-              value={goodsImg}
+              placeholder={
+                selectedFile ? "使用已選擇圖片上傳" : "請輸入圖片URL"
+              }
+              value={selectedFile ? "使用已選擇圖片上傳" : goodsImg}
               onChange={handleChangeGoodsImg}
+              disabled={selectedFile}
             />
           </div>
           <div className={styles.container_basicInfo_goodsImg_file}>
@@ -308,6 +320,18 @@ const AddProduct = () => {
         </div>
       </form>
       {isLoading && <Loading />}
+      {isErrorAlert && (
+        <Alert
+          type={"error"}
+          content={errorMessage}
+          setIsDisplayState={() => {
+            setTimeout(() => {
+              console.log("delay");
+              setIsErrorAlert(false);
+            }, 2000);
+          }}
+        />
+      )}
     </div>
   );
 };

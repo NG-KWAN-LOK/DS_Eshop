@@ -207,6 +207,9 @@
     border: 1px solid #ff424f;
     background-color: #fff6f7;
   }
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 .loginContent_submitBtn {
   display: flex;

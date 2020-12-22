@@ -63,7 +63,7 @@ const ShoppingCartApi = {
     console.log(userData)
     return api.userApi({ url: "shoppingCart/getCartAll", method: "POST", data: userData })
   },
-  deleteShoppingCartItem: (goodId) => {
+  reduceShoppingCartItem: (goodId) => {
     let userData = {
       "userToken": localStorage.getItem('userToken'),
       "goodId": goodId
@@ -71,7 +71,15 @@ const ShoppingCartApi = {
     console.log(userData)
     return api.userApi({ url: "shoppingCart/reduceGoodsAmount", method: "POST", data: userData })
   },
-
+  deleteShoppingCartItem: (goodId) => {
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+      "goodId": goodId
+    }
+    console.log(userData)
+    return api.userApi({ url: "shoppingCart/deleteCartGood", method: "POST", data: userData })
+  },
+  
 };
 
 export default ShoppingCartApi;

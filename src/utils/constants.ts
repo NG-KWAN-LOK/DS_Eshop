@@ -82,7 +82,7 @@ export const categoryList = [
     },
     {
         id: 20,
-        name: "其化類別"
+        name: "其他類別"
     },
     {
         id: 21,

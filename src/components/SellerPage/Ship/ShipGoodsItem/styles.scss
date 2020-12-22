@@ -21,7 +21,8 @@
 .container_goodsItemInfo_imageContainer_img {
   min-width: 100%;
   max-height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: #0000000a;
 }
 .container_goodsItemInfo_dataContainer {
   display: block;

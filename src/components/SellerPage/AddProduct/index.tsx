@@ -9,12 +9,13 @@ import {
 } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "./styles.scss";
-import { categoryList } from "../../../utils/constants"
+import { categoryList } from "../../../utils/constants";
 
-import sellerApi from "../../../utils/api/apifetcher/seller"
-import Loading from "../../PopUpLayer/Loading"
+import sellerApi from "../../../utils/api/apifetcher/seller";
+import imgurApi from "../../../utils/api/apifetcher/imgur";
+import Loading from "../../PopUpLayer/Loading";
 
-interface HeaderProps { }
+interface HeaderProps {}
 
 const AddProduct = () => {
   const history = useHistory();
@@ -26,21 +27,43 @@ const AddProduct = () => {
   const [goodsStock, setGoodsStock] = useState();
   const [goodsImg, setGoodsImg] = useState();
   const [isLoading, setIsloading] = useState(false);
-
+  const [selectedFile, setSelectedFile] = useState(null);
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
-    setIsloading(true)
-    await sellerApi.newItem(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock,goodsCetogory)
-      .then((res) => {
-        console.log("success")
-        history.push("/seller/product")
-      })
-      .catch((err) => {
-        console.log("fail")
-        setIsloading(false)
-      });
+    setIsloading(true);
+    if (selectedFile != null) {
+      await imgurApi
+        .uploadImage(selectedFile)
+        .then((res) => {
+          console.log("success");
+          console.log(res);
+          setIsloading(false);
+        })
+        .catch((err) => {
+          console.log("fail");
+          setIsloading(false);
+        });
+    }
   };
+  //   await sellerApi
+  //     .newItem(
+  //       goodsName,
+  //       goodsDesription,
+  //       goodsImg,
+  //       goodsPrice,
+  //       goodsStock,
+  //       goodsCetogory
+  //     )
+  //     .then((res) => {
+  //       console.log("success");
+  //       history.push("/seller/product");
+  //     })
+  //     .catch((err) => {
+  //       console.log("fail");
+  //       setIsloading(false);
+  //     });
+  // };
   const handleChangeGoodsName = (e) => {
     setGoodsName(e.target.value);
   };
@@ -73,23 +96,31 @@ const AddProduct = () => {
     }
   }
   function printIfGoodsPriceBlank() {
-    if (goodsPrice === "" ||
-      numberExpression.test(String(goodsPrice)) != true) {
+    if (
+      goodsPrice === "" ||
+      numberExpression.test(String(goodsPrice)) != true
+    ) {
       return `${styles["loginContent_inputBar"]} ${styles["loginContent_inputBar-error"]}`;
     } else {
       return `${styles["loginContent_inputBar"]}`;
     }
   }
   function printIfGoodsStockBlank() {
-    if (goodsStock === "" ||
-      numberExpression.test(String(goodsStock)) != true) {
+    if (
+      goodsStock === "" ||
+      numberExpression.test(String(goodsStock)) != true
+    ) {
       return `${styles["loginContent_inputBar"]} ${styles["loginContent_inputBar-error"]}`;
     } else {
       return `${styles["loginContent_inputBar"]}`;
     }
   }
   function printIsGoodsImgURL() {
-    if (goodsImg != null && goodsImg != "" && urlExpression.test(String(goodsImg)) != true) {
+    if (
+      goodsImg != null &&
+      goodsImg != "" &&
+      urlExpression.test(String(goodsImg)) != true
+    ) {
       return `${styles["loginContent_inputBar"]} ${styles["loginContent_inputBar-error"]}`;
     } else {
       return `${styles["loginContent_inputBar"]}`;
@@ -105,7 +136,8 @@ const AddProduct = () => {
       numberExpression.test(String(goodsPrice)) != true ||
       numberExpression.test(String(goodsStock)) != true ||
       (goodsImg != "" &&
-        urlExpression.test(String(goodsImg)) != true) ||
+        urlExpression.test(String(goodsImg)) != true &&
+        selectedFile == null) ||
       goodsCetogory === "請選擇"
     ) {
       console.log("blank");
@@ -121,9 +153,7 @@ const AddProduct = () => {
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
         <div className={styles.container_basicInfo}>
-          <div className={styles.container_basicInfo_title}>
-            基本資訊
-          </div>
+          <div className={styles.container_basicInfo_title}>基本資訊</div>
           <div className={styles.container_basicInfo_goodsName}>
             <div className={styles.container_basicInfo_goodsName_title}>
               *商品名稱
@@ -153,18 +183,44 @@ const AddProduct = () => {
               *類別
             </div>
             <div className={styles.container_basicInfo_goodsCategory_dropList}>
-              <div className={styles.container_basicInfo_goodsCategory_dropList_subtitle}>
-                <span className={styles.container_basicInfo_goodsCategory_dropList_text_notSelect}>
+              <div
+                className={
+                  styles.container_basicInfo_goodsCategory_dropList_subtitle
+                }
+              >
+                <span
+                  className={
+                    styles.container_basicInfo_goodsCategory_dropList_text_notSelect
+                  }
+                >
                   {goodsCetogory}
                 </span>
-                <span className={styles.container_basicInfo_goodsCategory_dropList_arrow}>
-                </span>
+                <span
+                  className={
+                    styles.container_basicInfo_goodsCategory_dropList_arrow
+                  }
+                ></span>
               </div>
-              <div className={styles.container_basicInfo_goodsCategory_dropList_under}>
+              <div
+                className={
+                  styles.container_basicInfo_goodsCategory_dropList_under
+                }
+              >
                 {categoryList.map((data, index) => {
                   return (
-                    <div className={styles.container_basicInfo_goodsCategory_dropList_under_subtitle} onClick={() => setGoodsCetogory(data.name)}>
-                      <span className={goodsCetogory == data.name ? styles.container_basicInfo_goodsCategory_dropList_under_text_isSelect : styles.container_basicInfo_goodsCategory_dropList_under_text}>
+                    <div
+                      className={
+                        styles.container_basicInfo_goodsCategory_dropList_under_subtitle
+                      }
+                      onClick={() => setGoodsCetogory(data.name)}
+                    >
+                      <span
+                        className={
+                          goodsCetogory == data.name
+                            ? styles.container_basicInfo_goodsCategory_dropList_under_text_isSelect
+                            : styles.container_basicInfo_goodsCategory_dropList_under_text
+                        }
+                      >
                         {data.name}
                       </span>
                     </div>
@@ -175,9 +231,7 @@ const AddProduct = () => {
           </div>
         </div>
         <div className={styles.container_sellInfo}>
-          <div className={styles.container_sellInfo_title}>
-            媒體管理
-          </div>
+          <div className={styles.container_sellInfo_title}>媒體管理</div>
           <div className={styles.container_basicInfo_goodsImg}>
             <div className={styles.container_basicInfo_goodsImg_title}>
               商品圖片
@@ -190,6 +244,14 @@ const AddProduct = () => {
               onChange={handleChangeGoodsImg}
             />
           </div>
+          <div className={styles.container_basicInfo_goodsImg_file}>
+            <div className={styles.container_basicInfo_goodsImg_title}></div>
+            <input
+              className={styles.container_basicInfo_goodsImg_Btn}
+              type="file"
+              onChange={(e) => setSelectedFile(e.target.files[0])}
+            />
+          </div>
           <div className={styles.container_basicInfo_imgPreview}>
             <div className={styles.container_basicInfo_imgPreview_title}>
               商品圖片預覽
@@ -197,15 +259,20 @@ const AddProduct = () => {
             <div className={styles.container_basicInfo_goodsImg_imgPreview}>
               <img
                 className={styles.container_basicInfo_goodsImg_imgPreview_img}
-                src={goodsImg}
+                src={`${
+                  selectedFile != null
+                    ? URL.createObjectURL(selectedFile)
+                    : goodsImg != null
+                    ? goodsImg
+                    : ""
+                }
+                `}
               />
             </div>
           </div>
         </div>
         <div className={styles.container_sellInfo}>
-          <div className={styles.container_sellInfo_title}>
-            銷售資訊
-         </div>
+          <div className={styles.container_sellInfo_title}>銷售資訊</div>
           <div className={styles.container_sellInfo_goodsPrice}>
             <div className={styles.container_sellInfo_goodsPrice_title}>
               *價格

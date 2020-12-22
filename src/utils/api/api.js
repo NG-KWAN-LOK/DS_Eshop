@@ -24,8 +24,31 @@ api.userApi = async (options) => {
   });
 };
 
-api.checkIsLogin = async (options) => {
-  return true;
+api.imgurApi = async (options) => {
+  return await instance.request({
+    ...options,
+    "async": true,
+    "crossDomain": true,
+    url: "https://api.imgur.com/3/image",
+    headers: {
+      ...options.headers,
+      'Authorization': 'Client-ID 4f1f0040b55e238', 
+    },
+  });
+  // return await instance.request({
+  //   ...options,
+  //   "async": true,
+  //   "crossDomain": true,
+  //   url: "https://api.imgur.com/3/album/{{albumDeleteHash}}/add",
+  //   headers: {
+  //     ...options.headers,
+  //     'Authorization': 'Client-ID 4f1f0040b55e238', 
+  //   },
+  // });
+
+  
 };
 
+
 export default api;
+//63c7efdf3ed73dcbfacb2d0e024ebf5a79b3ef37

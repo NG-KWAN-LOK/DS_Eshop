@@ -10,34 +10,53 @@ import {
 import { useSelector } from "react-redux";
 
 import styles from "./styles.scss";
-import GoodsApi from "../../../utils/api/apifetcher/goods";
+import UserApi from "../../../utils/api/userAPI";
+import Loading from "../../../components/PopUpLayer/Loading";
+import Alert from "../../../components/PopUpLayer/Alert";
 
 import * as loginActions from "../../../containers/Login/actions";
 
-interface HeaderProps { }
+interface HeaderProps {}
 
 const Product = () => {
   const history = useHistory();
   const { pathname } = useLocation();
-  const userData = useSelector((appState: any) => appState.LoginReducer.userData);
+  const userData = useSelector(
+    (appState: any) => appState.LoginReducer.userData
+  );
   const [customerName, setCustomerName] = useState(userData.customerName);
   const [customerEmail, setCustomerEmail] = useState(userData.email);
-  const [customerPhoneNumber, setCustomerPhoneNumber] = useState(userData.phoneNumber);
+  const [customerPhoneNumber, setCustomerPhoneNumber] = useState(
+    userData.phoneNumber
+  );
   const [customerAddress, setCustomerAddress] = useState(userData.address);
-  //const goodsCount = 0;
-  useEffect(() => {
-    GoodsApi.getGoodsList()
+  const [isLoading, setIsloading] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
+  useEffect(() => {}, []);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(
+      customerName,
+      customerPhoneNumber,
+      customerEmail,
+      customerAddress
+    );
+    setIsloading(true);
+    UserApi.updateUserData(
+      customerName,
+      customerPhoneNumber,
+      customerEmail,
+      customerAddress
+    )
       .then((res) => {
-        //console.log(res);
-        getGoodsList(res);
+        console.log(res);
+        setIsloading(false);
       })
       .catch((err) => {
         console.log("error");
+        setIsloading(false);
+        setIsErrorAlert(true);
       });
-  }, []);
-  const handleSubmit = (event) => {
-    console.log(customerName, customerPhoneNumber, customerAddress, customerEmail);
-    event.preventDefault();
   };
   const handleChangeCustomerName = (e) => {
     setCustomerName(e.target.value);
@@ -103,7 +122,18 @@ const Product = () => {
   }
   let isButtonDisable = true;
   function checkInputIsBlank() {
-    if (customerName == null || customerPhoneNumber == null || customerEmail == null || customerAddress == null || customerName === "" || customerPhoneNumber === "" || customerEmail === "" || customerAddress === "" || emailExpression.test(String(customerEmail).toLowerCase()) != true || phoneNumberExpression.test(String(customerPhoneNumber)) != true) {
+    if (
+      customerName == null ||
+      customerPhoneNumber == null ||
+      customerEmail == null ||
+      customerAddress == null ||
+      customerName === "" ||
+      customerPhoneNumber === "" ||
+      customerEmail === "" ||
+      customerAddress === "" ||
+      emailExpression.test(String(customerEmail).toLowerCase()) != true ||
+      phoneNumberExpression.test(String(customerPhoneNumber)) != true
+    ) {
       console.log("blank");
       isButtonDisable = true;
       return `${styles["loginContent_submitBtn"]} ${styles["loginContent_submitBtn-not-allow"]}`;
@@ -116,9 +146,7 @@ const Product = () => {
   return (
     <div className={styles.container}>
       <div className={styles.container_titleBar}>
-        <div className={styles.container_titleBar_titleContent}>
-          我的檔案
-        </div>
+        <div className={styles.container_titleBar_titleContent}>我的檔案</div>
         <div className={styles.container_titleBar_subTitleContent}>
           管理你的檔案以保護你的帳戶
         </div>
@@ -135,7 +163,7 @@ const Product = () => {
             <div className={styles.container_basicInfo_customerName}>
               <div className={styles.container_basicInfo_customerName_title}>
                 姓名
-                </div>
+              </div>
               <input
                 className={printIfCustomerNameBlank()}
                 type="text"
@@ -147,7 +175,7 @@ const Product = () => {
             <div className={styles.container_basicInfo_customerEmail}>
               <div className={styles.container_basicInfo_customerEmail_title}>
                 Email
-                </div>
+              </div>
               <input
                 className={printIfCustomerEmailBlank()}
                 type="text"
@@ -155,14 +183,18 @@ const Product = () => {
                 value={customerEmail}
                 onChange={handleChangeCustomerEmail}
               />
-              <div className={styles.container_basicInfo_customerName_errorText}>
+              <div
+                className={styles.container_basicInfo_customerName_errorText}
+              >
                 {emailBlankText}
               </div>
             </div>
             <div className={styles.container_basicInfo_customerPhoneNumber}>
-              <div className={styles.container_basicInfo_customerPhoneNumber_title}>
+              <div
+                className={styles.container_basicInfo_customerPhoneNumber_title}
+              >
                 手機號碼
-                </div>
+              </div>
               <input
                 className={printIfCustomerPhoneNumberBlank()}
                 type="text"
@@ -170,14 +202,16 @@ const Product = () => {
                 value={customerPhoneNumber}
                 onChange={handleChangeCustomerPhoneNumber}
               />
-              <div className={styles.container_basicInfo_customerName_errorText}>
+              <div
+                className={styles.container_basicInfo_customerName_errorText}
+              >
                 {phoneNumberBlankText}
               </div>
             </div>
             <div className={styles.container_basicInfo_customerName}>
               <div className={styles.container_basicInfo_customerName_title}>
                 收件地址
-                </div>
+              </div>
               <input
                 className={printIfCustomerAddressBlank()}
                 type="text"
@@ -197,6 +231,19 @@ const Product = () => {
           </form>
         </div>
       </div>
+      {isLoading && <Loading />}
+      {isErrorAlert && (
+        <Alert
+          type={"error"}
+          content={"失敗"}
+          setIsDisplayState={() => {
+            setTimeout(() => {
+              console.log("delay");
+              setIsErrorAlert(false);
+            }, 2000);
+          }}
+        />
+      )}
     </div>
   );
 };

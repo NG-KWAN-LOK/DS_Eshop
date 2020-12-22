@@ -36,6 +36,19 @@ const userApi = {
     console.log(userData)
     return api.userApi({ url: "/users/getUserData",method: "POST",data: userData })
   },
+  updateUserData:(customerName, phoneNumber, email, address) =>{
+    //const signUpUserName = useSelector((appState: any) => appState.LoginReducer.signUpUserName);
+    let userData = {
+      "userToken" : localStorage.getItem('userToken'),
+      "customerName" : customerName,
+      "phoneNumber": phoneNumber,
+      "email": email,
+      "address": address
+    }
+    //console.log(_signUpUserName._username)
+    console.log(userData)
+    return api.userApi({ url: "/users/modifydata",method: "POST",data: userData })
+  },
 };
 
 export default userApi;

@@ -47,6 +47,14 @@ const OrderApi = {
   getOrdersList: () => {
     return new Promise((resolve) => resolve(orderData));
   },
+  setOrderState: (orderId, status) => {
+    let userData = {
+      "orderId": orderId,
+      "status": status, //狀態(0:已取消,1:備貨中,2:待出貨,3:待收貨,4已完成)
+    }
+    console.log(userData)
+    return api.userApi({ url: "/sellermenu/setorderstate", method: "POST", data: userData })
+  },
 };
 
 export default OrderApi;

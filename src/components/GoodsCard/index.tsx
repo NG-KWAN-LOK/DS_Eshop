@@ -1,8 +1,11 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
+
+import ImageLoading from "../../components/PopUpLayer/ImageLoading";
+
 
 // const ArtistLink = ({ audioData, customClass = undefined, children }) => {
 //   {
@@ -26,6 +29,7 @@ const GoodsCard = ({ goodsData }) => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
   //console.log(goodsData);
+  const [imageLoaded, setImageLoaded] = useState(false);
   return (
     <Link to={{ pathname: "/items", search: "?goodsID=" + goodsData.id }}>
       <div className={styles.itemContainer}>
@@ -33,7 +37,9 @@ const GoodsCard = ({ goodsData }) => {
           <img
             className={styles.itemContainer_imageContainer_img}
             src={goodsData.imgURL}
+            onLoad={() => setImageLoaded(true)}
           ></img>
+          {!imageLoaded && <ImageLoading />}
         </div>
         <div className={styles.itemContainer_info}>
           <div className={styles.itemContainer_info_top}>

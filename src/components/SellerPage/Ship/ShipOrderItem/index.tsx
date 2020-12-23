@@ -1,31 +1,20 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
 import GoodsItem from "../ShipGoodsItem"
+import OrderApi from "../../../../utils/api/apifetcher/order";
 
-// const ArtistLink = ({ audioData, customClass = undefined, children }) => {
-//   {
-//     return audioData.artist.length === 1 ? (
-//       <Link
-//         to={PATH.getArtistLink(audioData.artist[0].id)}
-//         className={customClass}
-//       >
-//         {children}
-//       </Link>
-//     ) : (
-//         <AudioLink id={audioData.id} customClass={customClass}>
-//           {children}
-//         </AudioLink>
-//       );
-//   }
-// };
+import Loading from "../../../PopUpLayer/Loading"
+import Confirm from "../../../PopUpLayer/ConfirmAlert"
+import Alert from "../../../PopUpLayer/Alert"
 
-const OrdersCard = ({ ordersData }) => {
-  // const artistName = useMemo(() => {
-  //   return audioData.artist.map((artist) => artist.name).join(", ");
-  // }, [audioData]);
+const OrdersCard = ({ ordersData, getOrdersAPI }) => {
+  const [setStatusMode, setSetStatusMode] = useState("");
+  const [isLoading, setIsloading] = useState(false);
+  const [isSetConfrimAlert, setIsSetConfrimAlert] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
   console.log(ordersData);
   let statusWord = "";
   let statusDescription = "";
@@ -53,6 +42,21 @@ const OrdersCard = ({ ordersData }) => {
         break;
     }
   }
+  function setIsReady() {
+    console.log(ordersData.orderId, setStatusMode)
+    //setIsloading(true)
+    // OrderApi.setOrderState(ordersData.orderId, setStatusMode)
+    //   .then((res) => {
+    //     console.log("success")
+    //     getOrdersAPI();
+    //     setIsloading(false)
+    //   })
+    //   .catch((err) => {
+    //     console.log("fail")
+    //     setIsloading(false)
+    //     setIsErrorAlert(true)
+    //   });
+  }
   function CountTotalPrice() {
     let totalPrice = 0;
     ordersData.goodsList.forEach(goodsData => {
@@ -77,12 +81,15 @@ const OrdersCard = ({ ordersData }) => {
         </div>
         <div className={styles.container_topCol_control}>
           <div className={styles.container_topCol_control_container} >
-            <div className={styles.container_topCol_control_text}>設為備貨中</div>
-            <div className={styles.container_topCol_control_text}>設為待出貨</div>
-            <div className={styles.container_topCol_control_text}>設為待收貨</div>
+            <div className={styles.container_topCol_control_text} onClick={() => { setSetStatusMode("1"); setIsSetConfrimAlert(true) }}>設為備貨中</div>
+            <div className={styles.container_topCol_control_text} onClick={() => { setSetStatusMode("2"); setIsSetConfrimAlert(true) }}>設為待出貨</div>
+            <div className={styles.container_topCol_control_text} onClick={() => { setSetStatusMode("3"); setIsSetConfrimAlert(true) }}>設為待收貨</div>
           </div>
         </div>
       </div>
+      {isLoading && <Loading />}
+      {isSetConfrimAlert && <Confirm title={`您確定要將訂單狀態設為${setStatusMode === "1" ? "備貨中" : setStatusMode === "2" ? "待出貨" : setStatusMode === "3" ? "待收貨" : ""}?`} content={"設定後，買家將會看見你所設的訂單狀態。"} onCancel={() => { setIsSetConfrimAlert(false) }} onConfirm={() => { setIsReady(); setIsSetConfrimAlert(false) }} />}
+      {isErrorAlert && <Alert type={"error"} content={"失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
     </div>
   );
 };

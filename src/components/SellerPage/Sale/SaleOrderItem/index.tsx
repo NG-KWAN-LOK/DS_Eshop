@@ -1,32 +1,19 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
 import GoodsItem from "../SaleGoodsItem"
 
-// const ArtistLink = ({ audioData, customClass = undefined, children }) => {
-//   {
-//     return audioData.artist.length === 1 ? (
-//       <Link
-//         to={PATH.getArtistLink(audioData.artist[0].id)}
-//         className={customClass}
-//       >
-//         {children}
-//       </Link>
-//     ) : (
-//         <AudioLink id={audioData.id} customClass={customClass}>
-//           {children}
-//         </AudioLink>
-//       );
-//   }
-// };
+import Loading from "../../../PopUpLayer/Loading"
+import Confirm from "../../../PopUpLayer/ConfirmAlert"
+import Alert from "../../../PopUpLayer/Alert"
 
-const OrdersCard = ({ ordersData }) => {
-  // const artistName = useMemo(() => {
-  //   return audioData.artist.map((artist) => artist.name).join(", ");
-  // }, [audioData]);
+const OrdersCard = ({ ordersData, getOrdersAPI }) => {
   console.log(ordersData);
+  const [isLoading, setIsloading] = useState(false);
+  const [isCancelConfrimAlert, setIsCancelConfrimAlert] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
   let statusWord = "";
   let statusDescription = "";
   function ConvertStatusCode() {
@@ -53,6 +40,21 @@ const OrdersCard = ({ ordersData }) => {
         break;
     }
   }
+  function cancelOrder() {
+    console.log("cancelOrder" + ordersData.orderId)
+    setIsloading(true)
+    // sellerApi.deleteItem(data.id)
+    //   .then((res) => {
+    //     console.log("success")
+    //     getGoodsAPI();
+    //   })
+    //   .catch((err) => {
+    //     console.log("fail")
+    //     setIsErrorAlert(true)
+    //     setIsloading(false)
+    //   });
+    setIsloading(false)
+  }
   function CountTotalPrice() {
     let totalPrice = 0;
     ordersData.goodsList.forEach(goodsData => {
@@ -76,9 +78,12 @@ const OrdersCard = ({ ordersData }) => {
           {statusWord}
         </div>
         <div className={styles.container_topCol_control}>
-          <div className={styles.container_topCol_control_text}>刪除</div>
+          <div className={styles.container_topCol_control_text} onClick={() => setIsCancelConfrimAlert(true)}>刪除</div>
         </div>
       </div>
+      {isLoading && <Loading />}
+      {isCancelConfrimAlert && <Confirm title={"您確定要刪除此商品?"} content={"商品刪除後，便不能再回復。"} onCancel={() => { setIsCancelConfrimAlert(false) }} onConfirm={() => { cancelOrder(); }} />}
+      {isErrorAlert && <Alert type={"error"} content={"失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
     </div>
   );
 };

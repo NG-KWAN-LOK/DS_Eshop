@@ -12,22 +12,34 @@ import styles from "./styles.scss";
 import OrderApi from "../../../utils/api/apifetcher/order";
 import OrderItem from "./SaleOrderItem"
 
+import Loading from "../../PopUpLayer/Loading"
+import Alert from "../../PopUpLayer/Alert"
+
 interface HeaderProps { }
 
 const Sale = () => {
   const history = useHistory();
   const { pathname } = useLocation();
   const [ordersList, getOrdersList] = useState([]);
+  const [isLoading, setIsloading] = useState(true);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
   useEffect(() => {
+    getOrdersListInfo()
+  }, []);
+  function getOrdersListInfo() {
     OrderApi.getOrdersList()
       .then((res) => {
         console.log(res);
+        const newData = res
         getOrdersList(res);
+        setIsloading(false)
       })
       .catch((err) => {
-        console.log("error");
+        console.log("fail")
+        setIsloading(false)
+        setIsErrorAlert(true)
       });
-  }, []);
+  }
   return (
     <div className={styles.container}>
       <div className={styles.container_titleBar}>
@@ -48,11 +60,13 @@ const Sale = () => {
           </div>
           <div className={styles.container_goodsItemListContainer_item}>
             {ordersList.map((data, index) => {
-              return <OrderItem ordersData={data} />;
+              return <OrderItem ordersData={data} getOrdersAPI={getOrdersListInfo} />;
             })}
           </div>
         </div>
       </div>
+      {isLoading && <Loading />}
+      {isErrorAlert && <Alert type={"error"} content={"網路錯誤"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
     </div>
   );
 };

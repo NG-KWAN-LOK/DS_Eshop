@@ -14,7 +14,7 @@ const userApi = {
     })
   },
 
-  updateItemInfo: (id, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale,category) => {
+  updateItemInfo: (id, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale, category) => {
     //const signUpUserName = useSelector((appState: any) => appState.LoginReducer.signUpUserName);
     let userData = {
       "id": id,
@@ -48,7 +48,7 @@ const userApi = {
     return api.userApi({ url: "/items/getItemsbyIsDisplay", method: "POST", data: userData })
   },
 
-  newItem: (goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock,category) => {
+  newItem: (goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, category) => {
     let userData = {
       "userToken": localStorage.getItem('userToken'),
       "name": goodsName,
@@ -81,21 +81,12 @@ const userApi = {
     console.log(userData)
     return api.userApi({ url: "/item/updateDisplayState", method: "POST", data: userData })
   },
-  getOrdersList:()=>{
+  getOrdersList: () => {
     let userData = {
       "userToken": localStorage.getItem('userToken'),
     }
     console.log(userData)
     return api.userApi({ url: "/sellermenu/getmyorders", method: "POST", data: userData })
-  },
-  setOrderState:(orderId,status)=>{
-    let userData = {
-      "userToken": localStorage.getItem('userToken'),
-      "orderId": orderId,
-      "status": status, //狀態(0:已取消,1:備貨中,2:待出貨,3:待收貨,4已完成)
-    }
-    console.log(userData)
-    return api.userApi({ url: "/sellermenu/setorderstate", method: "POST", data: userData })
   },
 };
 

@@ -31,7 +31,7 @@ const Product = () => {
   useEffect(() => {
     getGoodsListInfo()
   }, []);
-  function getGoodsListInfo(){
+  function getGoodsListInfo() {
     sellerApi.getSellerGoodsList()
       .then((res) => {
         console.log("get goods List success")
@@ -73,10 +73,10 @@ const Product = () => {
             })}
           </div>
         </div>
-        {goodsList.length == 0 && 
+        {goodsList.length == 0 &&
           <div className={styles.container_titleBar_itemEmpty}>
             <div className={styles.container_titleBar_itemEmpty_text}>
-            您沒有商品!
+              您沒有商品!
             </div>
           </div>}
       </div>

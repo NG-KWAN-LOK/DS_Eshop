@@ -15,11 +15,16 @@
   padding: 20px 0 0 0;
 }
 .pageContainer_itemContainer,
-.bodyContainer_body,
 .commentContainer_body {
   display: block;
   background-color: #ffffff;
   width: 1200px;
+}
+.bodyContainer_body {
+  display: block;
+  background-color: #ffffff;
+  width: 1200px;
+  padding: 25px 0 0 0;
 }
 .pageContainer_itemContainer_header {
   display: flex;
@@ -31,6 +36,7 @@
 }
 .pageContainer_itemContainer_header_left_imageContainer {
   display: flex;
+  position: relative;
   width: 450px;
   height: 450px;
   justify-content: center;
@@ -61,7 +67,40 @@
   font-size: 2rem;
   font-weight: 300;
   font-style: normal;
-  margin: 0 0 20px 0;
+  margin: 0 0 15px 0;
+}
+.pageContainer_itemContainer_header_right_itemInfoBar {
+  display: flex;
+  width: 100%;
+  padding: 0 0 10px 0;
+}
+.pageContainer_itemContainer_header_right_itemInfoBar_row {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  border-left: 1px solid rgba(0, 0, 0, 0.14);
+  &_left {
+    display: flex;
+    align-items: center;
+    padding: 0 15px 0 0;
+  }
+}
+.pageContainer_itemContainer_header_right_itemInfoBar_row_text {
+  color: #222222;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-style: normal;
+  margin: 0 5px 0 0;
+}
+.pageContainer_itemContainer_header_right_itemInfoBar_row_title {
+  color: #767676;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: normal;
 }
 .pageContainer_itemContainer_header_right_priceContainer {
   display: flex;
@@ -202,7 +241,7 @@ input::-webkit-inner-spin-button {
 
 .bodyContainer_body_desription {
   display: block;
-  padding: 25px;
+  padding: 0 25px 25px;
 }
 
 .bodyContainer_body_desription_title {
@@ -214,7 +253,31 @@ input::-webkit-inner-spin-button {
   background-color: #00000005;
   padding: 14px;
 }
-
+.bodyContainer_body_desription_container {
+  display: block;
+  width: 100%;
+  padding: 14px;
+}
+.bodyContainer_body_desription_container_col {
+  display: flex;
+  width: 100%;
+}
+.bodyContainer_body_desription_container_col_title {
+  width: 100px;
+  color: #00000066;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 300;
+  margin: 0 40px 0 0;
+}
+.bodyContainer_body_desription_container_col_text {
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 300;
+}
 .bodyContainer_body_desription_text {
   color: #000000;
   font-family: "Noto Sans TC", sans-serif;

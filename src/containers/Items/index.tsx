@@ -14,6 +14,7 @@ import GoodsCommentCard from "../../components/goodsCommentCard";
 import Loading from "../../components/PopUpLayer/Loading"
 import Alert from "../../components/PopUpLayer/Alert"
 import NotDisplayLayer from "../../components/PopUpLayer/NotDisplay"
+import ImageLoading from "../../components/PopUpLayer/ImageLoading";
 
 
 
@@ -38,6 +39,7 @@ const Item = () => {
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   const [isNotDisplay, setIsNotDisplay] = useState(false);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   useEffect(() => {
     getGoodInfo()
     getCommentInfo()
@@ -47,7 +49,7 @@ const Item = () => {
       .then((res) => {
         console.log("success")
         console.log(res.data)
-        if(res.data.isDisplay == true)
+        if (res.data.isDisplay == true)
           setGoodsItemInfo(res.data)
         else
           setIsNotDisplay(true)
@@ -164,8 +166,8 @@ const Item = () => {
       <Header />
       <div className={styles.top_Padding}></div>
       <div className={styles.page}>
-      {isNotDisplay && <NotDisplayLayer content={"商品未展示"}/>}
-      {isNotFound && <NotDisplayLayer content={"找不到商品"}/>}
+        {isNotDisplay && <NotDisplayLayer content={"商品未展示"} />}
+        {isNotFound && <NotDisplayLayer content={"找不到商品"} />}
         <div className={styles.pageContainer}>
           <div className={styles.pageContainer_itemContainer}>
             <div className={styles.pageContainer_itemContainer_header}>
@@ -180,7 +182,9 @@ const Item = () => {
                       styles.pageContainer_itemContainer_header_left_imageContainer_img
                     }
                     src={goodsItemInfo.imgURL}
+                    onLoad={() => setImageLoaded(true)}
                   ></img>
+                  {!imageLoaded && <ImageLoading />}
                 </div>
               </div>
               <div className={styles.pageContainer_itemContainer_header_right}>
@@ -190,6 +194,24 @@ const Item = () => {
                   }
                 >
                   {goodsItemInfo.name}
+                </div>
+                <div className={styles.pageContainer_itemContainer_header_right_itemInfoBar}>
+                  <div className={styles.pageContainer_itemContainer_header_right_itemInfoBar_row_left}>
+                    <div className={styles.pageContainer_itemContainer_header_right_itemInfoBar_row_text}>
+                      {goodsCommentInfo.length}
+                    </div>
+                    <div className={styles.pageContainer_itemContainer_header_right_itemInfoBar_row_title}>
+                      評論
+                    </div>
+                  </div>
+                  <div className={styles.pageContainer_itemContainer_header_right_itemInfoBar_row}>
+                    <div className={styles.pageContainer_itemContainer_header_right_itemInfoBar_row_text}>
+                      {goodsItemInfo.sales}
+                    </div>
+                    <div className={styles.pageContainer_itemContainer_header_right_itemInfoBar_row_title}>
+                      已售出
+                    </div>
+                  </div>
                 </div>
                 <div
                   className={
@@ -277,6 +299,31 @@ const Item = () => {
           <div className={styles.bodyContainer_body}>
             <div className={styles.bodyContainer_body_desription}>
               <div className={styles.bodyContainer_body_desription_title}>
+                商品規格
+                </div>
+              <div className={styles.bodyContainer_body_desription_container}>
+                <div className={styles.bodyContainer_body_desription_container_col}>
+                  <div className={styles.bodyContainer_body_desription_container_col_title}>
+                    商品類別
+                </div>
+                  <div className={styles.bodyContainer_body_desription_container_col_text}>
+                    {goodsItemInfo.category}
+                  </div>
+                </div>
+              </div>
+              <div className={styles.bodyContainer_body_desription_container}>
+                <div className={styles.bodyContainer_body_desription_container_col}>
+                  <div className={styles.bodyContainer_body_desription_container_col_title}>
+                    商品數量
+                </div>
+                  <div className={styles.bodyContainer_body_desription_container_col_text}>
+                    {goodsItemInfo.stock}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.bodyContainer_body_desription}>
+              <div className={styles.bodyContainer_body_desription_title}>
                 商品詳情
                 </div>
               <div className={styles.bodyContainer_body_desription_text}>
@@ -301,10 +348,10 @@ const Item = () => {
           </div>
         </div>
       </div>
-      {isLoading && <Loading />}
-      {isSuccessAlert && <Alert type={"success"} content={"商品已加入購物車"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsSuccessAlert(false); }, 2000); }} />}
-      {isErrorAlert && <Alert type={"error"} content={"失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
-    </div>
+      { isLoading && <Loading />}
+      { isSuccessAlert && <Alert type={"success"} content={"商品已加入購物車"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsSuccessAlert(false); }, 2000); }} />}
+      { isErrorAlert && <Alert type={"error"} content={"失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
+    </div >
   );
 };
 

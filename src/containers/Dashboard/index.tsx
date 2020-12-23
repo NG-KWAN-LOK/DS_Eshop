@@ -24,11 +24,12 @@ import DivLoading from "../../components/PopUpLayer/DivLoading";
 import Alert from "../../components/PopUpLayer/Alert";
 
 import banner1 from "../../image/1608418919930.jpg";
+import banner2 from "../../image/1608692935739.jpg";
 
 import GoodsApi from "../../utils/api/apifetcher/goods";
 import CouponApi from "../../utils/api/apifetcher/coupon";
 
-interface DashboardProps {}
+interface DashboardProps { }
 
 const Dashboard = () => {
   let bannerImgList = [
@@ -37,8 +38,7 @@ const Dashboard = () => {
       url: banner1,
     },
     {
-      url:
-        "https://upload.wikimedia.org/wikipedia/commons/c/c2/DiamondValleyNV.jpg",
+      url: banner2,
     },
     {
       url:

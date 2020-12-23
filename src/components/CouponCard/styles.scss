@@ -8,6 +8,7 @@ $footer_height: 5rem;
 }
 .itemContainer_imageContainer {
   display: flex;
+  position: relative;
   width: 186px;
   height: 186px;
   justify-content: center;

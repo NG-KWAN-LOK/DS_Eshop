@@ -16,7 +16,7 @@ import * as SearchActions from "./actions";
 import { min } from "date-fns";
 import { categoryList } from "Utils/constants";
 import useSearch from "./useSearch";
-interface DashboardProps {}
+interface DashboardProps { }
 
 interface location {
   pathname: string;
@@ -35,6 +35,7 @@ const Search = () => {
   const [inputMaxPrice, setInputMaxPrice] = useState("");
   const [isLoading, setIsloading] = useState(true);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
+  const [inputIsError, setInuptIsError] = useState(false);
 
   function searchGoods() {
     setIsloading(true);
@@ -92,9 +93,11 @@ const Search = () => {
       parseInt(inputMaxPrice) < parseInt(inputMinPrice)
     ) {
       console.log("false");
+      setInuptIsError(true)
     } else {
       console.log("true");
       updateParameter({ minPrice: inputMinPrice, maxPrice: inputMaxPrice });
+      setInuptIsError(false)
     }
   };
   const handleChangeRadios = (event) => {
@@ -218,6 +221,11 @@ const Search = () => {
                         onChange={handleChangeMaxPrice}
                       />
                     </div>
+                    {inputIsError &&
+                      <div className={styles.PageContainer_searchContainer_left_filterContainer_filterRow_interContainer_inputCol_errorMessage}>
+                        請輸入有效的價格範圍
+                      </div>
+                    }
                     <div
                       className={
                         styles.PageContainer_searchContainer_left_filterContainer_filterRow_interContainer_submitCol
@@ -266,15 +274,15 @@ const Search = () => {
                     名稱
                   </div>
                 ) : (
-                  <div
-                    className={
-                      styles.pageContainer_searchContainer_sortingBar_btn_notSelect
-                    }
-                    onClick={() => setSortingMethon("name")}
-                  >
-                    名稱
-                  </div>
-                )}
+                    <div
+                      className={
+                        styles.pageContainer_searchContainer_sortingBar_btn_notSelect
+                      }
+                      onClick={() => setSortingMethon("name")}
+                    >
+                      名稱
+                    </div>
+                  )}
                 {paramters.orderByKeyword === "sales" ? (
                   <div
                     className={
@@ -284,15 +292,15 @@ const Search = () => {
                     最熱銷
                   </div>
                 ) : (
-                  <div
-                    className={
-                      styles.pageContainer_searchContainer_sortingBar_btn_notSelect
-                    }
-                    onClick={() => setSortingMethon("sales")}
-                  >
-                    最熱銷
-                  </div>
-                )}
+                    <div
+                      className={
+                        styles.pageContainer_searchContainer_sortingBar_btn_notSelect
+                      }
+                      onClick={() => setSortingMethon("sales")}
+                    >
+                      最熱銷
+                    </div>
+                  )}
                 <div
                   className={
                     styles.pageContainer_searchContainer_sortingBar_sortPrice
@@ -342,15 +350,15 @@ const Search = () => {
                         價格：低至高
                       </span>
                       {paramters.orderByKeyword === "price" &&
-                      paramters.orderBy === "asc" ? (
-                        <span
-                          className={
-                            styles.pageContainer_searchContainer_sortingBar_sortPrice_under_tick
-                          }
-                        ></span>
-                      ) : (
-                        ""
-                      )}
+                        paramters.orderBy === "asc" ? (
+                          <span
+                            className={
+                              styles.pageContainer_searchContainer_sortingBar_sortPrice_under_tick
+                            }
+                          ></span>
+                        ) : (
+                          ""
+                        )}
                     </div>
                     <div
                       className={
@@ -366,15 +374,15 @@ const Search = () => {
                         價格：高至低
                       </span>
                       {paramters.orderByKeyword === "price" &&
-                      paramters.orderBy === "desc" ? (
-                        <span
-                          className={
-                            styles.pageContainer_searchContainer_sortingBar_sortPrice_under_tick
-                          }
-                        ></span>
-                      ) : (
-                        ""
-                      )}
+                        paramters.orderBy === "desc" ? (
+                          <span
+                            className={
+                              styles.pageContainer_searchContainer_sortingBar_sortPrice_under_tick
+                            }
+                          ></span>
+                        ) : (
+                          ""
+                        )}
                     </div>
                   </div>
                 </div>

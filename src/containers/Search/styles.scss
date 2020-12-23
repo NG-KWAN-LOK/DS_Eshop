@@ -83,6 +83,18 @@
   justify-content: center;
   align-items: center;
 }
+.PageContainer_searchContainer_left_filterContainer_filterRow_interContainer_inputCol_errorMessage {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  color: #ff424f;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 300;
+  font-style: normal;
+  padding: 10px 0;
+}
 .loginContent_submitBtn {
   display: flex;
   justify-content: center;

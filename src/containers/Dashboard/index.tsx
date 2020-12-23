@@ -35,10 +35,10 @@ const Dashboard = () => {
   let bannerImgList = [
     {
       //url : "../../image/banner/1608418919930.jpg"
-      url: banner1,
+      url: banner2,
     },
     {
-      url: banner2,
+      url: banner1,
     },
     {
       url:

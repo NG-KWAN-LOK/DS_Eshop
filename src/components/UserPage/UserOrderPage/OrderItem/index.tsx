@@ -1,9 +1,14 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
 import GoodsItem from "../GoodsItem"
+import OrderApi from "../../../../utils/api/apifetcher/order";
+
+import Loading from "../../../PopUpLayer/Loading"
+import Confirm from "../../../PopUpLayer/ConfirmAlert"
+import Alert from "../../../PopUpLayer/Alert"
 
 // const ArtistLink = ({ audioData, customClass = undefined, children }) => {
 //   {
@@ -22,11 +27,16 @@ import GoodsItem from "../GoodsItem"
 //   }
 // };
 
-const OrdersCard = ({ ordersData }) => {
+const OrdersCard = ({ ordersData, getOrdersAPI }) => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
   //console.log(ordersData);
+  const [setStatusMode, setSetStatusMode] = useState("");
+  const [isLoading, setIsloading] = useState(false);
+  const [isSetConfrimAlert, setIsSetConfrimAlert] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
+
   let statusWord = "";
   let statusDescription = "";
   function ConvertStatusCode() {
@@ -52,6 +62,21 @@ const OrdersCard = ({ ordersData }) => {
         statusDescription = "訂單已取消";
         break;
     }
+  }
+  function setIsOrderStatus() {
+    console.log(ordersData.orderId, setStatusMode)
+    //setIsloading(true)
+    // OrderApi.setOrderState(ordersData.orderId, setStatusMode)
+    //   .then((res) => {
+    //     console.log("success")
+    //     getOrdersAPI();
+    //     setIsloading(false)
+    //   })
+    //   .catch((err) => {
+    //     console.log("fail")
+    //     setIsloading(false)
+    //     setIsErrorAlert(true)
+    //   });
   }
   function CountTotalPrice() {
     let totalPrice = 0;
@@ -95,10 +120,14 @@ const OrdersCard = ({ ordersData }) => {
           </div>
         </div>
         <div className={styles.container_bottomCol_optionContainer}>
-          {ordersData.status !== "4" && <div className={styles.loginContent_submitBtn} onClick={confirmRecieved}> 確認收貨</div>}
+          {/* {ordersData.status !== "4" && <div className={styles.loginContent_submitBtn} onClick={confirmRecieved}> 確認收貨</div>} */}
+          {ordersData.status !== "4" && <div className={styles.loginContent_submitBtn} onClick={() => { setSetStatusMode("4"); setIsSetConfrimAlert(true) }}>確認收貨</div>}
           {ordersData.status === "4" && <div className={styles.loginContent_submitBtn} onClick={buyAgain}>再買一次</div>}
         </div>
       </div>
+      {isLoading && <Loading />}
+      {isSetConfrimAlert && <Confirm title={`您確定${setStatusMode === "4" ? "已收到貨件" : ""}?`} content={"請確保您確實收到貨品，確定後您的貨款將會自動匯到賣家。"} onCancel={() => { setIsSetConfrimAlert(false) }} onConfirm={() => { setIsOrderStatus(); setIsSetConfrimAlert(false) }} />}
+      {isErrorAlert && <Alert type={"error"} content={"失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
     </div >
   );
 };

@@ -42,7 +42,7 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
         break;
     }
   }
-  function setIsReady() {
+  function setIsOrderStatus() {
     console.log(ordersData.orderId, setStatusMode)
     //setIsloading(true)
     // OrderApi.setOrderState(ordersData.orderId, setStatusMode)
@@ -88,7 +88,7 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
         </div>
       </div>
       {isLoading && <Loading />}
-      {isSetConfrimAlert && <Confirm title={`您確定要將訂單狀態設為${setStatusMode === "1" ? "備貨中" : setStatusMode === "2" ? "待出貨" : setStatusMode === "3" ? "待收貨" : ""}?`} content={"設定後，買家將會看見你所設的訂單狀態。"} onCancel={() => { setIsSetConfrimAlert(false) }} onConfirm={() => { setIsReady(); setIsSetConfrimAlert(false) }} />}
+      {isSetConfrimAlert && <Confirm title={`您確定要將訂單狀態設為${setStatusMode === "1" ? "備貨中" : setStatusMode === "2" ? "待出貨" : setStatusMode === "3" ? "待收貨" : ""}?`} content={"設定後，買家將會看見你所設的訂單狀態。"} onCancel={() => { setIsSetConfrimAlert(false) }} onConfirm={() => { setIsOrderStatus(); setIsSetConfrimAlert(false) }} />}
       {isErrorAlert && <Alert type={"error"} content={"失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
     </div>
   );

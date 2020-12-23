@@ -11,37 +11,49 @@ import { useSelector } from "react-redux";
 
 import styles from "./styles.scss";
 import OrderItem from "../UserOrderPage/OrderItem"
-import GoodsApi from "../../../utils/api/apifetcher/order";
 import OrderApi from "../../../utils/api/apifetcher/order";
 
+import Loading from "../../PopUpLayer/Loading"
+import Alert from "../../PopUpLayer/Alert"
 
 interface HeaderProps { }
 
-const Product = () => {
+const PurchaseAll = () => {
   const history = useHistory();
   const { pathname } = useLocation();
   const username = useSelector((appState: any) => appState.LoginReducer.userData.userName);
   const [ordersList, getOrdersList] = useState([]);
+  const [isLoading, setIsloading] = useState(true);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
   //const goodsCount = 0;
   useEffect(() => {
+    getOrdersListInfo()
+  }, []);
+  function getOrdersListInfo() {
     OrderApi.getOrdersList()
       .then((res) => {
         console.log(res);
+        const newData = res
         getOrdersList(res);
+        setIsloading(false)
       })
       .catch((err) => {
-        console.log("error");
+        console.log("fail")
+        setIsloading(false)
+        setIsErrorAlert(true)
       });
-  }, []);
+  }
   return (
     <div className={styles.container}>
       <div className={styles.container_ordersItemListContainer_item}>
         {ordersList.map((data, index) => {
-          return <OrderItem ordersData={data} />;
+          return <OrderItem ordersData={data} getOrdersAPI={getOrdersListInfo} />;
         })}
       </div>
+      {isLoading && <Loading />}
+      {isErrorAlert && <Alert type={"error"} content={"網路錯誤"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
     </div>
   );
 };
 
-export default Product;
+export default PurchaseAll;

@@ -47,7 +47,7 @@ const PurchaseAll = () => {
     <div className={styles.container}>
       <div className={styles.container_ordersItemListContainer_item}>
         {ordersList.map((data, index) => {
-          return <OrderItem ordersData={data} getOrdersAPI={getOrdersListInfo} />;
+          return <OrderItem key={data.orderId} ordersData={data} getOrdersAPI={getOrdersListInfo} />;
         })}
       </div>
       {isLoading && <Loading />}

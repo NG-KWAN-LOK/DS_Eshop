@@ -106,7 +106,7 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
         </div>
         <div className={styles.container_topCol_goodsItemListContainer}>
           {ordersData.goodsList.map((data, index) => {
-            return <GoodsItem goodsData={data} />;
+            return <GoodsItem key={data.goodId} goodsData={data} />;
           })}
         </div>
       </div>

@@ -1,0 +1,2 @@
+export const CLEAN_UP = "DASHBOARD/CLEAN_UP";
+export const SET_HOT_GOOD_LIST = "DASHBOARD/SET_HOT_GOOD_LIST";

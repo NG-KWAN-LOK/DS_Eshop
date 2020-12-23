@@ -6,11 +6,11 @@ import { createStore } from "redux";
 import styles from "./styles.scss";
 
 import * as loginActions from "../../../containers/Login/actions";
-import Loading from "../../PopUpLayer/Loading"
-import Alert from "../../PopUpLayer/Alert"
+import Loading from "../../PopUpLayer/Loading";
+import Alert from "../../PopUpLayer/Alert";
 import Header from "../../Header/LoginHeader";
 
-interface HeaderProps { }
+interface HeaderProps {}
 
 const NavItem: React.FC<HeaderProps> = () => {
   const history = useHistory();
@@ -25,11 +25,11 @@ const NavItem: React.FC<HeaderProps> = () => {
   const [passwordBlankText, setPasswordBlankText] = useState("");
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
-    setUserNameBlankText(e.target.value === "" ? "請填寫此欄位" : '');
+    setUserNameBlankText(e.target.value === "" ? "請填寫此欄位" : "");
   };
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
-    setPasswordBlankText(e.target.value === "" ? "請填寫此欄位" : '');
+    setPasswordBlankText(e.target.value === "" ? "請填寫此欄位" : "");
   };
 
   const handleSubmit = async (event) => {
@@ -39,10 +39,9 @@ const NavItem: React.FC<HeaderProps> = () => {
     await dispatch(loginActions.tryLogin(username, password));
     if (isLogin == false) {
       setIsloading(false);
-      setwWongText("帳號或密碼錯誤！")
-      console.log("is error")
-    }
-    else {
+      setwWongText("帳號或密碼錯誤！");
+      console.log("is error");
+    } else {
       history.push("/");
     }
   };

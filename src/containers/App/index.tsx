@@ -12,8 +12,7 @@ import Items from "../Items";
 import Casher from "../Casher";
 import User from "../User";
 import Admin from "../Admin";
-
-
+import DataPreLoad from "../../hoc/DataPreLoad";
 
 import PATH from "../../utils/pathConst";
 import styles from "./styles.scss";
@@ -25,18 +24,20 @@ function App() {
     <div className={styles.app} data-theme={theme} id="scroll_container">
       <Router>
         <Switch>
-          <WithAuth>
-            {/* <Header /1> */}
-            <Route exact path={"/"} component={Dashboard} />
-            <Route path={"/search"} component={Search} />
-            <Route path={"/login"} component={Login} />
-            <Route path={"/shoppingCart"} component={ShoppingCart} />
-            <Route path={"/seller"} component={Seller} />
-            <Route path={"/items"} component={Items} />
-            <Route path={"/casher"} component={Casher} />
-            <Route path={"/user"} component={User} />
-            <Route path={"/admin"} component={Admin} />
-          </WithAuth>
+          <DataPreLoad>
+            <WithAuth>
+              {/* <Header /1> */}
+              <Route exact path={"/"} component={Dashboard} />
+              <Route path={"/search"} component={Search} />
+              <Route path={"/login"} component={Login} />
+              <Route path={"/shoppingCart"} component={ShoppingCart} />
+              <Route path={"/seller"} component={Seller} />
+              <Route path={"/items"} component={Items} />
+              <Route path={"/casher"} component={Casher} />
+              <Route path={"/user"} component={User} />
+              <Route path={"/admin"} component={Admin} />
+            </WithAuth>
+          </DataPreLoad>
         </Switch>
       </Router>
     </div>

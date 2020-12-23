@@ -6,6 +6,7 @@ import SwiperCore, {
   A11y,
   Autoplay,
 } from "swiper";
+import { useSelector, useDispatch } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import styles from "./styles.scss";
@@ -25,45 +26,41 @@ import Alert from "../../components/PopUpLayer/Alert";
 
 import banner1 from "../../image/1608418919930.jpg";
 import banner2 from "../../image/1608692935739.jpg";
+import banner3 from "../../image/1608721431880.jpg";
+import banner4 from "../../image/1608721431902.jpg";
+import banner5 from "../../image/1608721431907.jpg";
 
 import GoodsApi from "../../utils/api/apifetcher/goods";
 import CouponApi from "../../utils/api/apifetcher/coupon";
 
-interface DashboardProps { }
+interface DashboardProps {}
 
 const Dashboard = () => {
   let bannerImgList = [
     {
       //url : "../../image/banner/1608418919930.jpg"
+      url: banner4,
+    },
+    {
+      url: banner3,
+    },
+    {
+      url: banner5,
+    },
+    {
       url: banner2,
     },
     {
       url: banner1,
     },
-    {
-      url:
-        "https://www.mesa-africa.org/wp-content/uploads/2016/06/beijing-1200x400.jpg",
-    },
-    {
-      url:
-        "https://upload.wikimedia.org/wikipedia/commons/c/c2/DiamondValleyNV.jpg",
-    },
   ];
-  const [goodsList, getGoodsList] = useState([]);
+  const goodsList = useSelector(
+    (appState: any) => appState.DashboardReducer.hotGoodList
+  );
   const [couponList, getCouponList] = useState([]);
   const [isLoadingHotList, setIsloadingHotList] = useState(true);
   const [isLoadingCouponList, setIsloadingCouponList] = useState(true);
-
   useEffect(() => {
-    GoodsApi.getHotsalesGoods()
-      .then((res) => {
-        //console.log(res);
-        getGoodsList(res.data);
-        setIsloadingHotList(false);
-      })
-      .catch((err) => {
-        console.log("error");
-      });
     CouponApi.getCouponList()
       .then((res) => {
         //console.log(res);
@@ -73,6 +70,7 @@ const Dashboard = () => {
       .catch((err) => {
         console.log("error");
       });
+    setIsloadingHotList(false);
   }, []);
   console.log(bannerImgList);
   return (

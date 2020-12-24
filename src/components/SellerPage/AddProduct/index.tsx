@@ -35,6 +35,7 @@ const AddProduct = () => {
     event.preventDefault();
     console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
     let tempGoodsImg = null;
+    let goodsDeleteHash = null;
     setIsloading(true);
     if (selectedFile != null) {
       await imgurApi
@@ -43,7 +44,8 @@ const AddProduct = () => {
           console.log("success");
           setGoodsImg(res.data.data.link);
           tempGoodsImg = res.data.data.link;
-          console.log(res.data.data.link);
+          goodsDeleteHash = res.data.data.deletehash;
+          console.log(res.data.data.deletehash);
           console.log(res);
         })
         .catch((err) => {
@@ -60,7 +62,8 @@ const AddProduct = () => {
         tempGoodsImg != null ? tempGoodsImg : goodsImg,
         goodsPrice,
         goodsStock,
-        goodsCetogory
+        goodsCetogory,
+        goodsDeleteHash
       )
       .then((res) => {
         console.log("success");

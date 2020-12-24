@@ -48,7 +48,7 @@ const userApi = {
     return api.userApi({ url: "/items/getItemsbyIsDisplay", method: "POST", data: userData })
   },
 
-  newItem: (goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, category) => {
+  newItem: (goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, category,deleteHash) => {
     let userData = {
       "userToken": localStorage.getItem('userToken'),
       "name": goodsName,
@@ -58,6 +58,7 @@ const userApi = {
       "stock": goodsStock,
       "isDisplay": 0,
       "category": category,
+      "deleteHash":deleteHash,
     }
     //console.log(_signUpUserName._username)
     console.log(userData)

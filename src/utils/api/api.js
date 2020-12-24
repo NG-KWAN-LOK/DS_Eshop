@@ -29,7 +29,7 @@ api.imgurApi = async (options) => {
     ...options,
     "async": true,
     "crossDomain": true,
-    url: "https://api.imgur.com/3/image",
+    baseURL: "https://api.imgur.com/3/image",
     headers: {
       ...options.headers,
       'Authorization': 'Client-ID 4f1f0040b55e238', 
@@ -52,4 +52,4 @@ api.imgurApi = async (options) => {
 
 export default api;
 //63c7efdf3ed73dcbfacb2d0e024ebf5a79b3ef37
-//vUZmyoo7pp7qFVc
+//U2VddZDMju9duyv

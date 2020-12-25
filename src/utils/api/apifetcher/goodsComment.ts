@@ -16,8 +16,21 @@ const commentData = [
 ];
 
 const GoodCommentApi = {
-  getCommentData: () => {
-    return new Promise((resolve) => resolve(commentData));
+  getCommentData: (goodsId) => {
+    let userData = {
+      "goodsId": goodsId
+    }
+    console.log(userData)
+    return api.userApi({ url: "/comment/findAll", method: "POST", data: userData })
+  },
+  newCommentData: (goodsId, content) => {
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+      "goodsId": goodsId,
+      "content": content
+    }
+    console.log(userData)
+    return api.userApi({ url: "/comment/create", method: "POST", data: userData })
   },
 };
 

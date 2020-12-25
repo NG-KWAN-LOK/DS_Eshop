@@ -61,13 +61,18 @@ const Item = () => {
     setIsloading(false)
   }
   async function getCommentInfo() {
-    await CommentApi.getCommentData()
+    setIsloading(true)
+    await CommentApi.getCommentData(id)
       .then((res) => {
-        //console.log(res);
-        setGoodsCommentInfo(res);
+        console.log(res);
+        const newData = res.data
+        setGoodsCommentInfo(newData);
+        setIsloading(false)
       })
       .catch((err) => {
         console.log("error");
+        setIsloading(false)
+        setIsErrorAlert(true)
       });
   }
   async function addItemToShoppingCart() {
@@ -86,12 +91,24 @@ const Item = () => {
         return false
       });
   }
-  const handleChangeNewCommentContent = (e) => {
-    setNewCommentContent(e.target.value);
-  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(newCommentContent);
+    setIsloading(true)
+    CommentApi.newCommentData(id, newCommentContent)
+      .then((res) => {
+        console.log(res.data);
+        setIsloading(false)
+        getCommentInfo()
+      })
+      .catch((err) => {
+        console.log("error");
+        setIsErrorAlert(true)
+        setIsloading(false)
+      });
+  };
+  const handleChangeNewCommentContent = (e) => {
+    setNewCommentContent(e.target.value);
   };
   const handleChangeQuantity = (e) => {
     if (e.target.value > 0 || e.target.value === "")

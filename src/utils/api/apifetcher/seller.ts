@@ -14,7 +14,7 @@ const userApi = {
     })
   },
 
-  updateItemInfo: (id, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale, category) => {
+  updateItemInfo: (id, goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, goodsSale, category, deleteHash) => {
     //const signUpUserName = useSelector((appState: any) => appState.LoginReducer.signUpUserName);
     let userData = {
       "id": id,
@@ -25,7 +25,8 @@ const userApi = {
       "stock": goodsStock,
       "sales": goodsSale,
       "category": category,
-      "isDisplay": "false"
+      "isDisplay": "false",
+      "deleteHash": deleteHash,
     }
     //console.log(_signUpUserName._username)
     console.log(userData)
@@ -48,7 +49,7 @@ const userApi = {
     return api.userApi({ url: "/items/getItemsbyIsDisplay", method: "POST", data: userData })
   },
 
-  newItem: (goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, category,deleteHash) => {
+  newItem: (goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock, category, deleteHash) => {
     let userData = {
       "userToken": localStorage.getItem('userToken'),
       "name": goodsName,
@@ -58,7 +59,7 @@ const userApi = {
       "stock": goodsStock,
       "isDisplay": 0,
       "category": category,
-      "deleteHash":deleteHash,
+      "deleteHash": deleteHash,
     }
     //console.log(_signUpUserName._username)
     console.log(userData)

@@ -28,6 +28,7 @@ const ProductEditGoods = () => {
   const [goodsStock, setGoodsStock] = useState();
   const [goodsImg, setGoodsImg] = useState();
   const [goodsSale, setGoodsSale] = useState();
+  const [goodsDeleteHash, setGoodsDeleteHash] = useState();
   const [isLoading, setIsloading] = useState(true);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("網路錯誤");
@@ -44,6 +45,7 @@ const ProductEditGoods = () => {
         setGoodsStock(res.data.stock);
         setGoodsImg(res.data.imgURL);
         setGoodsSale(res.data.sales);
+        setGoodsDeleteHash(res.data.deleteHash)
         setGoodsCetogory(
           res.data.category !== "" ? res.data.category : "未選擇"
         );
@@ -59,6 +61,7 @@ const ProductEditGoods = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    let tempGoodsDeleteHash = "";
     console.log(
       id,
       goodsName,
@@ -78,6 +81,7 @@ const ProductEditGoods = () => {
           console.log("success");
           setGoodsImg(res.data.data.link);
           tempGoodsImg = res.data.data.link;
+          tempGoodsDeleteHash = res.data.data.deletehash;
           console.log(res.data.data.link);
           console.log(res);
         })
@@ -86,6 +90,18 @@ const ProductEditGoods = () => {
           setIsloading(false);
           setErrorMessage("圖片伺服器錯誤");
           setIsErrorAlert(true);
+        });
+    }
+    else {
+      await imgurApi.deleteImage(goodsDeleteHash)
+        .then((res) => {
+          console.log("success")
+        })
+        .catch((err) => {
+          console.log("fail")
+          setErrorMessage("圖片伺服器錯誤");
+          setIsErrorAlert(true)
+          setIsloading(false)
         });
     }
     await sellerApi
@@ -97,7 +113,8 @@ const ProductEditGoods = () => {
         goodsPrice,
         goodsStock,
         goodsSale,
-        goodsCetogory
+        goodsCetogory,
+        tempGoodsDeleteHash
       )
       .then((res) => {
         console.log("success");

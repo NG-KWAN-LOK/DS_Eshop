@@ -16,7 +16,7 @@ import imgurApi from "../../../utils/api/apifetcher/imgur";
 import Loading from "../../PopUpLayer/Loading";
 import Alert from "../../PopUpLayer/Alert";
 
-interface HeaderProps {}
+interface HeaderProps { }
 
 const AddProduct = () => {
   const history = useHistory();
@@ -35,7 +35,7 @@ const AddProduct = () => {
     event.preventDefault();
     console.log(goodsName, goodsDesription, goodsImg, goodsPrice, goodsStock);
     let tempGoodsImg = null;
-    let goodsDeleteHash = null;
+    let goodsDeleteHash = "";
     setIsloading(true);
     if (selectedFile != null) {
       await imgurApi
@@ -274,13 +274,12 @@ const AddProduct = () => {
             <div className={styles.container_basicInfo_goodsImg_imgPreview}>
               <img
                 className={styles.container_basicInfo_goodsImg_imgPreview_img}
-                src={`${
-                  selectedFile != null
+                src={`${selectedFile != null
                     ? URL.createObjectURL(selectedFile)
                     : goodsImg != null
-                    ? goodsImg
-                    : ""
-                }
+                      ? goodsImg
+                      : ""
+                  }
                 `}
               />
             </div>

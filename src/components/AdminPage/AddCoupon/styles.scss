@@ -1,0 +1,276 @@
+.container {
+  display: block;
+  width: 100%;
+}
+.container_basicInfo {
+  display: block;
+  padding: 24px;
+  width: 100%;
+  background-color: #ffffff;
+  margin-top: -10px;
+  margin: 0 0 10px 0;
+}
+.container_basicInfo_title {
+  display: flex;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 2.2rem;
+  color: #333333;
+  margin-bottom: 40px;
+}
+.container_basicInfo_couponName {
+  display: flex;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.container_basicInfo_discountContent {
+  display: flex;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.container_basicInfo_goodsCategory {
+  display: flex;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.container_basicInfo_couponName_title,
+.container_basicInfo_discountContent_title,
+.container_basicInfo_goodsImg_title,
+.container_sellInfo_goodsPrice_title,
+.container_sellInfo_goodsStock_title,
+.container_basicInfo_imgPreview_title,
+.container_basicInfo_goodsCategory_title {
+  display: flex;
+  justify-content: flex-end;
+  align-self: center;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+  width: 10%;
+}
+.container_basicInfo_goodsCategory_dropList {
+  cursor: pointer;
+  display: block;
+  width: 50%;
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid #dfdfdf;
+  margin: 0 0 0 22px;
+  &:hover {
+    .container_basicInfo_goodsCategory_dropList_under {
+      height: 300px;
+      transition: 0.2s;
+      opacity: 1;
+    }
+  }
+}
+.container_basicInfo_goodsCategory_dropList_arrow {
+  background-image: url("../../../image/down-arrow.svg");
+  width: 1.2rem;
+  height: 1.2rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+.container_basicInfo_goodsCategory_dropList_subtitle {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  align-items: center;
+  border-radius: 2px;
+}
+.container_basicInfo_goodsCategory_dropList_text {
+  width: 90%;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 300;
+  margin: 0 10px;
+}
+.container_basicInfo_goodsCategory_dropList_text_isSelect {
+  @extend .container_basicInfo_goodsCategory_dropList_text;
+  color: #ee4d2d;
+}
+.container_basicInfo_goodsCategory_dropList_text_notSelect {
+  @extend .container_basicInfo_goodsCategory_dropList_text;
+  color: #000000cc;
+}
+.container_basicInfo_goodsCategory_dropList_under {
+  display: block;
+  height: 0;
+  width: 100%;
+  position: absolute;
+  overflow-y: scroll;
+  align-items: center;
+  border: 1px solid #dfdfdf;
+  z-index: 2;
+  padding: 3px 0 0 0;
+  opacity: 0;
+  transition: 0.2s;
+}
+.container_basicInfo_goodsCategory_dropList_under_subtitle {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  background-color: #ffffff;
+  align-items: center;
+  &:hover {
+    .container_basicInfo_goodsCategory_dropList_under_text {
+      color: #ee4d2d;
+      transition: 0.2s;
+    }
+  }
+  &:active {
+    .container_basicInfo_goodsCategory_dropList_under {
+      height: 0;
+    }
+  }
+}
+.container_basicInfo_goodsCategory_dropList_under_text {
+  width: 75%;
+  color: #333333;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 300;
+  margin: 0 12px;
+  transition: 0.2s;
+}
+.container_basicInfo_goodsCategory_dropList_under_text_isSelect {
+  @extend .container_basicInfo_goodsCategory_dropList_under_text;
+  color: #fb5533;
+}
+
+.container_basicInfo_goodsImg {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 24px;
+}
+.container_basicInfo_goodsImg_file {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  margin-bottom: 24px;
+}
+.container_basicInfo_imgPreview {
+  display: flex;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.container_sellInfo_goodsPrice {
+  display: flex;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.container_sellInfo_goodsStock {
+  display: flex;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.container_sellInfo {
+  display: block;
+  padding: 24px;
+  width: 100%;
+  background-color: #ffffff;
+  margin: 20px 0;
+}
+.container_sellInfo_title {
+  display: flex;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 2.2rem;
+  color: #333333;
+  margin-bottom: 40px;
+}
+.loginContent_inputBar {
+  display: flex;
+  width: 90%;
+  background-color: #fff;
+  height: 4rem;
+  font-weight: 100;
+  padding: 0 10px;
+  margin: 0 0 0 24px;
+  align-items: center;
+  border: 1px solid #dfdfdf;
+  border-radius: 2px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 300;
+  font-size: 1.4rem;
+  &::placeholder {
+    opacity: 0.7;
+  }
+  &-error {
+    z-index: 100;
+    border: 1px solid #ff424f;
+    background-color: #fff6f7;
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+.loginContent_submitBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 4rem;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 1.4rem;
+  color: #fff;
+  background-color: #fb5533;
+  border-radius: 2px;
+  &-allow {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+  &-not-allow {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+.container_basicInfo_goodsImg_container {
+  width: 100%;
+}
+.container_basicInfo_goodsImg_Btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 4rem;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 1.4rem;
+  color: #333333;
+  background-color: #fff;
+  border-radius: 2px;
+  margin: 0 0 0 24px;
+  &-allow {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+  &-not-allow {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+.container_basicInfo_goodsImg_imgPreview {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 0 0 0 24px;
+}
+.container_basicInfo_goodsImg_imgPreview_img {
+  min-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  background-color: #0000000a;
+}

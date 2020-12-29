@@ -2,20 +2,18 @@ import api from "../api";
 
 const couponList = [
   {
-    couponId: "0",
-    couponName: "訂單減100元",
+    couponName: "TEST1",
     discountContent: "100",
     startDate:"2020/12/18",
     endDate: "2020/12/30",
-    isTook:true
+    createAt:"2020/12/29"
   },
   {
-    couponId: "1",
-    couponName: "訂單減50元",
+    couponName: "TEST2",
     discountContent: "50",
     startDate:"2020/12/18",
     endDate: "2021/01/02",
-    isTook:false
+    createAt:"2020/12/29"
   },
 ];
 

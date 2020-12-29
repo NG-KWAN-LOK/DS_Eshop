@@ -69,7 +69,30 @@ const userApi = {
       "id": id
     }
     return api.userApi({ url: "/items/deleteItem", method: "POST", data: userData })
-  }
+  },
+  newCoupon: (couponName, discountContent, startDate = "", endDate = "") => {
+    let userData = {
+      "couponName": couponName,
+      "discountContent": discountContent,
+      "startDate":startDate,
+      "endDate": endDate
+    }
+    //console.log(_signUpUserName._username)
+    console.log(userData)
+    return api.userApi({ url: "/coupon/create", method: "POST", data: userData })
+  },
+  updateCoupon: (couponName,NewCouponName, discountContent, startDate = "", endDate = "") => {
+    let userData = {
+      "couponName": couponName,
+      "NewcouponName": NewCouponName,
+      "discountContent": discountContent,
+      "startDate":startDate,
+      "endDate": endDate
+    }
+    //console.log(_signUpUserName._username)
+    console.log(userData)
+    return api.userApi({ url: "/coupon/modify", method: "POST", data: userData })
+  },
 };
 
 export default userApi;

@@ -103,30 +103,62 @@
   margin: 0 0 0 24px;
 }
 .container_cartFooter_row1 {
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
-  align-items: center;
+  display: block;
   background-color: #fffefb;
   padding: 20px 30px;
 }
+.container_cartFooter_row1_totalPriceContainer {
+  display: block;
+  padding: 0 0 20px 0;
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid #00000025;
+}
+.container_cartFooter_row1_totalGoods_container {
+  display: flex;
+  width: auto;
+  height: 40px;
+  justify-content: flex-end;
+  align-items: center;
+}
 .container_cartFooter_row1_totalGoods {
-  color: #000000cc;
+  color: #0000008a;
   font-family: "Noto Sans TC", sans-serif;
   text-decoration: none;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 300;
   font-style: normal;
 }
-
 .container_cartFooter_row1_totalPrice {
+  width: 135px;
+  display: flex;
+  justify-content: flex-end;
+  color: #0000008a;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: normal;
+  margin: 0 0 0 5px;
+  padding: 0 0 0 10px;
+}
+.container_cartFooter_row1_totalPay {
+  width: 135px;
+  display: flex;
+  justify-content: flex-end;
   color: #ee4d2d;
   font-family: "Noto Sans TC", sans-serif;
   text-decoration: none;
-  font-size: 3rem;
-  font-weight: 500;
+  font-size: 2.8rem;
+  font-weight: 400;
   font-style: normal;
   margin: 0 0 0 5px;
+  padding: 0 0 0 10px;
+}
+.container_cartFooter_row1_toCasher {
+  display: flex;
+  width: auto;
+  justify-content: flex-end;
+  align-items: center;
 }
 .container_cartFooter_row1_toCasherBtn {
   display: flex;
@@ -143,5 +175,48 @@
   cursor: pointer;
   &:hover {
     opacity: 0.9;
+  }
+}
+.container_cartFooter_row2 {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #fffefb;
+  padding: 20px 30px;
+  border-bottom: 1px solid #00000025;
+}
+.container_cartFooter_row2_couponTitle {
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-style: normal;
+}
+.container_cartFooter_row2_couponTitle_inputBar {
+  display: flex;
+  width: 20%;
+  background-color: #fff;
+  height: 4rem;
+  font-weight: 100;
+  padding: 0 10px;
+  margin: 0 0 0 24px;
+  align-items: center;
+  border: 1px solid #dfdfdf;
+  border-radius: 2px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 300;
+  font-size: 1.4rem;
+  &::placeholder {
+    opacity: 0.7;
+  }
+  &-error {
+    z-index: 100;
+    border: 1px solid #ff424f;
+    background-color: #fff6f7;
+  }
+  &:disabled {
+    cursor: not-allowed;
   }
 }

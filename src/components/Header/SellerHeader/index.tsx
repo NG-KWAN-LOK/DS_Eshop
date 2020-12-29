@@ -6,7 +6,7 @@ import ProductHeader from "./ProductHeader";
 
 import styles from "./styles.scss";
 
-interface HeaderProps { }
+interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
   const { pathname } = useLocation();
@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = () => {
       case "/seller/addProduct":
         return "增新商品";
       case "/seller/editGoods":
-        return "我的商品　>　編輯商品"
+        return "我的商品　>　編輯商品";
       case "/admin":
         return "所有商品";
       case "/admin/product":
@@ -34,13 +34,19 @@ const Header: React.FC<HeaderProps> = () => {
       case "/admin/member":
         return "所有會員";
       case "/admin/ship":
-        return "查看物流"
+        return "查看物流";
       case "/admin/editGoods":
-        return "所有商品　>　編輯商品"
+        return "所有商品　>　編輯商品";
+      case "/admin/coupon":
+        return "所有優惠券";
+      case "/admin/addCoupon":
+        return "增新優惠券";
+      case "/admin/editCoupon":
+        return "所有優惠券　>　編輯優惠券";
       default:
         return "foo";
     }
-  }
+  };
   //const theme = useSelector((appState: any) => appState.AppReducer.theme);
 
   return (

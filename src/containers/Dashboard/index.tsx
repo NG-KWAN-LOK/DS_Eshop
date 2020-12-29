@@ -113,7 +113,7 @@ const Dashboard = () => {
               </Swiper>
             </div>
           </div>
-          <div className={styles.pageContainer_couponItemContainer}>
+          {/* <div className={styles.pageContainer_couponItemContainer}>
             <div className={styles.pageContainer_couponItemContainer_block}>
               <div
                 className={
@@ -153,7 +153,7 @@ const Dashboard = () => {
                 {isLoadingCouponList && <DivLoading />}
               </Swiper>
             </div>
-          </div>
+          </div> */}
           <div className={styles.pageContainer_hotItemContainer}>
             <div className={styles.pageContainer_hotItemContainer_block}>
               <div

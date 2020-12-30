@@ -10,7 +10,7 @@ import {
 import { useSelector } from "react-redux";
 
 import styles from "./styles.scss";
-import memberApi from "../../../utils/api/apifetcher/admin"
+import adminApi from "../../../utils/api/apifetcher/admin"
 
 import MemberItem from "./MemberItem"
 import Loading from "../../PopUpLayer/Loading"
@@ -25,11 +25,11 @@ const Product = () => {
     getMemberListInfo()
   }, []);
   function getMemberListInfo() {
-    memberApi.getMemberList()
+    adminApi.getMemberList()
       .then((res) => {
         console.log("success")
-        console.log(res)
-        getMemberList(res);
+        console.log(res.data.memberList)
+        getMemberList(res.data.memberList);
         setIsloading(false)
       })
       .catch((err) => {

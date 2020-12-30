@@ -25,9 +25,9 @@ const userApi = {
   // isLogin: () => {
   //   return api.checkIsLogin();
   // },
-  getMemberList: () => {
-    return new Promise((resolve) => resolve(memberList));
-  },
+  // getMemberList: () => {
+  //   return new Promise((resolve) => resolve(memberList));
+  // },
 
   getItemInfo: (id) => {
     console.log(id)
@@ -60,7 +60,14 @@ const userApi = {
     let userData = {
       "userToken": localStorage.getItem('userToken')
     }
-    return api.userApi({ url: "/items/getAllItems", method: "POST", data: userData })
+    return api.userApi({ url: "/admin/adminGetAllGoods", method: "POST", data: userData })
+  },
+
+  getMemberList: () => {
+    let userData = {
+      "userToken": localStorage.getItem('userToken')
+    }
+    return api.userApi({ url: "/admin/adminGetAllUsers", method: "POST", data: userData })
   },
 
   deleteItem: (id) => {

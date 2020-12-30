@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 import styles from "./styles.scss";
 import GoodsApi from "../../../utils/api/apifetcher/goods";
-import sellerApi from "../../../utils/api/apifetcher/seller"
+import adminApi from "../../../utils/api/apifetcher/admin"
 import * as loginActions from "../../../containers/Login/actions";
 
 import ProductGoodsItem from "./ProductGoodsItem"
@@ -26,19 +26,19 @@ const Product = () => {
   useEffect(() => {
     getGoodsListInfo()
   }, []);
-  function getGoodsListInfo(){
-    sellerApi.getSellerGoodsList()
+  function getGoodsListInfo() {
+    adminApi.getSellerGoodsList()
       .then((res) => {
         console.log("success")
-        console.log(res.data)
-        getGoodsList(res.data);
+        console.log(res.data.goodList)
+        getGoodsList(res.data.goodList);
         setIsloading(false)
       })
       .catch((err) => {
         console.log("fail")
         setIsloading(false)
       });
-    
+
   }
   return (
     <div className={styles.container}>
@@ -63,14 +63,14 @@ const Product = () => {
           </div>
           <div className={styles.container_goodsItemListContainer_item}>
             {goodsList.map((data, index) => {
-              return <ProductGoodsItem key={data.id} data={data} getGoodsAPI={getGoodsListInfo} />;
+              return <ProductGoodsItem key={index} data={data} getGoodsAPI={getGoodsListInfo} />;
             })}
           </div>
         </div>
-        {goodsList.length == 0 && 
+        {goodsList.length == 0 &&
           <div className={styles.container_titleBar_itemEmpty}>
             <div className={styles.container_titleBar_itemEmpty_text}>
-            您沒有商品!
+              您沒有商品!
             </div>
           </div>}
       </div>

@@ -15,6 +15,8 @@ import Alert from "../../components/PopUpLayer/Alert";
 
 import { categoryList } from "Utils/constants";
 import useSearch from "./useSearch";
+import findTitle from "../../utils/titleName";
+
 interface DashboardProps {}
 
 interface location {
@@ -82,6 +84,8 @@ const Search = () => {
 
   useEffect(() => {
     searchGoods();
+    document.title =
+      findTitle([paramters.keyword + " - 搜尋結果"]) + "修皮購物";
   }, [paramters]);
   function setSortingMethon(mode, orderMode = "asc") {
     updateParameter({ orderBy: orderMode, orderByKeyword: mode });

@@ -33,7 +33,7 @@ import banner5 from "../../image/1608721431907.jpg";
 import GoodsApi from "../../utils/api/apifetcher/goods";
 import CouponApi from "../../utils/api/apifetcher/coupon";
 
-interface DashboardProps {}
+interface DashboardProps { }
 
 const Dashboard = () => {
   let bannerImgList = [

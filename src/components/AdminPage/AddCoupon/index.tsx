@@ -15,25 +15,25 @@ import adminApi from "../../../utils/api/apifetcher/admin";
 import Loading from "../../PopUpLayer/Loading";
 import Alert from "../../PopUpLayer/Alert";
 
-interface HeaderProps {}
+interface HeaderProps { }
 
 const AddProduct = () => {
   const history = useHistory();
   const { pathname } = useLocation();
   const [couponName, setCouponName] = useState();
+  const [description, setDescription] = useState();
   const [discountContent, setCouponContent] = useState();
   const [couponStartDate, setCouponStartDate] = useState();
   const [couponEndDate, setCouponEndDate] = useState();
   const [isLoading, setIsloading] = useState(false);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("網路錯誤");
-  const [selectedFile, setSelectedFile] = useState(null);
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(couponName, discountContent, couponStartDate, couponEndDate);
     setIsloading(true);
     await adminApi
-      .newCoupon(couponName, discountContent, couponStartDate, couponEndDate)
+      .newCoupon(couponName, description, discountContent, couponStartDate, couponEndDate)
       .then((res) => {
         console.log("success");
         history.push("/admin/coupon");
@@ -48,7 +48,10 @@ const AddProduct = () => {
   const handleChangeCouponName = (e) => {
     setCouponName(e.target.value);
   };
-  const handleChangeCouponDesription = (e) => {
+  const handleChangeCouponDescription = (e) => {
+    setDescription(e.target.value);
+  };
+  const handleChangeCouponContent = (e) => {
     setCouponContent(e.target.value);
   };
   const handleChangeCouponStartDate = (e) => {
@@ -114,7 +117,7 @@ const AddProduct = () => {
           <div className={styles.container_basicInfo_title}>基本資訊</div>
           <div className={styles.container_basicInfo_couponName}>
             <div className={styles.container_basicInfo_couponName_title}>
-              *優惠碼
+              *折扣碼
             </div>
             <input
               className={printIfCouponNameBlank()}
@@ -126,6 +129,18 @@ const AddProduct = () => {
           </div>
           <div className={styles.container_basicInfo_discountContent}>
             <div className={styles.container_basicInfo_discountContent_title}>
+              折扣簡介
+            </div>
+            <input
+              className={styles.loginContent_inputBar}
+              type="text"
+              placeholder={"請輸入"}
+              value={description}
+              onChange={handleChangeCouponDescription}
+            />
+          </div>
+          <div className={styles.container_basicInfo_discountContent}>
+            <div className={styles.container_basicInfo_discountContent_title}>
               *優惠金額
             </div>
             <input
@@ -133,7 +148,7 @@ const AddProduct = () => {
               type="text"
               placeholder={"請輸入"}
               value={discountContent}
-              onChange={handleChangeCouponDesription}
+              onChange={handleChangeCouponContent}
             />
           </div>
           <div className={styles.container_basicInfo_discountContent}>

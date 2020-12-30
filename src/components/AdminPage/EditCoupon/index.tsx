@@ -13,43 +13,43 @@ import useParams from "Customhooks/useParams";
 import { categoryList } from "../../../utils/constants";
 
 import adminApi from "../../../utils/api/apifetcher/admin";
+import couponApi from "../../../utils/api/apifetcher/coupon";
 import Loading from "../../PopUpLayer/Loading";
 import Alert from "../../PopUpLayer/Alert";
 import styles from "./styles.scss";
 
 const ProductEditGoods = () => {
   const history = useHistory();
-  const { oldCouponName } = useParams({ keys: ["couponName"] });
+  const { couponName: oldCouponName } = useParams({ keys: ["couponName"] });
+  const [couponID, setCouponID] = useState();
   const [couponName, setCouponName] = useState();
+  const [description, setDescription] = useState();
   const [discountContent, setCouponContent] = useState();
   const [couponStartDate, setCouponStartDate] = useState();
   const [couponEndDate, setCouponEndDate] = useState();
-  const [isLoading, setIsloading] = useState(false);
+  const [isLoading, setIsloading] = useState(true);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("網路錯誤");
   async function getGoodInfo() {
-    // await sellerApi
-    //   .getItemInfo(id)
-    //   .then((res) => {
-    //     console.log("success");
-    //     console.log(res.data);
-    //     setGoodsName(res.data.name);
-    //     setGoodsDesription(res.data.description);
-    //     setGoodsPrice(res.data.price);
-    //     setGoodsStock(res.data.stock);
-    //     setGoodsImg(res.data.imgURL);
-    //     setGoodsSale(res.data.sales);
-    //     setGoodsDeleteHash(res.data.deleteHash)
-    //     setGoodsCetogory(
-    //       res.data.category !== "" ? res.data.category : "未選擇"
-    //     );
-    //   })
-    //   .catch((err) => {
-    //     console.log("fail");
-    //   });
-    //setIsloading(false);
+    console.log(oldCouponName)
+    await couponApi
+      .getCouponInfoByName(oldCouponName)
+      .then((res) => {
+        console.log("success");
+        console.log(res.data);
+        setCouponID(res.data.id);
+        setCouponName(res.data.content);
+        setDescription(res.data.description);
+        setCouponContent(res.data.discount_rate);
+        setCouponStartDate(res.data.startdate);
+        setCouponEndDate(res.data.enddate);
+      })
+      .catch((err) => {
+        console.log("fail");
+      });
+    setIsloading(false);
   }
-  if (couponName) {
+  if (!couponID) {
     getGoodInfo();
   }
 
@@ -61,6 +61,7 @@ const ProductEditGoods = () => {
       .updateCoupon(
         oldCouponName,
         couponName,
+        description,
         discountContent,
         couponStartDate,
         couponEndDate
@@ -79,7 +80,10 @@ const ProductEditGoods = () => {
   const handleChangeCouponName = (e) => {
     setCouponName(e.target.value);
   };
-  const handleChangeCouponDesription = (e) => {
+  const handleChangeCouponDescription = (e) => {
+    setDescription(e.target.value);
+  };
+  const handleChangeCouponContent = (e) => {
     setCouponContent(e.target.value);
   };
   const handleChangeCouponStartDate = (e) => {
@@ -146,7 +150,7 @@ const ProductEditGoods = () => {
           <div className={styles.container_basicInfo_title}>基本資訊</div>
           <div className={styles.container_basicInfo_couponName}>
             <div className={styles.container_basicInfo_couponName_title}>
-              *優惠碼
+              *折扣碼
             </div>
             <input
               className={printIfCouponNameBlank()}
@@ -154,6 +158,18 @@ const ProductEditGoods = () => {
               placeholder={"請輸入"}
               value={couponName}
               onChange={handleChangeCouponName}
+            />
+          </div>
+          <div className={styles.container_basicInfo_couponName}>
+            <div className={styles.container_basicInfo_couponName_title}>
+              折扣簡介
+            </div>
+            <input
+              className={styles.loginContent_inputBar}
+              type="text"
+              placeholder={"請輸入"}
+              value={description}
+              onChange={handleChangeCouponDescription}
             />
           </div>
           <div className={styles.container_basicInfo_discountContent}>
@@ -165,7 +181,7 @@ const ProductEditGoods = () => {
               type="text"
               placeholder={"請輸入"}
               value={discountContent}
-              onChange={handleChangeCouponDesription}
+              onChange={handleChangeCouponContent}
             />
           </div>
           <div className={styles.container_basicInfo_discountContent}>

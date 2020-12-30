@@ -11,11 +11,12 @@ import { checkIslogIn } from "../../utils/tools/index";
 import Header from "../../components/Header/CasherHeader";
 import CasherItem from "../../components/Casher/CasherItem";
 import ShoppingCartApi from "../../utils/api/apifetcher/shoppingCart";
+import CouponApi from "../../utils/api/apifetcher/coupon";
 import Loading from "../../components/PopUpLayer/Loading";
 import Alert from "../../components/PopUpLayer/Alert";
 import Coupon from "Components/AdminPage/Coupon";
 
-interface LoginProps {}
+interface LoginProps { }
 
 const ShoppingCart = () => {
   const history = useHistory();
@@ -23,7 +24,11 @@ const ShoppingCart = () => {
     (appState: any) => appState.LoginReducer.userData
   );
   const isLogin = useSelector((appState: any) => appState.LoginReducer.isLogin);
-  const [couponName, setCouponName] = useState();
+  const [couponName, setCouponName] = useState("");
+  const [couponDescription, setCouponDescription] = useState("");
+  const [couponDiscount, setCouponDiscount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [payPrice, setPayPrice] = useState(0);
   const [goodsList, getGoodsList] = useState([]);
   const [isLoading, setIsloading] = useState(false);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
@@ -47,33 +52,57 @@ const ShoppingCart = () => {
       });
   }, []);
   function countTotalGoods() {
-    var totalGoods = 0;
+    var _totalGoods = 0;
     goodsList.forEach((sellerData) => {
       sellerData.goodsList.forEach((goodsData) => {
-        totalGoods += parseInt(goodsData.count);
+        _totalGoods += parseInt(goodsData.count);
       });
     });
-    return totalGoods;
+    return _totalGoods;
   }
-  function countTotalPrice() {
-    var totalPrice = 0;
+  useEffect(() => {
+    console.log("discount" + couponDiscount, totalPrice)
+    var newPayPeice = totalPrice - (!couponDiscount ? 0 : couponDiscount)
+    setPayPrice(newPayPeice)
+  }, [couponDiscount]);
+
+  const handleChangeCouponName = (e) => {
+    setCouponName(e.target.value);
+  };
+
+  useEffect(() => {
+    CouponApi.getCouponInfoByName(couponName)
+      .then((res) => {
+        console.log(res.data);
+        var newDescription = res.data.description
+        setCouponDescription(newDescription)
+        var newDiscount = parseInt(res.data.discount_rate)
+        setCouponDiscount(newDiscount)
+      })
+      .catch((err) => {
+        console.log("coupon error");
+        setCouponDescription("")
+        setCouponDiscount(0)
+      });
+  }, [couponName]);
+  useEffect(() => {
+    var _totalPrice = 0;
     goodsList.forEach((sellerData) => {
       var sellerTotalPrice = 0;
       sellerData.goodsList.forEach((goodsData) => {
         sellerTotalPrice +=
           parseInt(goodsData.count) * parseInt(goodsData.price);
       });
-      totalPrice += sellerTotalPrice;
+      _totalPrice += sellerTotalPrice;
     });
-    return totalPrice;
-  }
+    console.log(_totalPrice)
+    setTotalPrice(_totalPrice)
+    setPayPrice(_totalPrice)
+  }, [goodsList]);
   function routeChangeToCasher() {
     var path = "/";
     history.push(path);
   }
-  const handleChangeCouponName = (e) => {
-    setCouponName(e.target.value);
-  };
   return (
     <div className={styles.container}>
       <Header />
@@ -178,18 +207,25 @@ const ShoppingCart = () => {
               </div>
             </div>
             <div className={styles.container_cartFooter_row2}>
-              <div className={styles.container_cartFooter_row2_couponTitle}>
-                全站折價券
+              <div className={styles.container_cartFooter_row2_top}>
+                <div className={styles.container_cartFooter_row2_couponTitle}>
+                  全站折價券
+                </div>
+                <input
+                  className={
+                    styles.container_cartFooter_row2_couponTitle_inputBar
+                  }
+                  type="text"
+                  placeholder={"請輸入折價碼"}
+                  value={couponName}
+                  onChange={handleChangeCouponName}
+                />
               </div>
-              <input
-                className={
-                  styles.container_cartFooter_row2_couponTitle_inputBar
-                }
-                type="text"
-                placeholder={"請輸入折價碼"}
-                value={couponName}
-                onChange={handleChangeCouponName}
-              />
+              <div className={styles.container_cartFooter_row2_bottom}>
+                <div className={styles.container_cartFooter_row2_bottom_couponTitle}>
+                  {couponDescription}
+                </div>
+              </div>
             </div>
             <div className={styles.container_cartFooter_row1}>
               <div
@@ -204,7 +240,19 @@ const ShoppingCart = () => {
                     商品總金額
                   </div>
                   <div className={styles.container_cartFooter_row1_totalPrice}>
-                    ${countTotalPrice()}
+                    ${totalPrice}
+                  </div>
+                </div>
+                <div
+                  className={
+                    styles.container_cartFooter_row1_totalGoods_container
+                  }
+                >
+                  <div className={styles.container_cartFooter_row1_totalGoods}>
+                    折扣金額
+                  </div>
+                  <div className={styles.container_cartFooter_row1_totalPrice}>
+                    -${!couponDiscount ? 0 : couponDiscount}
                   </div>
                 </div>
                 <div
@@ -216,7 +264,7 @@ const ShoppingCart = () => {
                     總付款金額
                   </div>
                   <div className={styles.container_cartFooter_row1_totalPay}>
-                    ${countTotalPrice()}
+                    ${payPrice}
                   </div>
                 </div>
               </div>

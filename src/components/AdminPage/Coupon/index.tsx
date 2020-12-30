@@ -15,7 +15,7 @@ import couponApi from "../../../utils/api/apifetcher/coupon";
 import MemberItem from "./CouponItem";
 import Loading from "../../PopUpLayer/Loading";
 
-interface HeaderProps {}
+interface HeaderProps { }
 
 const Coupon = () => {
   const history = useHistory();
@@ -29,8 +29,8 @@ const Coupon = () => {
       .getCouponList()
       .then((res) => {
         console.log("success");
-        console.log(res);
-        getCouponList(res);
+        console.log(res.data);
+        getCouponList(res.data);
         setIsloading(false);
       })
       .catch((err) => {
@@ -48,7 +48,14 @@ const Coupon = () => {
                 styles.container_goodsItemListContainer_header_userName
               }
             >
-              優惠碼
+              折扣碼
+            </div>
+            <div
+              className={
+                styles.container_goodsItemListContainer_header_discription
+              }
+            >
+              折扣簡介
             </div>
             <div
               className={

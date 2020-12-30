@@ -70,24 +70,26 @@ const userApi = {
     }
     return api.userApi({ url: "/items/deleteItem", method: "POST", data: userData })
   },
-  newCoupon: (couponName, discountContent, startDate = "", endDate = "") => {
+  newCoupon: (couponName, description, discountContent, startDate = "", endDate = "") => {
     let userData = {
       "couponName": couponName,
+      "description": description,
       "discountContent": discountContent,
-      "startDate":startDate,
+      "startDate": startDate,
       "endDate": endDate
     }
     //console.log(_signUpUserName._username)
     console.log(userData)
     return api.userApi({ url: "/coupon/create", method: "POST", data: userData })
   },
-  updateCoupon: (couponName,NewCouponName, discountContent, startDate = "", endDate = "") => {
+  updateCoupon: (couponName, NewCouponName, Newdescription, discountContent, startDate = "", endDate = "") => {
     let userData = {
       "couponName": couponName,
       "NewcouponName": NewCouponName,
-      "discountContent": discountContent,
-      "startDate":startDate,
-      "endDate": endDate
+      "Newdescription": Newdescription,
+      "NewdiscountContent": discountContent,
+      "NewstartDate": startDate,
+      "NewendDate": endDate
     }
     //console.log(_signUpUserName._username)
     console.log(userData)

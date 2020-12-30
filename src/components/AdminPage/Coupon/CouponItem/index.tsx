@@ -35,25 +35,28 @@ const GoodsCard = ({ data, getMembereAPI }) => {
   return (
     <div className={styles.productGoodsItemContainer}>
       <div className={styles.productGoodsItemContainer_userName}>
-        <span>{couponData.couponName}</span>
+        <span>{couponData.content}</span>
+      </div>
+      <div className={styles.productGoodsItemContainer_discription}>
+        <span>{couponData.description}</span>
       </div>
       <div className={styles.productGoodsItemContainer_customerName}>
-        <span>{couponData.discountContent}</span>
+        <span>{couponData.discount_rate}</span>
       </div>
       <div className={styles.productGoodsItemContainer_email}>
-        <span>{couponData.endDate}</span>
+        <span>{couponData.startdate}</span>
       </div>
       <div className={styles.productGoodsItemContainer_address}>
-        <span>{couponData.startDate}</span>
+        <span>{couponData.enddate}</span>
       </div>
       <div className={styles.productGoodsItemContainer_createTime}>
-        <span>{couponData.createAt}</span>
+        <span>{couponData.updatedAt}</span>
       </div>
       <div className={styles.productGoodsItemContainer_goodsControl}>
         <Link
           to={{
             pathname: "/admin/editCoupon",
-            search: "?couponName=" + couponData.couponName,
+            search: "?couponName=" + couponData.content,
           }}
         >
           <div className={styles.productGoodsItemContainer_goodsControl_text}>

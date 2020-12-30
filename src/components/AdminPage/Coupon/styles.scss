@@ -39,12 +39,17 @@
 }
 .container_goodsItemListContainer_header_userName {
   display: flex;
+  width: 15%;
+}
+.container_goodsItemListContainer_header_discription {
+  display: flex;
+  justify-content: center;
   width: 20%;
 }
 .container_goodsItemListContainer_header_customerName {
   display: flex;
   justify-content: center;
-  width: 20%;
+  width: 15%;
 }
 .container_goodsItemListContainer_header_email {
   display: flex;
@@ -64,7 +69,7 @@
 .container_goodsItemListContainer_header_control {
   display: flex;
   justify-content: center;
-  width: 15%;
+  width: 5%;
 }
 .container_goodsItemListContainer_item {
   display: block;

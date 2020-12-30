@@ -99,9 +99,20 @@ const ShoppingCart = () => {
     setTotalPrice(_totalPrice)
     setPayPrice(_totalPrice)
   }, [goodsList]);
-  function routeChangeToCasher() {
+  function checkOut() {
     var path = "/";
-    history.push(path);
+    setIsloading(true);
+    ShoppingCartApi.checkOut()
+      .then((res) => {
+        console.log(res.data);
+        setIsloading(false);
+        history.push(path);
+      })
+      .catch((err) => {
+        console.log("error", err);
+        setIsErrorAlert(true);
+        setIsloading(false);
+      })
   }
   return (
     <div className={styles.container}>
@@ -271,7 +282,7 @@ const ShoppingCart = () => {
               <div className={styles.container_cartFooter_row1_toCasher}>
                 <div
                   className={styles.container_cartFooter_row1_toCasherBtn}
-                  onClick={routeChangeToCasher}
+                  onClick={checkOut}
                 >
                   下訂單
                 </div>

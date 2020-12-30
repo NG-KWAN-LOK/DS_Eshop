@@ -79,7 +79,13 @@ const ShoppingCartApi = {
     console.log(userData)
     return api.userApi({ url: "shoppingCart/deleteCartGood", method: "POST", data: userData })
   },
-  
+  checkOut: () => {
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+    }
+    console.log(userData)
+    return api.userApi({ url: "/shoppingCart/Checkout", method: "POST", data: userData })
+  },
 };
 
 export default ShoppingCartApi;

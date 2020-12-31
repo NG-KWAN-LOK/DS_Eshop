@@ -42,22 +42,30 @@ const Item = () => {
   useEffect(() => {
     getGoodInfo();
     getCommentInfo();
-    document.title = findTitle([goodsItemInfo.name]) + "修皮購物";
   }, []);
   async function getGoodInfo() {
     await GoodsApi.getItemInfo(id)
       .then((res) => {
         console.log("success");
         console.log(res.data);
-        if (res.data.isDisplay == true) setGoodsItemInfo(res.data);
-        else setIsNotDisplay(true);
+        if (res.data.isDisplay == true) {
+          setGoodsItemInfo(res.data);
+        } else {
+          setIsNotDisplay(true);
+        }
       })
       .catch((err) => {
         console.log("fail");
         setIsNotFound(true);
+        document.title = findTitle("找不到商品") + "修皮購物";
       });
     setIsloading(false);
   }
+  useEffect(() => {
+    document.title =
+      findTitle([!goodsItemInfo.name ? "商品資訊載入中" : goodsItemInfo.name]) +
+      "修皮購物";
+  }, [goodsItemInfo]);
   async function getCommentInfo() {
     setIsloading(true);
     await CommentApi.getCommentData(id)

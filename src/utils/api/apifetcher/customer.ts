@@ -15,6 +15,14 @@ const CustomerApi = {
   getUserData: () => {
     return new Promise((resolve) => resolve(userData));
   },
+
+  getOrdersList: () => {
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+    }
+    console.log(userData)
+    return api.userApi({ url: "/buyermenu/getmyorders", method: "POST", data: userData })
+  },
 };
 
 export default CustomerApi;

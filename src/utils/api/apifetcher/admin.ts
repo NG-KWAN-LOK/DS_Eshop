@@ -69,6 +69,13 @@ const userApi = {
     }
     return api.userApi({ url: "/admin/adminGetAllUsers", method: "POST", data: userData })
   },
+  deleteMember: (userId) => {
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+      "userId":userId
+    }
+    return api.userApi({ url: "/admin/adminDeleteUser", method: "POST", data: userData })
+  },
 
   deleteItem: (id) => {
     console.log(id)

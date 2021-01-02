@@ -10,48 +10,67 @@ import {
 import { useSelector } from "react-redux";
 
 import styles from "./styles.scss";
-import OrderItem from "../UserOrderPage/OrderItem"
-import OrderApi from "../../../utils/api/apifetcher/order";
+import OrderItem from "../UserOrderPage/OrderItem";
+import CustomerApi from "../../../utils/api/apifetcher/customer";
 
-import Loading from "../../PopUpLayer/Loading"
-import Alert from "../../PopUpLayer/Alert"
+import Loading from "../../PopUpLayer/Loading";
+import Alert from "../../PopUpLayer/Alert";
 
-interface HeaderProps { }
+interface HeaderProps {}
 
 const PurchaseAll = () => {
   const history = useHistory();
   const { pathname } = useLocation();
-  const username = useSelector((appState: any) => appState.LoginReducer.userData.userName);
+  const username = useSelector(
+    (appState: any) => appState.LoginReducer.userData.userName
+  );
   const [ordersList, getOrdersList] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   //const goodsCount = 0;
   useEffect(() => {
-    getOrdersListInfo()
+    getOrdersListInfo();
   }, []);
   function getOrdersListInfo() {
-    OrderApi.getOrdersList()
+    CustomerApi.getOrdersList()
       .then((res) => {
-        console.log(res);
-        const newData = res
-        getOrdersList(res);
-        setIsloading(false)
+        console.log(res.data);
+        const newData = res.data;
+        getOrdersList(res.data);
+        setIsloading(false);
       })
       .catch((err) => {
-        console.log("fail")
-        setIsloading(false)
-        setIsErrorAlert(true)
+        console.log("fail");
+        setIsloading(false);
+        setIsErrorAlert(true);
       });
   }
   return (
     <div className={styles.container}>
       <div className={styles.container_ordersItemListContainer_item}>
         {ordersList.map((data, index) => {
-          return <OrderItem key={data.orderId} ordersData={data} getOrdersAPI={getOrdersListInfo} />;
+          return (
+            <OrderItem
+              key={index}
+              ordersData={data}
+              getOrdersAPI={getOrdersListInfo}
+            />
+          );
         })}
       </div>
       {isLoading && <Loading />}
-      {isErrorAlert && <Alert type={"error"} content={"網路錯誤"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
+      {isErrorAlert && (
+        <Alert
+          type={"error"}
+          content={"網路錯誤"}
+          setIsDisplayState={() => {
+            setTimeout(() => {
+              console.log("delay");
+              setIsErrorAlert(false);
+            }, 2000);
+          }}
+        />
+      )}
     </div>
   );
 };

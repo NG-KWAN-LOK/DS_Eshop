@@ -88,7 +88,9 @@ const Search = () => {
       findTitle([paramters.keyword + " - 搜尋結果"]) + "修皮購物";
   }, [paramters]);
   function setSortingMethon(mode, orderMode = "asc") {
-    updateParameter({ orderBy: orderMode, orderByKeyword: mode });
+    if (mode === "sales")
+      updateParameter({ orderBy: "desc", orderByKeyword: mode });
+    else updateParameter({ orderBy: orderMode, orderByKeyword: mode });
   }
   const handleSubmit = (event) => {
     event.preventDefault();

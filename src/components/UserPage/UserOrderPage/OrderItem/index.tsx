@@ -5,6 +5,8 @@ import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
 import GoodsItem from "../GoodsItem";
 import GoodsApi from "../../../../utils/api/apifetcher/goods";
+import OrderApi from "../../../../utils/api/apifetcher/order";
+import ShoppingCartApi from "../../../../utils/api/apifetcher/shoppingCart";
 
 import Loading from "../../../PopUpLayer/Loading";
 import Confirm from "../../../PopUpLayer/ConfirmAlert";
@@ -36,6 +38,7 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
   const [isLoading, setIsloading] = useState(false);
   const [isSetConfrimAlert, setIsSetConfrimAlert] = useState(false);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
+  const [isSuccessAlert, setIsSuccessAlert] = useState(false);
   const [goodsList, getGoodsList] = useState([]);
   let statusWord = "";
   let statusDescription = "";
@@ -112,18 +115,18 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
   }
   function setIsOrderStatus() {
     console.log(ordersData.orderId, setStatusMode);
-    //setIsloading(true)
-    // OrderApi.setOrderState(ordersData.orderId, setStatusMode)
-    //   .then((res) => {
-    //     console.log("success")
-    //     getOrdersAPI();
-    //     setIsloading(false)
-    //   })
-    //   .catch((err) => {
-    //     console.log("fail")
-    //     setIsloading(false)
-    //     setIsErrorAlert(true)
-    //   });
+    setIsloading(true);
+    OrderApi.setOrderState(ordersData.orderId, setStatusMode)
+      .then((res) => {
+        console.log("success");
+        getOrdersAPI();
+        setIsloading(false);
+      })
+      .catch((err) => {
+        console.log("fail");
+        setIsloading(false);
+        setIsErrorAlert(true);
+      });
   }
   function CountTotalPrice() {
     let totalPrice = 0;
@@ -136,11 +139,27 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
     });
     return totalPrice;
   }
-  function confirmRecieved() {
-    console.log("confirmRecieved" + ordersData.orderId);
-  }
   function buyAgain() {
-    console.log("buyAgain" + ordersData.orderId);
+    console.log("buyAgain");
+    goodsList.map((goodsData) => {
+      //console.log(goodsData);
+      goodsData.map((data) => {
+        console.log(data.id, data.data.items_quantity);
+        ShoppingCartApi.newItem(data.id, data.data.items_quantity.toString())
+          .then((res) => {
+            console.log("success");
+            setIsloading(false);
+            setIsSuccessAlert(true);
+            return true;
+          })
+          .catch((err) => {
+            console.log("error");
+            setIsloading(false);
+            setIsErrorAlert(true);
+            return false;
+          });
+      });
+    });
   }
   ConvertStatusCode();
   //console.log(ordersData.goodsList);
@@ -150,7 +169,7 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
         <div className={styles.container_topCol_header}>
           <div className={styles.container_topCol_header_titleBox}>
             <div className={styles.container_topCol_header_titleBox_orderID}>
-              訂單編號{ordersData.orderId}
+              訂單編號：{ordersData.orderId}
             </div>
           </div>
           <div className={styles.container_topCol_header_statusBox}>
@@ -192,7 +211,7 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
         </div>
         <div className={styles.container_bottomCol_optionContainer}>
           {/* {ordersData.status !== "4" && <div className={styles.loginContent_submitBtn} onClick={confirmRecieved}> 確認收貨</div>} */}
-          {ordersData.status !== 4 && (
+          {ordersData.status !== 4 && ordersData.status !== 0 && (
             <div
               className={styles.loginContent_submitBtn}
               onClick={() => {
@@ -232,6 +251,18 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
             setTimeout(() => {
               console.log("delay");
               setIsErrorAlert(false);
+            }, 2000);
+          }}
+        />
+      )}
+      {isSuccessAlert && (
+        <Alert
+          type={"success"}
+          content={"商品已加入購物車"}
+          setIsDisplayState={() => {
+            setTimeout(() => {
+              console.log("delay");
+              setIsSuccessAlert(false);
             }, 2000);
           }}
         />

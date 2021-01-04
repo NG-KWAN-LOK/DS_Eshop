@@ -49,6 +49,13 @@ const userApi = {
     console.log(userData)
     return api.userApi({ url: "/users/modifydata",method: "POST",data: userData })
   },
+  getUserDataById:(id) =>{
+    let userData = {
+      "userId" : id,
+    }
+    console.log(userData)
+    return api.userApi({ url: "/users/getNamesByID",method: "POST",data: userData })
+  },
 };
 
 export default userApi;

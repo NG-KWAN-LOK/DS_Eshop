@@ -8,7 +8,7 @@ import Header from "../../components/Header/MainHeader";
 import Profile from "../../components/UserPage/Profile";
 import ChangePassWord from "../../components/UserPage/ChangePassWord";
 import PurchaseAll from "../../components/UserPage/PurchaseAll";
-interface SellerProps { }
+interface SellerProps {}
 
 const ProfilePage = () => {
   const history = useHistory();
@@ -25,40 +25,39 @@ const ProfilePage = () => {
       <div className={styles.pageContainer}>
         <div className={styles.menuNav}>
           <div className={styles.menuNav_item}>
-            <div className={styles.menuNav_item_title}>
-              我的帳戶
-            </div>
+            <div className={styles.menuNav_item_title}>我的帳戶</div>
             <div className={styles.menuNav_item_subMenuNav}>
-              <Link to={"/user/profile"}><div className={styles.menuNav_item_subMenuNav_subItem}>
-                <div className={styles.menuNav_item_subMenuNav_subItem_title}>
-                  個人檔案
-               </div>
-              </div>
+              <Link to={"/user/profile"}>
+                <div className={styles.menuNav_item_subMenuNav_subItem}>
+                  <div className={styles.menuNav_item_subMenuNav_subItem_title}>
+                    個人檔案
+                  </div>
+                </div>
               </Link>
             </div>
             <div className={styles.menuNav_item_subMenuNav}>
-              <Link to={"/user/changePassWord"}><div className={styles.menuNav_item_subMenuNav_subItem}>
-                <div className={styles.menuNav_item_subMenuNav_subItem_title}>
-                  更改密碼
-               </div>
-              </div>
+              <Link to={"/user/changePassWord"}>
+                <div className={styles.menuNav_item_subMenuNav_subItem}>
+                  <div className={styles.menuNav_item_subMenuNav_subItem_title}>
+                    更改密碼
+                  </div>
+                </div>
               </Link>
             </div>
           </div>
 
           <div className={styles.menuNav_item}>
-            <div className={styles.menuNav_item_title}>
-              購買清單
-            </div>
+            <div className={styles.menuNav_item_title}>購買清單</div>
             <div className={styles.menuNav_item_subMenuNav}>
-              <Link to={"/user/purchaseAll"}><div className={styles.menuNav_item_subMenuNav_subItem}>
-                <div className={styles.menuNav_item_subMenuNav_subItem_title}>
-                  全部
-               </div>
-              </div>
+              <Link to={"/user/purchaseAll"}>
+                <div className={styles.menuNav_item_subMenuNav_subItem}>
+                  <div className={styles.menuNav_item_subMenuNav_subItem_title}>
+                    查看訂單
+                  </div>
+                </div>
               </Link>
             </div>
-            <div className={styles.menuNav_item_subMenuNav}>
+            {/* <div className={styles.menuNav_item_subMenuNav}>
               <Link to={"/user/purchaseWaitOut"}><div className={styles.menuNav_item_subMenuNav_subItem}>
                 <div className={styles.menuNav_item_subMenuNav_subItem_title}>
                   待出貨
@@ -81,7 +80,7 @@ const ProfilePage = () => {
                </div>
               </div>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className={styles.content}>

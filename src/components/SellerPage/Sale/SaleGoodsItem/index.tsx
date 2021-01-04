@@ -44,9 +44,15 @@ const GoodsCard = ({ goodsData }) => {
             ></img>
           </div>
           <div className={styles.container_goodsItemInfo_dataContainer}>
-            <div className={styles.container_goodsItemInfo_dataContainer_title}>
-              {goodsInfo.name}
-            </div>
+            <Link
+              to={{ pathname: "/items", search: "?goodsID=" + goodsInfo.id }}
+            >
+              <div
+                className={styles.container_goodsItemInfo_dataContainer_title}
+              >
+                {goodsInfo.name}
+              </div>
+            </Link>
             <div className={styles.container_goodsItemInfo_dataContainer_count}>
               x {goodsData.items_quantity}
             </div>

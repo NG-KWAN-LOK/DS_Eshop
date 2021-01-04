@@ -5,6 +5,32 @@
   background-color: #ffffff;
   padding: 0 16px;
 }
+.container_topCol_header_titleBox {
+  display: flex;
+  padding: 10px 0 0 0;
+}
+.container_topCol_header_titleBox_orderID {
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 500;
+  font-style: normal;
+}
+.container_topCol_header_titleBox_footer {
+  display: flex;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 0 10px 0;
+}
+.container_topCol_header_titleBox_footer_title {
+  color: #000000cc;
+  font-family: "Noto Sans TC", sans-serif;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: normal;
+  padding: 0 20px 0 0;
+}
 .container_topCol {
   display: flex;
   width: 100%;

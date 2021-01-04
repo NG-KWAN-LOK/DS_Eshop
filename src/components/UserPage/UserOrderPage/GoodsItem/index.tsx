@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
 import GoodsApi from "../../../../utils/api/apifetcher/goods";
+import UserApi from "../../../../utils/api/userAPI";
 import Loading from "../../../PopUpLayer/Loading";
 import Alert from "../../../PopUpLayer/Alert";
 
@@ -31,8 +32,10 @@ const GoodsCard = ({ goodsData }) => {
   const [isLoading, setIsloading] = useState(true);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   const [goodsInfo, getGoodsInfo] = useState("");
+  const [sellerData, getSellerData] = useState("");
   useEffect(() => {
     getItemInfo();
+    getSellerInfo();
   }, []);
   function getItemInfo() {
     GoodsApi.getItemInfo(goodsData.item_id)
@@ -48,7 +51,21 @@ const GoodsCard = ({ goodsData }) => {
         setIsErrorAlert(true);
       });
   }
-  //console.log(goodsData);
+  function getSellerInfo() {
+    UserApi.getUserDataById(goodsData.seller_id)
+      .then((res) => {
+        //console.log(res.data);
+        const newData = res.data;
+        getSellerData(res.data);
+        setIsloading(false);
+      })
+      .catch((err) => {
+        console.log("fail");
+        setIsloading(false);
+        setIsErrorAlert(true);
+      });
+  }
+  console.log(goodsData);
   return (
     <div className={styles.container}>
       <div className={styles.container_goodsItemInfo}>
@@ -59,12 +76,16 @@ const GoodsCard = ({ goodsData }) => {
           ></img>
         </div>
         <div className={styles.container_goodsItemInfo_dataContainer}>
-          <div className={styles.container_goodsItemInfo_dataContainer_title}>
-            賣家：{goodsInfo.name}
+          <div
+            className={styles.container_goodsItemInfo_dataContainer_sellerName}
+          >
+            賣家：{sellerData.customerName}
           </div>
-          <div className={styles.container_goodsItemInfo_dataContainer_title}>
-            {goodsInfo.name}
-          </div>
+          <Link to={{ pathname: "/items", search: "?goodsID=" + goodsInfo.id }}>
+            <div className={styles.container_goodsItemInfo_dataContainer_title}>
+              {goodsInfo.name}
+            </div>
+          </Link>
           <div className={styles.container_goodsItemInfo_dataContainer_count}>
             x {goodsData.items_quantity}
           </div>

@@ -109,6 +109,13 @@ const userApi = {
     console.log(userData)
     return api.userApi({ url: "/coupon/modify", method: "POST", data: userData })
   },
+  getOrdersList: () => {
+    let userData = {
+      "userToken": localStorage.getItem('userToken'),
+    }
+    console.log(userData)
+    return api.userApi({ url: "/admin/adminGetAllOrders", method: "POST", data: userData })
+  },
 };
 
 export default userApi;

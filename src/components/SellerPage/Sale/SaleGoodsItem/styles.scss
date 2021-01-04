@@ -35,6 +35,9 @@
   font-weight: 300;
   font-style: normal;
   padding: 0 0 5px 0;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 .container_goodsItemInfo_dataContainer_count {
   color: #000000;

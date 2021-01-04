@@ -6,6 +6,7 @@ import styles from "./styles.scss";
 import GoodsItem from "../SaleGoodsItem";
 
 import GoodsApi from "../../../../utils/api/apifetcher/goods";
+import OrderApi from "../../../../utils/api/apifetcher/order";
 
 import Loading from "../../../PopUpLayer/Loading";
 import Confirm from "../../../PopUpLayer/ConfirmAlert";
@@ -91,18 +92,19 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
   }
   function cancelOrder() {
     console.log("cancelOrder" + ordersData.orderId);
+    setIsCancelConfrimAlert(false);
     setIsloading(true);
-    // sellerApi.deleteItem(data.id)
-    //   .then((res) => {
-    //     console.log("success")
-    //     getGoodsAPI();
-    //   })
-    //   .catch((err) => {
-    //     console.log("fail")
-    //     setIsErrorAlert(true)
-    //     setIsloading(false)
-    //   });
-    setIsloading(false);
+    OrderApi.setOrderState(ordersData.orderId, 0)
+      .then((res) => {
+        console.log("success");
+        getOrdersAPI();
+        setIsloading(false);
+      })
+      .catch((err) => {
+        console.log("fail");
+        setIsloading(false);
+        setIsErrorAlert(true);
+      });
   }
   function CountTotalPrice() {
     let totalPrice = 0;
@@ -118,6 +120,22 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
   ConvertStatusCode();
   return (
     <div className={styles.container}>
+      <div className={styles.container_topCol_header_titleBox}>
+        <div className={styles.container_topCol_header_titleBox_orderID}>
+          訂單編號：{ordersData.orderId}
+        </div>
+      </div>
+      <div className={styles.container_topCol_header_titleBox_footer}>
+        <div className={styles.container_topCol_header_titleBox_footer_title}>
+          收件人：{ordersData.customerName}
+        </div>
+        <div className={styles.container_topCol_header_titleBox_footer_title}>
+          收件地址：{ordersData.customerAddress}
+        </div>
+        <div className={styles.container_topCol_header_titleBox_footer_title}>
+          收件人電話：{ordersData.customerPhoneNumber}
+        </div>
+      </div>
       <div className={styles.container_topCol}>
         <div className={styles.container_topCol_goodsItemListContainer}>
           {ordersData.goodsList.map((data, index) => {

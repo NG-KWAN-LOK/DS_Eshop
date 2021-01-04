@@ -35,7 +35,7 @@ const Seller = () => {
               <Link to={"/admin/ship"}>
                 <div className={styles.menuNav_item_subMenuNav_subItem}>
                   <div className={styles.menuNav_item_subMenuNav_subItem_title}>
-                    查看物流
+                    管理物流
                   </div>
                 </div>
               </Link>

@@ -1,16 +1,14 @@
-import React, { useMemo, useState ,useEffect} from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
-import GoodsItem from "../GoodsItem"
-import OrderApi from "../../../../utils/api/apifetcher/order";
+import GoodsItem from "../GoodsItem";
 import GoodsApi from "../../../../utils/api/apifetcher/goods";
 
-
-import Loading from "../../../PopUpLayer/Loading"
-import Confirm from "../../../PopUpLayer/ConfirmAlert"
-import Alert from "../../../PopUpLayer/Alert"
+import Loading from "../../../PopUpLayer/Loading";
+import Confirm from "../../../PopUpLayer/ConfirmAlert";
+import Alert from "../../../PopUpLayer/Alert";
 
 // const ArtistLink = ({ audioData, customClass = undefined, children }) => {
 //   {
@@ -34,7 +32,7 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
   //console.log(ordersData);
-  const [setStatusMode, setSetStatusMode] = useState("");
+  const [setStatusMode, setSetStatusMode] = useState(0);
   const [isLoading, setIsloading] = useState(false);
   const [isSetConfrimAlert, setIsSetConfrimAlert] = useState(false);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
@@ -45,41 +43,64 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
     getItemInfo();
   }, []);
   async function getItemInfo() {
-    var newOrderData = []
+    var newOrderData = [];
     await ordersData.goodsList.map((data, index) => {
-      console.log(data)
-      var newData = data
-      GoodsApi.getItemInfo(data.item_id)
-        .then((res) => {
-          console.log(res.data);
-          newData={data,...res.data}
-          newOrderData.push(newData)
-          var newNewDataList = newOrderData
-          getGoodsList(newNewDataList)
+      console.log(data);
+      var newData = data;
+      // GoodsApi.getItemInfo(data.item_id)
+      //   .then((res) => {
+      //     console.log(res.data);
+      //     newData = { data, ...res.data };
+      //     newOrderData.push(newData);
+      //     getGoodsList(newOrderData);
+      //   })
+      //   .catch((err) => {
+      //     console.log("fail");
+      //     setIsloading(false);
+      //     setIsErrorAlert(true);
+      //   });
+      Promise.all([
+        GoodsApi.getItemInfo(data.item_id)
+          .then((res) => {
+            console.log(res.data);
+            newData = { data, ...res.data };
+            newOrderData.push(newData);
+            return newOrderData;
+          })
+          .catch((err) => {
+            console.log("fail");
+            setIsloading(false);
+            setIsErrorAlert(true);
+          }),
+      ])
+        .then(function (responses) {
+          // Get a JSON object from each of the responses
+          console.log(data);
+          getGoodsList(responses);
+          return responses;
         })
-        .catch((err) => {
-          console.log("fail");
-          setIsloading(false);
-          setIsErrorAlert(true);
+        .catch(function (error) {
+          // if there's an error, log it
+          console.log(error);
         });
-    }) 
+    });
   }
-  console.log("newData",goodsList)
+  console.log("newData", goodsList);
   function ConvertStatusCode() {
     switch (ordersData.status) {
-      case "4":
+      case 4:
         statusWord = "已完成";
         statusDescription = "買家收件成功";
         break;
-      case "3":
+      case 3:
         statusWord = "待收貨";
         statusDescription = "等待買家收貨";
         break;
-      case "2":
+      case 2:
         statusWord = "待出貨";
         statusDescription = "等待賣家出貨";
         break;
-      case "1":
+      case 1:
         statusWord = "備貨中";
         statusDescription = "等待賣家備貨";
         break;
@@ -90,7 +111,7 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
     }
   }
   function setIsOrderStatus() {
-    console.log(ordersData.orderId, setStatusMode)
+    console.log(ordersData.orderId, setStatusMode);
     //setIsloading(true)
     // OrderApi.setOrderState(ordersData.orderId, setStatusMode)
     //   .then((res) => {
@@ -106,36 +127,58 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
   }
   function CountTotalPrice() {
     let totalPrice = 0;
-    goodsList.forEach(goodsData => {
-      console.log(goodsData.price)
-      totalPrice += parseInt(goodsData.price) * parseInt(goodsData.data.items_quantity)
-    })
+    goodsList.map((goodsData) => {
+      //console.log(goodsData);
+      goodsData.map((data) => {
+        //console.log(data);
+        totalPrice += parseInt(data.price) * parseInt(data.data.items_quantity);
+      });
+    });
     return totalPrice;
   }
   function confirmRecieved() {
-    console.log("confirmRecieved" + ordersData.orderId)
+    console.log("confirmRecieved" + ordersData.orderId);
   }
   function buyAgain() {
-    console.log("buyAgain" + ordersData.orderId)
+    console.log("buyAgain" + ordersData.orderId);
   }
-  ConvertStatusCode()
-  console.log(ordersData.goodsList)
+  ConvertStatusCode();
+  //console.log(ordersData.goodsList);
   return (
     <div className={styles.container}>
       <div className={styles.container_topCol}>
         <div className={styles.container_topCol_header}>
           <div className={styles.container_topCol_header_titleBox}>
-            <div className={styles.container_topCol_header_titleBox_orderID}>訂單編號{ordersData.orderId}</div>
+            <div className={styles.container_topCol_header_titleBox_orderID}>
+              訂單編號{ordersData.orderId}
+            </div>
           </div>
           <div className={styles.container_topCol_header_statusBox}>
-            <div className={styles.container_topCol_header_statusBox_statusDescritption}>{statusDescription}</div>
-            <div className={styles.container_topCol_header_statusBox_status}>{statusWord}</div>
+            <div
+              className={
+                styles.container_topCol_header_statusBox_statusDescritption
+              }
+            >
+              {statusDescription}
+            </div>
+            <div className={styles.container_topCol_header_statusBox_status}>
+              {statusWord}
+            </div>
           </div>
         </div>
         <div className={styles.container_topCol_goodsItemListContainer}>
-          {ordersData.goodsList.map((data, index) => {
-            return <GoodsItem key={index} goodsData={data} />;
-          })}
+          {
+            // goodsList.map((goodsData) => {
+            //   //console.log(goodsData);
+            //   goodsData.map((data, index) => {
+            //     console.log(data);
+            //     return <GoodsItem key={index} goodsData={data} />;
+            //   });
+            // })
+            ordersData.goodsList.map((data, index) => {
+              return <GoodsItem key={index} goodsData={data} />;
+            })
+          }
         </div>
       </div>
       <div className={styles.container_bottomCol}>
@@ -149,14 +192,51 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
         </div>
         <div className={styles.container_bottomCol_optionContainer}>
           {/* {ordersData.status !== "4" && <div className={styles.loginContent_submitBtn} onClick={confirmRecieved}> 確認收貨</div>} */}
-          {ordersData.status !== "4" && <div className={styles.loginContent_submitBtn} onClick={() => { setSetStatusMode("4"); setIsSetConfrimAlert(true) }}>確認收貨</div>}
-          {ordersData.status === "4" && <div className={styles.loginContent_submitBtn} onClick={buyAgain}>再買一次</div>}
+          {ordersData.status !== 4 && (
+            <div
+              className={styles.loginContent_submitBtn}
+              onClick={() => {
+                setSetStatusMode(4);
+                setIsSetConfrimAlert(true);
+              }}
+            >
+              確認收貨
+            </div>
+          )}
+          {ordersData.status == 4 && (
+            <div className={styles.loginContent_submitBtn} onClick={buyAgain}>
+              再買一次
+            </div>
+          )}
         </div>
       </div>
       {isLoading && <Loading />}
-      {isSetConfrimAlert && <Confirm title={`您確定${setStatusMode === "4" ? "已收到貨件" : ""}?`} content={"請確保您確實收到貨品，確定後您的貨款將會自動匯到賣家。"} onCancel={() => { setIsSetConfrimAlert(false) }} onConfirm={() => { setIsOrderStatus(); setIsSetConfrimAlert(false) }} />}
-      {isErrorAlert && <Alert type={"error"} content={"失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
-    </div >
+      {isSetConfrimAlert && (
+        <Confirm
+          title={`您確定${setStatusMode == 4 ? "已收到貨件" : ""}?`}
+          content={"請確保您確實收到貨品，確定後您的貨款將會自動匯到賣家。"}
+          onCancel={() => {
+            setIsSetConfrimAlert(false);
+          }}
+          onConfirm={() => {
+            setIsOrderStatus();
+            setIsSetConfrimAlert(false);
+          }}
+        />
+      )}
+      {isErrorAlert && (
+        <Alert
+          type={"error"}
+          content={"失敗"}
+          setIsDisplayState={() => {
+            setTimeout(() => {
+              console.log("delay");
+              setIsErrorAlert(false);
+            }, 2000);
+          }}
+        />
+      )}
+    </div>
   );
 };
 

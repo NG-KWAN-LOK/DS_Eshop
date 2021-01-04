@@ -1,11 +1,11 @@
-import React, { useMemo ,useEffect,useState} from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
 import GoodsApi from "../../../../utils/api/apifetcher/goods";
-import Loading from "../../../PopUpLayer/Loading"
-import Alert from "../../../PopUpLayer/Alert"
+import Loading from "../../../PopUpLayer/Loading";
+import Alert from "../../../PopUpLayer/Alert";
 
 // const ArtistLink = ({ audioData, customClass = undefined, children }) => {
 //   {
@@ -28,7 +28,7 @@ const GoodsCard = ({ goodsData }) => {
   // const artistName = useMemo(() => {
   //   return audioData.artist.map((artist) => artist.name).join(", ");
   // }, [audioData]);
-  const [isLoading, setIsloading] = useState(false);
+  const [isLoading, setIsloading] = useState(true);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   const [goodsInfo, getGoodsInfo] = useState("");
   useEffect(() => {
@@ -48,16 +48,18 @@ const GoodsCard = ({ goodsData }) => {
         setIsErrorAlert(true);
       });
   }
-  //console.log(goodsData,goodsInfo);
+  //console.log(goodsData);
   return (
     <div className={styles.container}>
       <div className={styles.container_goodsItemInfo}>
-        <div className={styles.container_goodsItemInfo_imageContainer}><img
-          className={styles.container_goodsItemInfo_imageContainer_img}
-          src={goodsInfo.imgURL}
-        ></img></div>
+        <div className={styles.container_goodsItemInfo_imageContainer}>
+          <img
+            className={styles.container_goodsItemInfo_imageContainer_img}
+            src={goodsInfo.imgURL}
+          ></img>
+        </div>
         <div className={styles.container_goodsItemInfo_dataContainer}>
-        <div className={styles.container_goodsItemInfo_dataContainer_title}>
+          <div className={styles.container_goodsItemInfo_dataContainer_title}>
             賣家：{goodsInfo.name}
           </div>
           <div className={styles.container_goodsItemInfo_dataContainer_title}>
@@ -69,10 +71,23 @@ const GoodsCard = ({ goodsData }) => {
         </div>
       </div>
       <div className={styles.container_goodsItmePrice}>
-        <div className={styles.container_goodsItmePrice_text}>${goodsInfo.price}</div>
+        <div className={styles.container_goodsItmePrice_text}>
+          ${goodsInfo.price}
+        </div>
       </div>
       {isLoading && <Loading />}
-      {isErrorAlert && <Alert type={"error"} content={"失敗"} setIsDisplayState={() => { setTimeout(() => { console.log("delay"); setIsErrorAlert(false); }, 2000); }} />}
+      {isErrorAlert && (
+        <Alert
+          type={"error"}
+          content={"失敗"}
+          setIsDisplayState={() => {
+            setTimeout(() => {
+              console.log("delay");
+              setIsErrorAlert(false);
+            }, 2000);
+          }}
+        />
+      )}
     </div>
   );
 };

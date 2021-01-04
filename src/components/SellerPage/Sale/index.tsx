@@ -40,7 +40,7 @@ const Sale = () => {
         setIsErrorAlert(true);
       });
   }
-  console.log(ordersList)
+  console.log(ordersList);
   return (
     <div className={styles.container}>
       <div className={styles.container_titleBar}>
@@ -76,8 +76,13 @@ const Sale = () => {
           <div className={styles.container_goodsItemListContainer_item}>
             {/* {ordersList.map((data, index) => {
               return ( */}
-                {ordersList&&<OrderItem ordersData={ordersList} getOrdersAPI={getOrdersListInfo} />}
-              {/* );
+            {ordersList && (
+              <OrderItem
+                ordersData={ordersList}
+                getOrdersAPI={getOrdersListInfo}
+              />
+            )}
+            {/* );
             })} */}
           </div>
         </div>

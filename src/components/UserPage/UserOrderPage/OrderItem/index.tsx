@@ -1,10 +1,12 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState ,useEffect} from "react";
 import { Link } from "react-router-dom";
 
 import PATH from "Utils/pathConst";
 import styles from "./styles.scss";
 import GoodsItem from "../GoodsItem"
 import OrderApi from "../../../../utils/api/apifetcher/order";
+import GoodsApi from "../../../../utils/api/apifetcher/goods";
+
 
 import Loading from "../../../PopUpLayer/Loading"
 import Confirm from "../../../PopUpLayer/ConfirmAlert"
@@ -36,9 +38,33 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
   const [isLoading, setIsloading] = useState(false);
   const [isSetConfrimAlert, setIsSetConfrimAlert] = useState(false);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
-
+  const [goodsList, getGoodsList] = useState([]);
   let statusWord = "";
   let statusDescription = "";
+  useEffect(() => {
+    getItemInfo();
+  }, []);
+  async function getItemInfo() {
+    var newOrderData = []
+    await ordersData.goodsList.map((data, index) => {
+      console.log(data)
+      var newData = data
+      GoodsApi.getItemInfo(data.item_id)
+        .then((res) => {
+          console.log(res.data);
+          newData={data,...res.data}
+          newOrderData.push(newData)
+          var newNewDataList = newOrderData
+          getGoodsList(newNewDataList)
+        })
+        .catch((err) => {
+          console.log("fail");
+          setIsloading(false);
+          setIsErrorAlert(true);
+        });
+    }) 
+  }
+  console.log("newData",goodsList)
   function ConvertStatusCode() {
     switch (ordersData.status) {
       case "4":
@@ -80,8 +106,9 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
   }
   function CountTotalPrice() {
     let totalPrice = 0;
-    ordersData.goodsList.forEach(goodsData => {
-      totalPrice += parseInt(goodsData.price) * parseInt(goodsData.count)
+    goodsList.forEach(goodsData => {
+      console.log(goodsData.price)
+      totalPrice += parseInt(goodsData.price) * parseInt(goodsData.data.items_quantity)
     })
     return totalPrice;
   }
@@ -92,6 +119,7 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
     console.log("buyAgain" + ordersData.orderId)
   }
   ConvertStatusCode()
+  console.log(ordersData.goodsList)
   return (
     <div className={styles.container}>
       <div className={styles.container_topCol}>
@@ -106,7 +134,7 @@ const OrdersCard = ({ ordersData, getOrdersAPI }) => {
         </div>
         <div className={styles.container_topCol_goodsItemListContainer}>
           {ordersData.goodsList.map((data, index) => {
-            return <GoodsItem key={data.goodId} goodsData={data} />;
+            return <GoodsItem key={index} goodsData={data} />;
           })}
         </div>
       </div>

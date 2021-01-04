@@ -24,7 +24,7 @@ const PurchaseAll = () => {
   const username = useSelector(
     (appState: any) => appState.LoginReducer.userData.userName
   );
-  const [ordersList, getOrdersList] = useState([]);
+  const [ordersList, getOrdersList] = useState();
   const [isLoading, setIsloading] = useState(true);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   //const goodsCount = 0;
@@ -48,15 +48,14 @@ const PurchaseAll = () => {
   return (
     <div className={styles.container}>
       <div className={styles.container_ordersItemListContainer_item}>
-        {ordersList.map((data, index) => {
-          return (
-            <OrderItem
-              key={index}
-              ordersData={data}
+        {/* {ordersList.map((data, index) => {
+          return ( */}
+            {ordersList&&<OrderItem
+              ordersData={ordersList}
               getOrdersAPI={getOrdersListInfo}
-            />
-          );
-        })}
+            />}
+          {/* );
+        })} */}
       </div>
       {isLoading && <Loading />}
       {isErrorAlert && (

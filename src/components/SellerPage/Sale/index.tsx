@@ -20,7 +20,7 @@ interface HeaderProps {}
 const Sale = () => {
   const history = useHistory();
   const { pathname } = useLocation();
-  const [ordersList, getOrdersList] = useState([]);
+  const [ordersList, getOrdersList] = useState();
   const [isLoading, setIsloading] = useState(true);
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   useEffect(() => {
@@ -29,7 +29,7 @@ const Sale = () => {
   function getOrdersListInfo() {
     SellerApi.getOrdersList()
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         const newData = res.data;
         getOrdersList(res.data);
         setIsloading(false);
@@ -40,6 +40,7 @@ const Sale = () => {
         setIsErrorAlert(true);
       });
   }
+  console.log(ordersList)
   return (
     <div className={styles.container}>
       <div className={styles.container_titleBar}>
@@ -73,11 +74,11 @@ const Sale = () => {
             </div>
           </div>
           <div className={styles.container_goodsItemListContainer_item}>
-            {ordersList.map((data, index) => {
-              return (
-                <OrderItem ordersData={data} getOrdersAPI={getOrdersListInfo} />
-              );
-            })}
+            {/* {ordersList.map((data, index) => {
+              return ( */}
+                {ordersList&&<OrderItem ordersData={ordersList} getOrdersAPI={getOrdersListInfo} />}
+              {/* );
+            })} */}
           </div>
         </div>
       </div>
